@@ -1,8 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
-import {userReducer, modelReducer, authReducer, choiceReducer} from '../slices'
-// ...
 
-export const store = configureStore({
+import {
+  userReducer,
+  modelReducer,
+  authReducer,
+  choiceReducer
+} from '../slices'
+
+const store = configureStore({
   reducer: {
     user: userReducer,
     model: modelReducer,
@@ -15,3 +20,5 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
+
+export default store

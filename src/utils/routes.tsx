@@ -1,11 +1,28 @@
-import App from '../App.tsx'
+import App from '../App'
+import {Admin, Home, Settings } from '../components'
+import { RouteObject } from 'react-router'
 
-const rootChildren = []
+const rootChildren: RouteObject[] = [
+  {
+    index: true,
+    element: <Home />
+  },
+  {
+    path: '/admin',
+    element: <Admin />
+  },
+  {
+    path: '/Settings',
+    element: <Settings />
+  }
+]
 
-export const routes = [
+const routes: RouteObject[] = [
   {
     path: '/',
-    element: <App />
+    element: <App />,
     children: rootChildren
   }
 ]
+
+export default routes

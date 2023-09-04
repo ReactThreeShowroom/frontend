@@ -1,10 +1,10 @@
-import {createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 export interface ModelState {
   name: string
 }
 
-const initialState: AuthState = {
+const initialState: ModelState = {
   name: ""
 }
 

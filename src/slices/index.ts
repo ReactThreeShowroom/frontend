@@ -3,7 +3,7 @@ import choiceReducer from './choiceSlice'
 import modelReducer from './modelSlice'
 import userReducer from './userSlice'
 
-export default {
+export {
   authReducer,
   choiceReducer,
   modelReducer,
