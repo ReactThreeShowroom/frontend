@@ -1,8 +1,7 @@
 import App from '../App'
-import {Admin, Home, Settings } from '../components'
-import { RouteObject } from 'react-router'
+import { Admin, Home, Settings } from '../components'
 
-const rootChildren: RouteObject[] = [
+const rootChildren = [
   {
     index: true,
     element: <Home />
@@ -17,7 +16,7 @@ const rootChildren: RouteObject[] = [
   }
 ]
 
-const routes: RouteObject[] = [
+const routes = [
   {
     path: '/',
     element: <App />,

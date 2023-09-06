@@ -1,11 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export interface ModelState {
-  name: string
-}
-
-const initialState: ModelState = {
-  name: ""
+const initialState = {
+  name: ''
 }
 
 export const modelSlice = createSlice({
@@ -16,6 +12,8 @@ export const modelSlice = createSlice({
   }
 })
 
-export const { /* ... */} = modelSlice.actions
+export const {
+  /* ... */
+} = modelSlice.actions
 
 export default modelSlice.reducer
