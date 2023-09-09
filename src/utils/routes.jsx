@@ -1,5 +1,5 @@
 import App from '../App'
-import { Admin, Home, Settings } from '../components'
+import { Admin, Home, Account, SignIn, SignUp } from '../components'
 
 const rootChildren = [
   {
@@ -11,8 +11,8 @@ const rootChildren = [
     element: <Admin />
   },
   {
-    path: '/settings',
-    element: <Settings />
+    path: '/account',
+    element: <Account />
   },
   {
     path: '/signin',
