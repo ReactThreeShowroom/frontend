@@ -1,7 +1,10 @@
 import SignOut from './SignOut'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 const NavBar = () => {
-  const { user, auth, client } = useSelector((state) => state)
+  const user = useSelector((state) => state.user)
+  const auth = useSelector((state) => state.auth)
+  const client = useSelector((state) => state.client)
   /**
    * show admin, account, signin, signout for now
    * conditionally show links on login, isAdmin, token status later
