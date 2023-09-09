@@ -1,27 +1,27 @@
-# React + TypeScript + Vite
+# React Three Showroom
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Scope
 
-Currently, two official plugins are available:
+This project aims to be a front end that displays a 3d object and changes the pattern and color of said object in the React Three Fiber environment.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## This JS project uses
 
-## Expanding the ESLint configuration
+- NPM/Bun
+- React
+- React-Router
+- Redux Toolkit
+- React Fiber Three.js
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## To Run with NPM
 
-- Configure the top-level `parserOptions` property like this:
+1. `npm i`
+2. `npm run dev`
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+`dev` runs the script `node vite`
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## To Run with Bun
+
+1. `bun i`
+2. `bun run devBun`
+
+`devBun` runs the script `bunx --bun vite`
