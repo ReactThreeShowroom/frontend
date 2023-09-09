@@ -2,8 +2,9 @@
 import { NavBar } from './components'
 import { Outlet } from 'react-router-dom'
 
-function App() {
+// useDispatch to enter the values to store from fetch
 
+function App() {
   return (
     <div>
       <NavBar />

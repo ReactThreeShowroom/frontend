@@ -11,8 +11,16 @@ const rootChildren = [
     element: <Admin />
   },
   {
-    path: '/Settings',
+    path: '/settings',
     element: <Settings />
+  },
+  {
+    path: '/signin',
+    element: <SignIn />
+  },
+  {
+    path: '/signup',
+    element: <SignUp />
   }
 ]
 

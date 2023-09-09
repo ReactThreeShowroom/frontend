@@ -1,11 +1,6 @@
 import Admin from './Admin'
 import Home from './Home'
 import NavBar from './NavBar'
-import Settings from './Settings'
+import Account from './Account'
 
-export {
-  Admin,
-  Home,
-  NavBar,
-  Settings
-}
+export { Admin, Home, NavBar, Account }
