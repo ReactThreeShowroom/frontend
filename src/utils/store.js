@@ -1,13 +1,26 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import { userReducer, modelReducer, authReducer, choiceReducer } from '../slices'
+import {
+  authReducer,
+  choiceReducer,
+  choicesReducer,
+  clientReducer,
+  clientsReducer,
+  modelReducer,
+  userReducer,
+  usersReducer
+} from '../slices'
 
 const store = configureStore({
   reducer: {
-    user: userReducer,
-    model: modelReducer,
     auth: authReducer,
-    choice: choiceReducer
+    choice: choiceReducer,
+    choices: choicesReducer,
+    client: clientReducer,
+    clients: clientsReducer,
+    model: modelReducer,
+    user: userReducer,
+    users: usersReducer
   }
 })
 
