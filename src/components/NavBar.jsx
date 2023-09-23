@@ -1,46 +1,26 @@
-import SignOut from './SignOut'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { getNav } from '../utils/maps'
+import { handleNavClick, handleSignOut } from '../utils/eventHandlers'
+import { useDispatch } from 'react-redux'
 const NavBar = () => {
   const user = useSelector((state) => state.user)
   const auth = useSelector((state) => state.auth)
   const client = useSelector((state) => state.client)
-  /**
-   * show admin, account, signin, signout for now
-   * conditionally show links on login, isAdmin, token status later
-   * conditionally show the client if exists
-   * conditionally show user if exists
-   */
+  const nav = useSelector((state) => state.nav)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const linksMap = getNav(nav, handleNavClick, dispatch)
+
   return (
-    <div id="headContainer">
-      <nav id="navContainer">
-        <Link id="navHome" className="navLink" to="/home">
-          Home
-        </Link>
-        <Link id="navShowroom" className="navLink" to="/showroom">
-          Showroom
-        </Link>
-        {user.isAdmin && (
-          <Link id="navAdmin" className="navLink" to="/admin">
-            Admin
-          </Link>
-        )}
-        {auth.token && (
-          <Link id="navAccount" className="navLink" to="/account">
-            Account
-          </Link>
-        )}
-        {!auth.token && (
-          <Link id="navSignup" className="navLink" to="/signup">
-            Sign Up
-          </Link>
-        )}
-        {!auth.token && (
-          <Link id="navSignup" className="navLink" to="/signin">
-            Sign In
-          </Link>
-        )}
-        {auth.token && <SignOut id="navSignout" className="navLink" />}
+    <div id="headContainer" className="flex-col">
+      <nav id="navContainer" className="flex justify-around">
+        <h1 id="webName" className="font-sans font-semibold text-lg">
+          Customize Your Coatings
+        </h1>
+        {linksMap}
+        {auth.token && <span onClick={() => handleSignOut(dispatch, navigate)}>Sign Out</span>}
       </nav>
       {auth.token && (
         <div id="infoContainer">
