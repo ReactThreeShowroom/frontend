@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  token: localStorage.getItem('token') ?? ''
+  token: localStorage.getItem('token')
 }
 const sliceObj = {
   name: 'auth',
@@ -11,7 +11,7 @@ const sliceObj = {
       state.token = action.payload.token
     },
     authLogout(state) {
-      state.token = ''
+      state.token = null
     }
   }
 }

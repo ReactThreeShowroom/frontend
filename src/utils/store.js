@@ -8,7 +8,8 @@ import {
   clientsReducer,
   modelReducer,
   userReducer,
-  usersReducer
+  usersReducer,
+  navReducer
 } from '../slices'
 
 const store = configureStore({
@@ -20,7 +21,8 @@ const store = configureStore({
     clients: clientsReducer,
     model: modelReducer,
     user: userReducer,
-    users: usersReducer
+    users: usersReducer,
+    nav: navReducer
   }
 })
 

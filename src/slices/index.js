@@ -6,6 +6,7 @@ import clientsReducer from './clientsSlice'
 import modelReducer from './modelSlice'
 import userReducer from './userSlice'
 import usersReducer from './usersSlice'
+import navReducer from './navSlice'
 
 export {
   authReducer,
@@ -15,5 +16,6 @@ export {
   clientsReducer,
   modelReducer,
   userReducer,
-  usersReducer
+  usersReducer,
+  navReducer
 }
