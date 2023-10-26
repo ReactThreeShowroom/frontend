@@ -9,7 +9,7 @@ const SignIn = () => {
   const [link] = nav.filter((navLink) => navLink.path == '/signup')
   const isSelected = link.selected ? 'text-main-orange ' : ''
   const isHidden = !link.active ? 'hidden ' : ''
-  const navLinkStyles = `${isSelected}${isHidden}`
+  const navLinkStyles = `${isSelected}${isHidden} hover:bg-main-orange hover:text-[#ffffff]`
 
   return (
     <>
