@@ -1,15 +1,6 @@
 import App from '../App'
 import { Admin, Home, Account, SignIn, SignUp, Showroom } from '../components'
 
-export const links = [
-  { value: 'Home', path: '/' },
-  { value: 'Showroom', path: '/showroom' },
-  { value: 'Admin', path: '/admin' },
-  { value: 'Account', path: '/account' },
-  { value: 'Sign Up', path: '/signup' },
-  { value: 'Sign In', path: '/signin' }
-]
-
 const rootChildren = [
   {
     index: true,

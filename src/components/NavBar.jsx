@@ -20,12 +20,18 @@ const NavBar = () => {
           Customize Your Coatings
         </h1>
         {linksMap}
-        {auth.token && <span onClick={() => handleSignOut(dispatch, navigate)}>Sign Out</span>}
+        {auth.token && (
+          <span
+            onClick={() => handleSignOut(dispatch, navigate)}
+            className={'hover:bg-main-orange hover:text-[#ffffff]'}>
+            Sign Out
+          </span>
+        )}
       </nav>
       {auth.token && (
         <div id="infoContainer">
           <span id="currentUser">Welcome back {user.name}!</span>
-          {client.id && <span id="currentClient"> Currently working with: {client.name}</span>}
+          {client.id && <span id="currentClient">&nbsp;Currently working with: {client.name}</span>}
         </div>
       )}
     </div>
