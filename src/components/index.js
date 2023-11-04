@@ -5,5 +5,19 @@ import Account from './Account'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import Showroom from './Showroom'
+import LoggedInHome from './LoggedInHome'
+import LoggedOutHome from './LoggedOutHome'
+import Footer from './Footer'
 
-export { Admin, Home, NavBar, Account, SignIn, SignUp, Showroom }
+export {
+  Admin,
+  Home,
+  NavBar,
+  Account,
+  SignIn,
+  SignUp,
+  Showroom,
+  LoggedInHome,
+  LoggedOutHome,
+  Footer
+}

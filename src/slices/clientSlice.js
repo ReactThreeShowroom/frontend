@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   id: '',
   name: '',
-  email: ''
+  email: '',
+  phone: ''
 }
 const sliceObj = {
   name: 'client',
