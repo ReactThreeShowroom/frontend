@@ -4,17 +4,17 @@ import { getNav } from '../utils/maps'
 import { handleNavClick, handleSignOut } from '../utils/eventHandlers'
 import { useDispatch } from 'react-redux'
 const NavBar = () => {
+  const nav = useSelector((state) => state.nav)
   const user = useSelector((state) => state.user)
   const auth = useSelector((state) => state.auth)
   const client = useSelector((state) => state.client)
-  const nav = useSelector((state) => state.nav)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const linksMap = getNav(nav, handleNavClick, dispatch)
 
   return (
-    <div id="headContainer" className="flex-col">
+    <header id="headContainer" className="flex-col">
       <nav id="navContainer" className="flex justify-around">
         <h1 id="webName" className="font-sans font-semibold text-lg">
           Customize Your Coatings
@@ -34,7 +34,7 @@ const NavBar = () => {
           {client.id && <span id="currentClient">&nbsp;Currently working with: {client.name}</span>}
         </div>
       )}
-    </div>
+    </header>
   )
 }
 
