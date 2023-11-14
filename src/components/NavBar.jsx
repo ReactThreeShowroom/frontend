@@ -19,7 +19,7 @@ const NavBar = () => {
         <h1 id="webName" className="font-sans font-semibold text-lg">
           Customize Your Coatings
         </h1>
-        {linksMap} xx
+        {linksMap}
         {auth.token && (
           <span onClick={() => handleSignOut(dispatch, navigate)}>
             Sign Out

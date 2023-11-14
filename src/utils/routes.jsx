@@ -16,7 +16,7 @@ export const links = [
   { value: "Account", path: "/account" },
   { value: "Sign Up", path: "/signup" },
   { value: "Sign In", path: "/signin" },
-  { value: "passwordReset", path: "/passwordReset" },
+  { value: "Password Reset", path: "/passwordReset" },
 ];
 
 const rootChildren = [
