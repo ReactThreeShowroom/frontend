@@ -52,13 +52,15 @@ const PasswordReset = () => {
                 type="text"
                 placeholder="Email"
               />
-              <button
-                class="bg-main-orange w-full my-2 rounded "
-                type="button"
-                onClick={handleSubmit}
-              >
-                Submit
-              </button>
+              <div class="flex items-center justify-between flex-col">
+                <button
+                  class="bg-main-orange w-full my-2 rounded "
+                  type="button"
+                  onClick={handleSubmit}
+                >
+                  Submit
+                </button>
+              </div>
             </div>
           </div>
         </>
