@@ -16,66 +16,69 @@ const SignUp = () => {
   };
 
   return (
-    <div class="flex justify-center h-screen w-screen items-center flex-col">
+    <div className="flex justify-center h-screen w-screen items-center flex-col">
       <div className="text-grey-darker text-md font-bold mb-2 underline">
         Sign Up
       </div>
-      <div class="w-full md:w-1/2 flex flex-col items-center ">
-        <div class="mb-4">
+      <div className="w-full md:w-1/2 flex flex-col items-center ">
+        <div className="mb-4">
           <label
-            class="block text-grey-darker text-sm font-bold mb-2"
-            for="Email"
+            className="block text-grey-darker text-sm font-bold mb-2"
+            htmlFor="Email"
           >
             Email
           </label>
           <input
-            class="shadow border rounded w-full py-2 px-3 text-grey-darker mb-3"
+            className="shadow border rounded w-full py-2 px-3 text-grey-darker mb-3"
             id="Email"
+            name="Email"
             type="text"
             placeholder="Email"
           />
         </div>
-        <div class="mb-3">
+        <div className="mb-3">
           <label
-            class="block text-grey-darker text-sm font-bold mb-2"
-            for="password"
+            className="block text-grey-darker text-sm font-bold mb-2"
+            htmlFor="password"
           >
             Password
           </label>
           <input
-            class="shadow border rounded w-full py-2 px-3 text-grey-darker mb-3"
+            className="shadow border rounded w-full py-2 px-3 text-grey-darker mb-3"
             id="password"
+            name="password"
             type="password"
             placeholder="******************"
           />
-          <p class="text-red text-xs italic">Please choose a password.</p>
+          <p className="text-red text-xs italic">Please choose a password.</p>
         </div>
-        <div class="mb-6">
+        <div className="mb-6">
           <label
-            class="block text-grey-darker text-sm font-bold mb-2"
-            for="password confirmation"
+            className="block text-grey-darker text-sm font-bold mb-2"
+            htmlFor="passwordConfirmation"
           >
-            Password
+            Confirm Password
           </label>
           <input
-            class="shadow border rounded w-full py-2 px-3 text-grey-darker mb-3"
-            id="password"
+            className="shadow border rounded w-full py-2 px-3 text-grey-darker mb-3"
+            id="passwordConfirmation"
+            name="passwordConfirmation"
             type="password"
             placeholder="******************"
           />
-          <p class="text-red text-xs italic">Please confirm your password.</p>
+          <p className="text-red text-xs italic">Please confirm your password.</p>
         </div>
       </div>
-      <div class="flex items-center justify-between flex-col">
+      <div className="flex items-center justify-between flex-col">
         <button
-          class="bg-main-orange w-full my-2 rounded"
+          className="bg-main-orange w-full my-2 rounded"
           type="button"
           onClick={handleSignUp}
         >
           Sign Up
         </button>
         <a
-          class=" font-bold text-sm"
+          className=" font-bold text-sm"
           href="#"
           onClick={() => navigate(`/signin/`)}
         >
