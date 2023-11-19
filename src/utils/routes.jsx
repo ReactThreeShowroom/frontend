@@ -9,16 +9,6 @@ import {
   PasswordReset,
 } from "../components";
 
-export const links = [
-  { value: "Home", path: "/" },
-  { value: "Showroom", path: "/showroom" },
-  { value: "Admin", path: "/admin" },
-  { value: "Account", path: "/account" },
-  { value: "Sign Up", path: "/signup" },
-  { value: "Sign In", path: "/signin" },
-  { value: "Password Reset", path: "/passwordReset" },
-];
-
 const rootChildren = [
   {
     index: true,

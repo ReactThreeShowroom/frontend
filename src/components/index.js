@@ -7,6 +7,7 @@ import SignUp from "./SignUp";
 import Showroom from "./Showroom";
 import PasswordReset from "./PasswordReset";
 
+
 export {
   Admin,
   Home,
@@ -16,4 +17,8 @@ export {
   SignUp,
   Showroom,
   PasswordReset,
-};
+  LoggedInHome,
+  LoggedOutHome,
+  Footer
+}
+

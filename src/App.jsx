@@ -1,6 +1,6 @@
 // import { useState } from 'react'
 import { useEffect } from 'react'
-import { NavBar } from './components'
+import { NavBar, Footer } from './components'
 import { Outlet } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { authLogin } from './slices/authSlice'
@@ -9,10 +9,11 @@ import { authLogin } from './slices/authSlice'
 
 function App() {
   return (
-    <div>
+    <>
       <NavBar />
       <Outlet />
-    </div>
+      <Footer />
+    </>
   )
 }
 

@@ -6,13 +6,12 @@ import { useNavigate } from "react-router-dom";
 const SignIn = () => {
   const nav = useSelector((state) => state.nav);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [link] = nav.filter((navLink) => navLink.path == "/signup");
   const isSelected = link.selected ? "text-main-orange " : "";
   const isHidden = !link.active ? "hidden " : "";
-  const navLinkStyles = `${isSelected}${isHidden}`;
-
-  const navigate = useNavigate();
+  const navLinkStyles = `${isSelected}${isHidden}`
 
   const handleLogin = () => {
     console.log("loggin in...");

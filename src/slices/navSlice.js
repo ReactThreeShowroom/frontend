@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = [
   { value: 'Home', path: '/', active: true, selected: false },
-  { value: 'Showroom', path: '/showroom', active: false, selected: false },
+  { value: 'Showroom', path: '/showroom', active: true, selected: false },
   { value: 'Admin', path: '/admin', active: false, selected: false },
   { value: 'Account', path: '/account', active: false, selected: false },
   { value: 'Sign Up', path: '/signup', active: true, selected: false },
