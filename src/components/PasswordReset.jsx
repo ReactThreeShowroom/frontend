@@ -6,24 +6,25 @@ const PasswordReset = () => {
 
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
     setSubmitted(true);
   };
   return (
-    <div class="flex justify-center h-screen w-screen items-center flex-col">
-      {submitted && (
+    <div className="flex justify-center h-screen w-screen items-center flex-col">
+      {submitted ? (
         <>
-          <div className="text-grey-darker text-md font-bold mb-2 underline ">
+          <p className="text-grey-darker text-md font-bold mb-2 underline">
             Reset Password
-          </div>
-          <div class="w-full md:w-1/2 flex flex-col items-center ">
-            <div class="mb-4 w-7/12">
-              <div class="block text-grey-darker text-sm font-bold mb-2 ">
+          </p>
+          <div className="w-full md:w-1/2 flex flex-col items-center">
+            <div className="mb-4 w-7/12">
+              <p className="block text-grey-darker text-sm font-bold mb-2">
                 An email will be sent to the email address submitted if we have
                 it on file with further instructions. Thank you.
-              </div>
+              </p>
               <button
-                class="bg-main-orange w-full my-2 rounded "
+                className="bg-main-orange w-full my-2 rounded"
                 type="button"
                 onClick={() => navigate("/signin")}
               >
@@ -32,37 +33,36 @@ const PasswordReset = () => {
             </div>
           </div>
         </>
-      )}
-      {!submitted && (
+      ) : (
         <>
-          <div className="text-grey-darker text-md font-bold mb-2 underline">
+          <p className="text-grey-darker text-md font-bold mb-2 underline">
             Reset Password
-          </div>
-          <div class="w-full md:w-1/2 flex flex-col items-center  ">
-            <div class="mb-4">
+          </p>
+          <form className="w-full md:w-1/2 flex flex-col items-center" onSubmit={handleSubmit}>
+            <div className="mb-4">
               <label
-                class="block text-grey-darker text-sm font-bold mb-2"
-                for="Email"
+                className="block text-grey-darker text-sm font-bold mb-2"
+                htmlFor="Email"
               >
                 Please enter your email address.
               </label>
               <input
-                class="shadow border rounded w-full py-2 px-3 text-grey-darker mb-3"
+                className="shadow border rounded w-full py-2 px-3 text-grey-darker mb-3"
                 id="Email"
+                name="Email"
                 type="text"
                 placeholder="Email"
               />
-              <div class="flex items-center justify-between flex-col">
+              <div className="flex items-center justify-between flex-col">
                 <button
-                  class="bg-main-orange w-full my-2 rounded "
-                  type="button"
-                  onClick={handleSubmit}
+                  className="bg-main-orange w-full my-2 rounded"
+                  type="submit"
                 >
                   Submit
                 </button>
               </div>
             </div>
-          </div>
+          </form>
         </>
       )}
     </div>
