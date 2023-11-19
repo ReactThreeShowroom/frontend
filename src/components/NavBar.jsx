@@ -1,17 +1,19 @@
-import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { getNav } from '../utils/maps'
-import { handleNavClick, handleSignOut } from '../utils/eventHandlers'
-import { useDispatch } from 'react-redux'
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getNav } from "../utils/maps";
+import { handleNavClick, handleSignOut } from "../utils/eventHandlers";
+import { useDispatch } from "react-redux";
 const NavBar = () => {
-  const nav = useSelector((state) => state.nav)
-  const user = useSelector((state) => state.user)
-  const auth = useSelector((state) => state.auth)
-  const client = useSelector((state) => state.client)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
 
-  const linksMap = getNav(nav, handleNavClick, dispatch)
+  const user = useSelector((state) => state.user);
+  const auth = useSelector((state) => state.auth);
+  const client = useSelector((state) => state.client);
+  const nav = useSelector((state) => state.nav);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+
+  const linksMap = getNav(nav, handleNavClick, dispatch);
 
   return (
     <header id="headContainer" className="flex-col">
@@ -38,4 +40,4 @@ const NavBar = () => {
   )
 }
 
-export default NavBar
+export default NavBar;
