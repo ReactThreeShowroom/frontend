@@ -1,53 +1,63 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const SignUp = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [formState, setFormState] = useState({
+    email: '',
+    password: '',
+    confirmPassword: ''
+  })
+  const isMatching = formState.confirmPassword
+    ? formState.password === formState.confirmPassword
+    : false
+  const showMessage = !isMatching && !!formState.confirmPassword.length
 
-  const navigate = useNavigate();
-
-  const handleSignUp = () => {
-    console.log("Signing up...");
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Confirm Password:", confirmPassword);
-  };
+  const dispatch = useDispatch()
+  const handleSignUp = (e) => {
+    e.preventDefault()
+    if (isMatching) {
+      // do signup stuff
+      // if (success) { navigate('/account')}
+      // if (error) { setMessage(error.message) }
+      setFormState({ email: '', password: '', confirmPassword: '' }) // temp to test behavior
+    }
+  }
+  const handleFormChange = (e) => {
+    setFormState({ ...formState, [e.target.id]: e.target.value })
+  }
 
   return (
-    <div className="flex justify-center h-screen w-screen items-center flex-col">
-      <div className="text-grey-darker text-md font-bold mb-2 underline">
-        Sign Up
-      </div>
+    <form
+      className="flex justify-center h-screen w-screen items-center flex-col"
+      onSubmit={handleSignUp}>
+      <div className="text-grey-darker text-md font-bold mb-2 underline">Sign Up</div>
       <div className="w-full md:w-1/2 flex flex-col items-center ">
         <div className="mb-4">
-          <label
-            className="block text-grey-darker text-sm font-bold mb-2"
-            htmlFor="Email"
-          >
+          <label className="block text-grey-darker text-sm font-bold mb-2" htmlFor="email">
             Email
           </label>
           <input
-            className="shadow border rounded w-full py-2 px-3 text-grey-darker mb-3"
-            id="Email"
-            name="Email"
-            type="text"
-            placeholder="Email"
+            className="shadow-sm border-2 rounded-md w-full py-2 px-3 text-grey-darker mb-3"
+            id="email"
+            name="email"
+            type="email"
+            onChange={handleFormChange}
+            value={formState.email}
+            placeholder="email@domain.com"
           />
         </div>
         <div className="mb-3">
-          <label
-            className="block text-grey-darker text-sm font-bold mb-2"
-            htmlFor="password"
-          >
+          <label className="block text-grey-darker text-sm font-bold mb-2" htmlFor="password">
             Password
           </label>
           <input
-            className="shadow border rounded w-full py-2 px-3 text-grey-darker mb-3"
+            className="shadow-sm border-2 rounded-md w-full py-2 px-3 text-grey-darker mb-3"
             id="password"
             name="password"
             type="password"
+            onChange={handleFormChange}
+            value={formState.password}
             placeholder="******************"
           />
           <p className="text-red text-xs italic">Please choose a password.</p>
@@ -55,38 +65,41 @@ const SignUp = () => {
         <div className="mb-6">
           <label
             className="block text-grey-darker text-sm font-bold mb-2"
-            htmlFor="passwordConfirmation"
-          >
+            htmlFor="confirmPassword">
             Confirm Password
           </label>
           <input
             className="shadow border rounded w-full py-2 px-3 text-grey-darker mb-3"
-            id="passwordConfirmation"
-            name="passwordConfirmation"
+            id="confirmPassword"
+            name="confirmPassword"
             type="password"
+            onChange={handleFormChange}
+            value={formState.confirmPassword}
             placeholder="******************"
           />
-          <p className="text-red text-xs italic">Please confirm your password.</p>
+          <p className={`text-black text-xs italic ${!showMessage && 'mb-4'}`}>
+            Please confirm your password.
+          </p>
+          {showMessage && <p className={`text-red-600 text-xs italic`}>Passwords do not match!</p>}
         </div>
       </div>
       <div className="flex items-center justify-between flex-col">
         <button
-          className="bg-main-orange w-full my-2 rounded"
-          type="button"
-          onClick={handleSignUp}
-        >
+          className="bg-transparent text-main-orange hover:bg-main-orange hover:text-white border-2 border-main-orange w-full p-2 my-2 rounded-md text-center"
+          type="submit"
+          disabled={!isMatching}>
           Sign Up
         </button>
-        <a
-          className=" font-bold text-sm"
-          href="#"
-          onClick={() => navigate(`/signin/`)}
-        >
-          Already have an account?
-        </a>
+        <Link
+          to="/passwordReset"
+          id="signInResetLink"
+          className="bg-transparent hover:text-main-orange w-full p-2 my-2 rounded-md text-center"
+          onClick={() => handleNavClick(dispatch, '/passwordReset')}>
+          Forgot Password?
+        </Link>
       </div>
-    </div>
-  );
-};
+    </form>
+  )
+}
 
-export default SignUp;
+export default SignUp
