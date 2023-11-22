@@ -6,7 +6,8 @@ export const initialState = {
   email: '',
   phone: '',
   isAdmin: false,
-  subStart: null
+  subStart: null,
+  subEnd: null
 }
 
 export const userSlice = createSlice({

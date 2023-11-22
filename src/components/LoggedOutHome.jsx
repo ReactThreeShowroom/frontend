@@ -11,7 +11,7 @@ const LoggedOutHome = () => {
         Are you a registered Applicator's client?{' '}
         <Link to={'/showroom'} onClick={() => handler(dispatch, { selectedPath: '/showroom' })}>
           click here
-        </Link>{' '}
+        </Link>
         to access your saved color choices!
       </p>
     </article>
