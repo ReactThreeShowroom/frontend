@@ -14,6 +14,21 @@ const SignUp = () => {
   const isMatching =
     formState.confirmPassword.length && formState.password === formState.confirmPassword
   const showMessage = !isMatching && !!formState.confirmPassword.length
+<<<<<<< HEAD
+=======
+  const handleSignUp = (e) => {
+    e.preventDefault()
+    if (isMatching && formState.password.length > 7) {
+      // do signup stuff
+      // if (success) { navigate('/account')}
+      // if (error) { setMessage(error.message) }
+      setFormState({ email: '', password: '', confirmPassword: '' }) // temp to test behavior
+    }
+  }
+  const handleFormChange = (e) => {
+    setFormState({ ...formState, [e.target.id]: e.target.value })
+  }
+>>>>>>> 5c2874a (removing redux / toolkit, moving state to location-based state mgmt for nav and showroom)
 
   const inputs = [
     [

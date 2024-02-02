@@ -1,6 +1,12 @@
 import { useNavigate } from 'react-router-dom'
 import { getNav } from '../utils/maps'
 
+// get rid of user after you can fetch user
+const user = { admin: true, activeSub: true, id: 'asdf' }
+// const user = { admin: false, activeSub: true, id: 'asdf' }
+// const user = { admin: false, activeSub: false, id: 'asdf' }
+// const user = { noUser: true }
+
 // put somewhere else?
 const nav = [
   { value: 'Home', path: '/', dep: [] },
@@ -11,13 +17,9 @@ const nav = [
   { value: 'Sign In', path: '/signin', dep: ['noUser'] }
 ]
 
-const NavBar = ({ navState }) => {
+const NavBar = ({ location }) => {
   const navigate = useNavigate()
-  const {
-    location: [pathname],
-    user,
-    setUser
-  } = navState
+  const [pathname, search, hash] = location
   const linksMap = getNav(nav, pathname, user)
 
   return (
@@ -40,7 +42,7 @@ const NavBar = ({ navState }) => {
       </nav>
       {user && (
         <div id="infoContainer">
-          <span id="currentUser">Welcome back {user.name}!</span>
+          <span id="currentUser">Welcome back {/*user.name*/}!</span>
           {<span id="currentClient">&nbsp;Currently working with: {/*client.name*/}</span>}
         </div>
       )}
