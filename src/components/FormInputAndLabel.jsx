@@ -1,7 +1,17 @@
 import { labelStyles, inputStyles } from '../Styles/formStyles'
 
 const FormInputAndLabel = ({
-  inputProps: { id, name, autoComplete, type, handler, value, placeholder, message }
+  inputProps: {
+    id,
+    name,
+    autoComplete,
+    type,
+    handler,
+    form: [state, setter],
+    value,
+    placeholder,
+    message
+  }
 }) => (
   <div className="mb-4">
     <label className={labelStyles} htmlFor={name}>
@@ -13,7 +23,7 @@ const FormInputAndLabel = ({
       name={name}
       autoComplete={autoComplete}
       type={type}
-      onChange={handler}
+      onChange={(e) => handler(e, setter, state)}
       value={value}
       placeholder={placeholder}
     />

@@ -1,7 +1,7 @@
-export const handleFormSubmit = (ev, setter, formInit) => {
+export const handleFormSubmit = (ev, condition, setter, formInit) => {
   ev.preventDefault()
   //do form sub stuff
-  setter(formInit)
+  if (condition) setter(formInit)
 }
 
 export const handleFormChange = (ev, setter, formState) => {

@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { GenericLink, FormInputAndLabel } from './index'
 import { submitButtonStyles } from '../Styles/formStyles'
+import { forgotPasswordLinkProps, inputPropsSignInUp } from '../utils/linkProps'
+import { handleFormChange } from '../utils/eventHandlers'
 
 const SignIn = () => {
-  const dispatch = useDispatch()
-  const [formState, setFormState] = useState({
+  const initForm = {
     email: '',
     password: ''
-  })
+  }
+  const [formState, setFormState] = useState(initForm)
 
   const handleLogin = (e) => {
     e.preventDefault()
@@ -15,48 +17,25 @@ const SignIn = () => {
     // do login stuff
     // if (success) { navigate('/account')}
     // if (error) { setMessage(error.message)}
-    setFormState({ email: '', password: '' }) //temp to test behavior
+    setFormState(initForm) //temp to test behavior
   }
 
-  const handleChange = (e) => {
-    setFormState({ ...formState, [e.target.id]: e.target.value })
-  }
-
-  const forgotPasswordLinkProps = {
-    pathName: '/forgotPassword',
-    linkId: 'signInResetLink',
-    dispatch,
-    linkText: 'Forgot Password?'
-  }
-
-  const emailInputProps = {
-    id: 'email',
-    name: 'email',
-    autoComplete: 'email',
-    type: 'email',
-    handler: handleChange,
-    value: formState.email,
-    placeholder: 'email@domain.com'
-  }
-  const passwordInputProps = {
-    id: 'password',
-    autoComplete: 'password',
-    name: 'password',
-    type: 'password',
-    handler: handleChange,
-    value: formState.password,
-    placeholder: '******************'
-  }
+  const inputs = [
+    ['email', 'email@domain.com'],
+    ['password', '******************']
+  ].map((atts) => (
+    <FormInputAndLabel
+      key={atts[0]}
+      inputProps={inputPropsSignInUp(atts[0], handleFormChange, [formState, setFormState], atts[1])}
+    />
+  ))
 
   return (
     <form
       className="flex justify-center h-screen w-screen items-center flex-col"
       onSubmit={handleLogin}>
       <p className="text-grey-darker text-md font-bold mb-2 underline">Log In</p>
-      <div className="w-full md:w-1/2 flex flex-col items-center ">
-        <FormInputAndLabel inputProps={emailInputProps} />
-        <FormInputAndLabel inputProps={passwordInputProps} />
-      </div>
+      <div className="w-full md:w-1/2 flex flex-col items-center ">{inputs}</div>
       <div className="flex flex-col items-center justify-between">
         <button className={submitButtonStyles} type="submit">
           Log In

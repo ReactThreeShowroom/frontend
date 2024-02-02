@@ -18,9 +18,8 @@ export const getSearchFromLoc = (location) =>
         })
     : []
 
-export const getHashFromLoc = (location) => {
-  return location.hash != '' ? decodeURI(location.hash).slice(1) : ''
-}
+export const getHashFromLoc = (location) =>
+  location.hash != '' ? decodeURI(location.hash).slice(1) : ''
 
 export const getPathSearchHash = (location) => [
   getPathnameRoot(location),

@@ -1,11 +1,12 @@
-import { useNavigate, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { genericLinkStyles } from '../Styles/linkStyles'
+import { useNavigateClick } from '../utils/hooks'
 
-const GenericLink = ({ linkProps: { pathName, linkId, dispatch, linkText } }) => {
-  const navigate = useNavigate()
-  const linkStyles = 'bg-transparent hover:text-main-orange w-full p-2 my-2 rounded-md text-center'
-  const handleClick = () => navigate(pathName)
+const GenericLink = ({ linkProps: { pathName, linkId, linkText } }) => {
+  const handleClick = useNavigateClick()
+
   return (
-    <Link to={pathName} id={linkId} className={linkStyles} onClick={handleClick}>
+    <Link to={pathName} id={linkId} className={genericLinkStyles} onClick={handleClick}>
       {linkText}
     </Link>
   )
