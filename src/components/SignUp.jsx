@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { GenericLink, FormInputAndLabel } from './index'
 import { submitButtonStyles } from '../Styles/formStyles'
 
@@ -12,7 +11,6 @@ const SignUp = () => {
   const isMatching =
     formState.confirmPassword.length && formState.password === formState.confirmPassword
   const showMessage = !isMatching && !!formState.confirmPassword.length
-  const dispatch = useDispatch()
   const handleSignUp = (e) => {
     e.preventDefault()
     if (isMatching && formState.password.length > 7) {

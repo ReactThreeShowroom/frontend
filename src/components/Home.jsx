@@ -1,8 +1,7 @@
-import { useSelector } from 'react-redux'
 import { LoggedOutHome, LoggedInHome } from './index'
+import { useOutletContext } from 'react-router-dom'
 const Home = () => {
-  const user = useSelector((state) => state.user)
-
+  const { state: user } = useOutletContext()
   return (
     <section>
       <h2>Welcome to Customize Your Coatings!</h2>

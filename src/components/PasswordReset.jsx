@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { handleNavClick } from '../utils/eventHandlers'
-import { useDispatch } from 'react-redux'
+import { useNavigate, Link } from 'react-router-dom'
 
 const PasswordReset = () => {
-  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [submitted, setSubmitted] = useState(false)
   const [email, setEmail] = useState('')
@@ -33,9 +31,7 @@ const PasswordReset = () => {
               className="bg-transparent border-2 border-main-orange hover:bg-main-orange hover:text-white w-full p-2 my-2 rounded-md text-center"
               id="passResetSignIn"
               to="/signin"
-              onClick={(e) => {
-                handleNavClick(dispatch, '/signin')
-              }}>
+              onClick={(e) => navigate('/signin')}>
               Back to Sign In
             </Link>
           </div>
@@ -67,9 +63,7 @@ const PasswordReset = () => {
                 className="bg-transparent hover:text-main-orange w-full p-2 my-2 rounded-md text-center"
                 id="passResetSignIn"
                 to="/signin"
-                onClick={(e) => {
-                  handleNavClick(dispatch, '/signin')
-                }}>
+                onClick={(e) => navigate('/signin')}>
                 Back to Sign In
               </Link>
             </div>
