@@ -1,5 +1,11 @@
 import { useState } from 'react'
 import { handleFormChange, handleFormSubmit } from '../utils/eventHandlers'
+import {
+  inputTextNoAutoComplete,
+  inputEmailNoAutoComplete,
+  inputTelNoAutoComplete
+} from '../utils/linkProps'
+import FormInputAndLabel from './FormInputAndLabel'
 
 const AddClientForm = () => {
   const formInitState = {
@@ -9,41 +15,37 @@ const AddClientForm = () => {
   }
   const [newClientForm, setNewClientForm] = useState(formInitState)
 
-  const localInputChange = (ev) => {
-    handleFormChange(ev, setNewClientForm, newClientForm)
-  }
+  const inputs = [
+    inputTextNoAutoComplete(
+      'clientNameEntry',
+      handleFormChange,
+      [newClientForm, setNewClientForm],
+      'Client Name',
+      undefined,
+      'name',
+      true
+    ),
+    inputEmailNoAutoComplete(
+      'clientEmailEntry',
+      handleFormChange,
+      [newClientForm, setNewClientForm],
+      'Client Email'
+    ),
+    inputTelNoAutoComplete(
+      'clientPhoneEntry',
+      handleFormChange,
+      [newClientForm, setNewClientForm],
+      'Client Phone'
+    )
+  ].map((props) => <FormInputAndLabel key={props.id} inputProps={props} />)
 
   return (
-    <section>
-      <p>Add new client?</p>
-      <form onSubmit={handleFormSubmit}>
-        <label htmlFor="clientNameEntry">
-          <input
-            placeholder="client name"
-            onChange={localInputChange}
-            name="clientNameEntry"
-            type="text"
-            value={newClientForm.name}
-          />
-        </label>
-        <label htmlFor="clientEmailEntry">
-          <input
-            placeholder="client email"
-            onChange={localInputChange}
-            name="clientEmailEntry"
-            type="email"
-            value={newClientForm.email}
-          />
-        </label>
-        <label htmlFor="clientPhoneEntry">
-          <input
-            placeholder="client phone"
-            onChange={localInputChange}
-            name="clientPhoneEntry"
-            type="tel"
-            value={newClientForm.email}
-          />
-        </label>
+    <section className="flex flex-col justify-center items-center rounded-lg border-4 border-double border-main-orange mt-4 pt-4">
+      <h2 className="text-lg font-bold">Add new client?</h2>
+      <form
+        className="w-full flex flex-col fustify-center items-center rounded-lg p-8"
+        onSubmit={handleFormSubmit}>
+        {inputs}
         <button type="submit">Add Client</button>
         <button type="button" onClick={() => setNewClientForm(formInitState)}>
           Reset Form

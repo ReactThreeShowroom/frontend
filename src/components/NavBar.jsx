@@ -40,7 +40,7 @@ const NavBar = ({ navState }) => {
       </nav>
       {user && (
         <div id="infoContainer">
-          <span id="currentUser">Welcome back {/*user.name*/}!</span>
+          <span id="currentUser">Welcome back {user.name}!</span>
           {<span id="currentClient">&nbsp;Currently working with: {/*client.name*/}</span>}
         </div>
       )}
