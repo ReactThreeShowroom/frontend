@@ -1,41 +1,9 @@
-import { authLogout } from '../slices/authSlice'
-import { choiceLogout } from '../slices/choiceSlice'
-import { choicesLogout } from '../slices/choicesSlice'
-import { clientLogout } from '../slices/clientSlice'
-import { clientsLogout } from '../slices/clientsSlice'
-import { modelLogout } from '../slices/modelSlice'
-import { userLogout } from '../slices/userSlice'
-import { usersLogout } from '../slices/usersSlice'
-import { changeSelected } from '../slices/navSlice'
-
-// export function handleNavClick(e, setter1) {
-//   setter1(e.target.to)
-// }
-
-export function handleNavClick(dispatch, link) {
-  dispatch(changeSelected({ selectedPath: link.path }))
-}
-
-export const handleFormSubmit = (ev, setter, formInit) => {
+export const handleFormSubmit = (ev, condition, setter, formInit) => {
   ev.preventDefault()
   //do form sub stuff
-  setter(formInit)
+  if (condition) setter(formInit)
 }
 
 export const handleFormChange = (ev, setter, formState) => {
   setter({ ...formState, [ev.target.id]: ev.target.value })
-}
-
-export const handleSignOut = (dispatch, navigate) => {
-  localStorage.removeItem('token')
-  dispatch(authLogout())
-  dispatch(choiceLogout())
-  dispatch(choicesLogout())
-  dispatch(clientLogout())
-  dispatch(clientsLogout())
-  dispatch(modelLogout())
-  dispatch(userLogout())
-  dispatch(usersLogout())
-  navigate('/')
-  dispatch(changeSelected({ selectedPath: '/' }))
 }

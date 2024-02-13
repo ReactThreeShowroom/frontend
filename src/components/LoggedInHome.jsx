@@ -17,7 +17,7 @@ const LoggedInHome = ({ user }) => {
   // display days left, if <1 day, display hours
 
   return (
-    <article>
+    <article className="flex flex-col justify-center items-center">
       <h3>Welcome back {user.name}!</h3>
       {/*`Your subscription ends on <this_date> and has <this_much> time left`*/}
       <p>Are you ready to model some coatings?</p>

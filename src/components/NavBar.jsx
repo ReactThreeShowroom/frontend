@@ -1,17 +1,26 @@
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import { getNav } from '../utils/maps'
-import { handleNavClick, handleSignOut } from '../utils/eventHandlers'
-import { useDispatch } from 'react-redux'
-const NavBar = () => {
-  const user = useSelector((state) => state.user)
-  const auth = useSelector((state) => state.auth)
-  const client = useSelector((state) => state.client)
-  const nav = useSelector((state) => state.nav)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
 
-  const linksMap = getNav(nav, handleNavClick, dispatch)
+// get rid of user after you can fetch user
+const user = { admin: true, activeSub: true, id: 'asdf' }
+// const user = { admin: false, activeSub: true, id: 'asdf' }
+// const user = { admin: false, activeSub: false, id: 'asdf' }
+// const user = { noUser: true }
+
+// put somewhere else?
+const nav = [
+  { value: 'Home', path: '/', dep: [] },
+  { value: 'Showroom', path: '/showroom', dep: ['id', 'activeSub'] },
+  { value: 'Admin', path: '/admin', dep: ['id', 'admin'] },
+  { value: 'Account', path: '/account', dep: ['id'] },
+  { value: 'Sign Up', path: '/signup', dep: ['noUser'] },
+  { value: 'Sign In', path: '/signin', dep: ['noUser'] }
+]
+
+const NavBar = ({ location }) => {
+  const navigate = useNavigate()
+  const [pathname, search, hash] = location
+  const linksMap = getNav(nav, pathname, user)
 
   return (
     <header id="headContainer" className="flex-col">
@@ -20,18 +29,21 @@ const NavBar = () => {
           Customize Your Coatings
         </h1>
         {linksMap}
-        {auth.token && (
+        {!user.noUser && (
           <span
-            onClick={() => handleSignOut(dispatch, navigate)}
+            onClick={() => {
+              // setAuth
+              navigate('/')
+            }}
             className={'hover:bg-main-orange hover:text-[#ffffff]'}>
             Sign Out
           </span>
         )}
       </nav>
-      {auth.token && (
+      {user && (
         <div id="infoContainer">
-          <span id="currentUser">Welcome back {user.name}!</span>
-          {client.id && <span id="currentClient">&nbsp;Currently working with: {client.name}</span>}
+          <span id="currentUser">Welcome back {/*user.name*/}!</span>
+          {<span id="currentClient">&nbsp;Currently working with: {/*client.name*/}</span>}
         </div>
       )}
     </header>
