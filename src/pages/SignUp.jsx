@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { GenericLink, FormInputAndLabel } from './index'
+import { GenericLink, FormInputAndLabel } from '../components/index'
 import { submitButtonStyles } from '../Styles/formStyles'
 import { handleFormChange, handleFormSubmit } from '../utils/eventHandlers'
 import { forgotPasswordLinkProps, inputPropsSignInUp } from '../utils/linkProps'

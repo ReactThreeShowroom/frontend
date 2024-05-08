@@ -1,5 +1,5 @@
 import App from '../App'
-import { Admin, Home, Account, SignIn, SignUp, Showroom, PasswordReset } from '../components'
+import { Admin, Home, Account, SignIn, SignUp, Showroom, PasswordReset } from '../pages'
 
 const rootChildren = [
   { index: true, element: <Home /> },
