@@ -8,15 +8,10 @@ export const getNav = (nav, currentPath, user) =>
     const hidden = value === 'Home' || hasDeps ? '' : 'hidden '
     const navLinkStyles = `${isSelected}${hidden}hover:bg-main-orange hover:text-[#ffffff]`
     return (
-      <Link
-        key={i}
-        id={`nav${value}`}
-        className={navLinkStyles}
-        to={path}
-        onClick={() => {
-          navigate(link)
-        }}>
+      <Link key={i} id={`nav${value}`} className={navLinkStyles} to={path}>
         {value}
       </Link>
     )
   })
+// onClick={() => navigate(link)}
+// why nav in the Link?

@@ -12,10 +12,7 @@ export const getSearchFromLoc = (location) =>
     ? decodeURI(location.search)
         .slice(1)
         .split('&')
-        .map((query) => {
-          const [key, val] = query.split('=')
-          return { [key]: val }
-        })
+        .map((query) => ({ [query.split('=')[0]]: query.split('=')[1] }))
     : []
 
 export const getHashFromLoc = (location) =>
