@@ -13,8 +13,13 @@ const AddClientForm = () => {
     email: '',
     phone: ''
   }
-  const [newClientForm, setNewClientForm] = useState(formInitState)
 
+  const sectionClass =
+    'flex flex-col justify-center items-center rounded-lg border-4 border-double border-main-orange mt-4 pt-4'
+  const h2Class = 'text-lg font-bold'
+  const formClass = 'w-full flex flex-col fustify-center items-center rounded-lg p-8'
+
+  const [newClientForm, setNewClientForm] = useState(formInitState)
   const inputs = [
     inputTextNoAutoComplete(
       'clientNameEntry',
@@ -40,11 +45,9 @@ const AddClientForm = () => {
   ].map((props) => <FormInputAndLabel key={props.id} inputProps={props} />)
 
   return (
-    <section className="flex flex-col justify-center items-center rounded-lg border-4 border-double border-main-orange mt-4 pt-4">
-      <h2 className="text-lg font-bold">Add new client?</h2>
-      <form
-        className="w-full flex flex-col fustify-center items-center rounded-lg p-8"
-        onSubmit={handleFormSubmit}>
+    <section className={sectionClass}>
+      <h2 className={h2Class}>Add new client?</h2>
+      <form className={formClass} onSubmit={handleFormSubmit}>
         {inputs}
         <button type="submit">Add Client</button>
         <button type="button" onClick={() => setNewClientForm(formInitState)}>

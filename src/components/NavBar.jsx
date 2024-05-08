@@ -17,9 +17,10 @@ const nav = [
   { value: 'Sign In', path: '/signin', dep: ['noUser'] }
 ]
 
-const NavBar = ({ location }) => {
+const NavBar = ({ navState: { location } }) => {
+  // const NavBar = ({ navState: {location, user, setUser} }) => { // use this one after testing user stuff lines 4 - 8
   const navigate = useNavigate()
-  const [pathname, search, hash] = location
+  const [pathname, search, hash] = navState.location
   const linksMap = getNav(nav, pathname, user)
 
   return (
