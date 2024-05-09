@@ -1,14 +1,14 @@
 import App from '../App'
-import { Admin, Home, Account, SignIn, SignUp, Showroom, PasswordReset } from '../components'
+import { Account, Admin, Home, PasswordReset, Showroom, SignIn, SignUp } from '../pages'
 
 const rootChildren = [
   { index: true, element: <Home /> },
-  { path: '/admin', element: <Admin /> },
   { path: '/account', element: <Account /> },
-  { path: '/signin', element: <SignIn /> },
+  { path: '/admin', element: <Admin /> },
+  { path: '/passwordReset', element: <PasswordReset /> },
   { path: '/showroom', element: <Showroom /> },
-  { path: '/signup', element: <SignUp /> },
-  { path: '/passwordReset', element: <PasswordReset /> }
+  { path: '/signin', element: <SignIn /> },
+  { path: '/signup', element: <SignUp /> }
 ]
 
 const routes = [{ path: '/', element: <App />, children: rootChildren }]
