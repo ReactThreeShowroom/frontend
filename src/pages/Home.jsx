@@ -1,4 +1,4 @@
-import { LoggedOutHome, LoggedInHome } from '../components/index'
+import { LoggedOutHome, LoggedInHome } from '../components'
 import { useOutletContext } from 'react-router-dom'
 const Home = () => {
   const {

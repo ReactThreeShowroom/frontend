@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { getNav } from '../utils/maps'
 
 // get rid of user after you can fetch user
-const user = { admin: true, activeSub: true, id: 'asdf' }
+// const user = { admin: true, activeSub: true, id: 'asdf' }
 // const user = { admin: false, activeSub: true, id: 'asdf' }
 // const user = { admin: false, activeSub: false, id: 'asdf' }
 // const user = { noUser: true }
@@ -17,8 +17,7 @@ const nav = [
   { value: 'Sign In', path: '/signin', dep: ['noUser'] }
 ]
 
-const NavBar = ({ navState: { location } }) => {
-  // const NavBar = ({ navState: {location, user, setUser} }) => { // use this one after testing user stuff lines 4 - 8
+const NavBar = ({ navState: { location, token, setToken, user, setUser } }) => {
   const navigate = useNavigate()
   const [pathname, search, hash] = location
   const linksMap = getNav(nav, pathname, user)
@@ -33,7 +32,9 @@ const NavBar = ({ navState: { location } }) => {
         {!user.noUser && (
           <span
             onClick={() => {
-              // setAuth
+              localStorage.setItem('token', '')
+              setToken('')
+              setUser({ noUser: true })
               navigate('/')
             }}
             className={'hover:bg-main-orange hover:text-[#ffffff]'}>
