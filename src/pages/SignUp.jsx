@@ -8,10 +8,12 @@ import { forgotPasswordLinkProps, inputPropsSignInUp } from '../utils/linkProps'
 const SignUp = () => {
   const formInit = {
     email: '',
+    username: '',
     password: '',
     confirmPassword: ''
   }
   const [formState, setFormState] = useState(formInit)
+  const [message, setMessage] = useState('')
   const {
     state: { token, user },
     setters: { setToken, setUser }
@@ -34,6 +36,11 @@ const SignUp = () => {
     'email',
     'email@domain.com',
     <p className="text-red text-xs italic">Please choose an email</p>
+  ]
+  const usernameInput = [
+    'username',
+    'sampleUsername',
+    <p className="text-red text-xs italic">Please supply a username for login</p>
   ]
   const passwordInput = [
     'password',
@@ -58,7 +65,7 @@ const SignUp = () => {
     )
   ]
 
-  const inputs = [emailInput, passwordInput, confirmPassInput].map((atts) => (
+  const inputs = [emailInput, usernameInput, passwordInput, confirmPassInput].map((atts) => (
     <FormInputAndLabel
       key={atts[0]}
       inputProps={inputPropsSignInUp(
@@ -76,12 +83,32 @@ const SignUp = () => {
   const inputContClass = 'w-full md:w-1/2 flex flex-col items-center'
   const btnContClass = 'flex items-center justify-between flex-col'
 
+  const handleSignUp = async (e) => {
+    try {
+      e.preventDefault()
+      const condition = isMatching && formState.password.length > 7
+      if (!condition) {
+        setMessage('Passwords must match and be at least 8 characters long')
+        return
+      }
+
+      const response = await fetch('', {})
+      const status = response.status
+      if (status === 200) {
+        const { token: _token, message: _message, user: _user } = response.json()
+        localStorage.setItem('token', _token)
+        setToken(_token)
+        setUser(_user)
+        navigate('/account')
+      } else {
+        setMessage('Something went wrong trying to Sign up.\nPlease try again.')
+      }
+    } catch (error) {
+      setMessage('Something went wrong trying to Sign up.\nPlease try again.')
+    }
+  }
   return (
-    <form
-      className={formClass}
-      onSubmit={(e) =>
-        handleFormSubmit(e, isMatching && formState.password.length > 7, setFormState, formInit)
-      }>
+    <form className={formClass} onSubmit={handleSignUp}>
       <p className={textClass}>Sign Up</p>
       <div className={inputContClass}>{inputs}</div>
       <div className={btnContClass}>
@@ -90,6 +117,7 @@ const SignUp = () => {
         </button>
         <GenericLink linkProps={forgotPasswordLinkProps} />
       </div>
+      {!!message.length && message.split('\n').map((msg) => <p>{msg}</p>)}
     </form>
   )
 }
