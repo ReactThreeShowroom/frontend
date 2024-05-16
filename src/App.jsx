@@ -21,17 +21,20 @@ function App() {
   useEffect(() => {
     if (token) {
       // get user
-      setUser({ name: 'test', admin: false, activeSub: true, id: 'asdf' })
+      //setUser({ name: 'test', admin: false, activeSub: true, id: 'asdf' })
     }
     // if (!token) localStorage.setItem('token', 'test'), setToken('test') // test user *****
+    console.log("token: ", token)
   }, [])
-
+  useEffect(() => {
+   console.log("user: ", user);
+  }, [user])
   useEffect(() => {
     const localToken = localStorage.getItem('token')
     if (localToken) {
       // set token
       // get user
-      setUser({ name: 'test', admin: false, activeSub: true, id: 'asdf' }) // test user *****
+      //setUser({ name: 'test', admin: false, activeSub: true, id: 'asdf' }) // test user *****
       setToken(localToken)
     } else {
       localStorage.setItem('token', '')
