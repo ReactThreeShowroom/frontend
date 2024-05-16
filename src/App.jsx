@@ -20,14 +20,29 @@ function App() {
 
   useEffect(() => {
     if (token) {
+      console.log('token: ', token)
       // get user
       //setUser({ name: 'test', admin: false, activeSub: true, id: 'asdf' })
+      try {
+        const response = (async () =>
+          await fetch('https://api-3frl.onrender.com/user/me', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + token
+            }
+          }))()
+        const result = response.json()
+        console.log(result)
+      } catch (err) {
+        console.error(err)
+      }
     }
+
     // if (!token) localStorage.setItem('token', 'test'), setToken('test') // test user *****
-    console.log("token: ", token)
   }, [])
   useEffect(() => {
-   console.log("user: ", user);
+    console.log('user: ', user)
   }, [user])
   useEffect(() => {
     const localToken = localStorage.getItem('token')

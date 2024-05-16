@@ -83,7 +83,6 @@ const SignUp = () => {
   const inputContClass = 'w-full md:w-1/2 flex flex-col items-center'
   const btnContClass = 'flex items-center justify-between flex-col'
 
-
   const handleSignUp = async (e) => {
     try {
       e.preventDefault()
@@ -92,20 +91,22 @@ const SignUp = () => {
         setMessage('Passwords must match and be at least 8 characters long')
         return
       }
-        console.log("starting signup");
-        console.log("formstate: ", formState);
-      const response = await fetch("https://api-3frl.onrender.com/auth?type=register", {
-        method: "POST",
+      console.log('starting signup')
+      console.log('formstate: ', formState)
+      const response = await fetch('https://api-3frl.onrender.com/auth?type=register', {
+        method: 'POST',
         body: JSON.stringify({
-          "email": formState.email, "username": formState.username ,"password": formState.password
+          email: formState.email,
+          username: formState.username,
+          password: formState.password
         }),
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         }
-      });
-      console.log("response: ", response)
+      })
+      console.log('response: ', response)
       const status = response.status
-      if (status === 200) {
+      if (status === 201) {
         const { token: _token, message: _message, user: _user } = response.json()
         localStorage.setItem('token', _token)
         setToken(_token)
