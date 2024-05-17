@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { NavBar, Footer } from './components'
 import { Outlet, useLocation } from 'react-router-dom'
 import { getPathSearchHash } from './utils/locationHelpers'
+import { fetchUserIfToken } from './utils/fetches'
 
 // get rid of user after you can fetch user
 // const userState = { name: "test", admin: true, activeSub: true, id: 'asdf' }
@@ -19,24 +20,27 @@ function App() {
   // console.log(location, path, search, hash)
 
   useEffect(() => {
-    if (token) {
-      // get user
-      setUser({ name: 'test', admin: false, activeSub: true, id: 'asdf' })
+    try {
+      if (token && user.noUser) fetchUserIfToken(setUser, token)
+    } catch (err) {
+      console.error(err)
     }
-    // if (!token) localStorage.setItem('token', 'test'), setToken('test') // test user *****
   }, [])
 
   useEffect(() => {
-    const localToken = localStorage.getItem('token')
-    if (localToken) {
-      // set token
-      // get user
-      setUser({ name: 'test', admin: false, activeSub: true, id: 'asdf' }) // test user *****
-      setToken(localToken)
-    } else {
-      localStorage.setItem('token', '')
-      setToken('')
-      setUser({ noUser: true })
+    try {
+      const localToken = localStorage.getItem('token')
+      const notUndefined = localToken !== 'undefined' && localToken !== 'Undefined'
+      if (localToken && notUndefined && user.noUser) {
+        setToken(localToken)
+        fetchUserIfToken(setUser, token)
+      } else {
+        localStorage.setItem('token', '')
+        setToken('')
+        setUser({ noUser: true })
+      }
+    } catch (er) {
+      console.error(er)
     }
   }, [token])
 

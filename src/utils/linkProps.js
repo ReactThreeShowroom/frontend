@@ -15,8 +15,8 @@ export const inputPropsSignInUp = (
   return {
     id: label,
     name: label,
-    autocomplete: label,
-    type: label,
+    autocomplete: label === 'confirmPassword' ? 'password' : label,
+    type: label === 'confirmPassword' ? 'password' : label,
     handler,
     form: state,
     value: state[label],

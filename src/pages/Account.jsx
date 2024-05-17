@@ -7,11 +7,11 @@ const Account = () => {
   } = useOutletContext()
   const navigate = useNavigate()
 
-  const [isUser] = useState(user.id)
+  // const [isUser] = useState(user.id)
 
   useEffect(() => {
     let timeoutId
-    if (!isUser) {
+    if (user.noUser) {
       timeoutId = setTimeout(() => {
         navigate('/')
       }, 5000)
@@ -19,7 +19,7 @@ const Account = () => {
     return () => clearTimeout(timeoutId)
   }, [])
 
-  if (!isUser)
+  if (user.noUser)
     return (
       <div>
         <h2>Not logged In!</h2>

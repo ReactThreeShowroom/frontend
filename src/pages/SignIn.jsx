@@ -7,7 +7,7 @@ import { handleFormChange } from '../utils/eventHandlers'
 
 const SignIn = () => {
   const initForm = {
-    email: '',
+    username: '',
     password: ''
   }
   const [formState, setFormState] = useState(initForm)
@@ -25,19 +25,36 @@ const SignIn = () => {
     }
   }, [token, user])
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
-    console.log('loggin in...')
-    // do login stuff
-    // if (success) { navigate('/account')}
-    // if (error) { setMessage(error.message)}
-    setFormState(initForm) //temp to test behavior
+    console.log('logging in...')
+    try {
+      const response = await fetch("https://api-3frl.onrender.com/auth?type=login", {
+        method: "POST",
+        body: JSON.stringify({
+          "username": formState.username ,"password": formState.password
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+      if (response.status == 200) {
+        const {token: _token, user: _user} = await response.json()
+        setToken(_token);
+        localStorage.setItem("token", _token)
+        setUser(_user);
+        navigate('/account')
+      }
+    } catch (error) {
+      console.log("error: ", error)
+      console.error("login failed, please try again.")
+    }
   }
 
-  const emailInput = ['email', 'email@domain.com']
+  const usernameInput = ['username', 'usernameexample']
   const passwordInput = ['password', '******************']
 
-  const inputs = [emailInput, passwordInput].map((atts) => (
+  const inputs = [usernameInput, passwordInput].map((atts) => (
     <FormInputAndLabel
       key={atts[0]}
       inputProps={inputPropsSignInUp(atts[0], handleFormChange, [formState, setFormState], atts[1])}
