@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { getNav } from '../utils/maps'
+import { useEffect, useState } from 'react'
 
 // get rid of user after you can fetch user
 // const user = { admin: true, activeSub: true, id: 'asdf' }
@@ -20,7 +21,11 @@ const nav = [
 const NavBar = ({ navState: { location, token, setToken, user, setUser } }) => {
   const navigate = useNavigate()
   const [pathname, search, hash] = location
-  const linksMap = getNav(nav, pathname, user)
+  const [linksMap, setLinksMap] = useState(getNav(nav, pathname, user))
+
+  useEffect(() => {
+    setLinksMap(getNav(nav, pathname, user))
+  }, [user])
 
   return (
     <header id="headContainer" className="flex-col">

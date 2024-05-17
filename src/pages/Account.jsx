@@ -11,7 +11,7 @@ const Account = () => {
 
   useEffect(() => {
     let timeoutId
-    if (!user.email) {
+    if (user.noUser) {
       timeoutId = setTimeout(() => {
         navigate('/')
       }, 5000)
@@ -19,7 +19,7 @@ const Account = () => {
     return () => clearTimeout(timeoutId)
   }, [])
 
-  if (!user.email)
+  if (user.noUser)
     return (
       <div>
         <h2>Not logged In!</h2>
