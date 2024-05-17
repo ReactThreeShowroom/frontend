@@ -31,7 +31,7 @@ function App() {
     try {
       const localToken = localStorage.getItem('token')
       const notUndefined = localToken !== 'undefined' && localToken !== 'Undefined'
-      if (localToken && notUndefined && user.noUser) {
+      if (localToken && notUndefined) {
         setToken(localToken)
         fetchUserIfToken(setUser, token)
       } else {

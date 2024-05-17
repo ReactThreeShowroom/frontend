@@ -9,6 +9,8 @@ const Account = () => {
 
   // const [isUser] = useState(user.id)
 
+  console.log(user)
+
   useEffect(() => {
     let timeoutId
     if (user.noUser) {

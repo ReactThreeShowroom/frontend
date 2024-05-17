@@ -29,25 +29,26 @@ const SignIn = () => {
     e.preventDefault()
     console.log('logging in...')
     try {
-      const response = await fetch("https://api-3frl.onrender.com/auth?type=login", {
-        method: "POST",
+      const response = await fetch('https://api-3frl.onrender.com/auth?type=login', {
+        method: 'POST',
         body: JSON.stringify({
-          "username": formState.username ,"password": formState.password
+          username: formState.username,
+          password: formState.password
         }),
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         }
-      });
+      })
       if (response.status == 200) {
-        const {token: _token, user: _user} = await response.json()
-        setToken(_token);
-        localStorage.setItem("token", _token)
-        setUser(_user);
+        const { token: _token, user: _user } = await response.json()
+        localStorage.setItem('token', _token)
+        setToken(_token)
+        setUser(_user)
         navigate('/account')
       }
     } catch (error) {
-      console.log("error: ", error)
-      console.error("login failed, please try again.")
+      console.log('error: ', error)
+      console.error('login failed, please try again.')
     }
   }
 
