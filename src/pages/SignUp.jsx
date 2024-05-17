@@ -112,6 +112,10 @@ const SignUp = () => {
         setToken(_token)
         setUser(_user)
         navigate('/account')
+      }else if (status >= 400 && status < 500) {
+        setMessage('Username already in use.\nPlease try again.')
+      }else if (status >= 500) {
+        setMessage('Service is temporarily unavailable.\nPlease try again later.')
       } else {
         setMessage('Something went wrong trying to Sign up.\nPlease try again.')
       }
