@@ -22,8 +22,6 @@ const SignUp = () => {
 
   useEffect(() => {
     if (token || !user.noUser) {
-      setUser({ noUser: true })
-      setToken('')
       navigate('/')
     }
   }, [token, user])
@@ -91,8 +89,8 @@ const SignUp = () => {
         setMessage('Passwords must match and be at least 8 characters long')
         return
       }
-      console.log('starting signup')
-      console.log('formstate: ', formState)
+      // console.log('starting signup')
+      // console.log('formstate: ', formState)
       const response = await fetch('https://api-3frl.onrender.com/auth?type=register', {
         method: 'POST',
         body: JSON.stringify({
@@ -100,14 +98,17 @@ const SignUp = () => {
           username: formState.username,
           password: formState.password
         }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        headers: { 'Content-Type': 'application/json' }
       })
-      console.log('response: ', response)
+      // console.log('response: ', response)
       const status = response.status
       if (status === 201) {
-        const { token: _token, message: _message, user: _user } = response.json()
+        const { token: _token, message: _message, user: _user } = await response.json()
+        if (!_token || !_user)
+          throw {
+            status: 400,
+            message: 'User created, but error getting user.\nPlease try logging in.'
+          }
         localStorage.setItem('token', _token)
         setToken(_token)
         setUser(_user)
@@ -117,10 +118,13 @@ const SignUp = () => {
       }else if (status >= 500) {
         setMessage('Service is temporarily unavailable.\nPlease try again later.')
       } else {
-        setMessage('Something went wrong trying to Sign up.\nPlease try again.')
+        throw await response.json()
       }
     } catch (error) {
-      setMessage('Something went wrong trying to Sign up.\nPlease try again.')
+      console.log(error)
+      if (error.status !== 201) setMessage(error.message)
+      setToken('')
+      setUser({ noUser: true })
     }
   }
   return (

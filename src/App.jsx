@@ -23,6 +23,11 @@ function App() {
     try {
       if (token && user.noUser) fetchUserIfToken(setUser, token)
     } catch (err) {
+      if (response.status !== 201)
+        throw {
+          status: response.status,
+          message: 'Something went wrong trying to Sign up.\nPlease try again.'
+        }
       console.error(err)
     }
   }, [])
@@ -31,9 +36,11 @@ function App() {
     try {
       const localToken = localStorage.getItem('token')
       const notUndefined = localToken !== 'undefined' && localToken !== 'Undefined'
+      console.log(notUndefined, localToken)
       if (localToken && notUndefined) {
         setToken(localToken)
-        fetchUserIfToken(setUser, token)
+        const result = fetchUserIfToken(setUser, token)
+        if (result === 500) throw result
       } else {
         localStorage.setItem('token', '')
         setToken('')
@@ -41,6 +48,7 @@ function App() {
       }
     } catch (er) {
       console.error(er)
+      if (er === 500) console.log('Error 500, Token incorrect format')
     }
   }, [token])
 
