@@ -19,8 +19,6 @@ const SignIn = () => {
 
   useEffect(() => {
     if (token || !user.noUser) {
-      setUser({ noUser: true })
-      setToken('')
       navigate('/')
     }
   }, [token, user])
