@@ -25,3 +25,10 @@ This project aims to be a front end that displays a 3d object and changes the pa
 2. `bun run devBun`
 
 `devBun` runs the script `bunx --bun vite`
+
+## Docs
+
+1. [API](./docs/API.md)
+2. [handlers](./docs/handlers.md)
+3. [FE routes](./docs/routes.md)
+4. [Excalidraw Mockup](./docs/mockup.excalidraw)
