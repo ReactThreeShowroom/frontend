@@ -1,3 +1,5 @@
+<!-- markdownlint-configure-file { "no-inline-html": { "allowed_elements": [ "br" ] } } -->
+
 # API Docs
 
 [Back to Main README](../README.md)
@@ -77,11 +79,13 @@ List of Routes and SubRoutes with verbs:
 ### Get All Clients
 
 > Request:
+> <br/>
 > Response:
 
 ### Get One Client
 
 > Request:
+> <br/>
 > Response:
 
 ## FAVORITE ROUTE
@@ -89,71 +93,85 @@ List of Routes and SubRoutes with verbs:
 ### Get All Favorites
 
 > Request:
+> <br/>
 > Response:
 
 ### Get Favorite By ID
 
 > Request:
+> <br/>
 > Response:
 
 ### Get All Colors
 
 > Request:
+> <br/>
 > Response:
 
 ### Get Color By ID
 
 > Request:
+> <br/>
 > Response:
 
 ### Get Color By Name
 
 > Request:
+> <br/>
 > Response:
 
 ### Get Color By Code
 
 > Request:
+> <br/>
 > Response:
 
 ### Get All Items
 
 > Request:
+> <br/>
 > Response:
 
 ### Get Item By ID
 
 > Request:
+> <br/>
 > Response:
 
 ### Get Item By Name
 
 > Request:
+> <br/>
 > Response:
 
 ### Get Item By Type
 
 > Request:
+> <br/>
 > Response:
 
 ### Get Item By SubType
 
 > Request:
+> <br/>
 > Response:
 
 ### Get All Patterns
 
 > Request:
+> <br/>
 > Response:
 
 ### Get Pattern By ID
 
 > Request:
+> <br/>
 > Response:
 
 ### Get Pattern By Name
 
 > Request:
+> <br/>
 > Response:
 
 ## USER ROUTE
@@ -161,26 +179,31 @@ List of Routes and SubRoutes with verbs:
 ### Get All Users (admin)
 
 > Request:
+> <br/>
 > Response:
 
 ### Get One User (admin)
 
 > Request:
+> <br/>
 > Response:
 
 ### Get One User (me)
 
 > Request:
+> <br/>
 > Response:
 
 ### Update User Details (me)
 
 > Request:
+> <br/>
 > Response:
 
 ### Deactivate User Account (me)
 
 > Request:
+> <br/>
 > Response:
 
 ## AUTH ROUTE
@@ -188,39 +211,47 @@ List of Routes and SubRoutes with verbs:
 ### Login or Register User (me)
 
 > Request:
+> <br/>
 > Response:
 
 ### Get User or Self (admin)
 
 > Request:
+> <br/>
 > Response:
 
 ### Update User Admin Status By Id (admin)
 
 > Request:
+> <br/>
 > Response:
 
 ### Deactivate User (admin)
 
 > Request:
+> <br/>
 > Response:
 
 ### Update User Credentials (me)
 
 > Request:
+> <br/>
 > Response:
 
 ### Get All Subs By User (admin)
 
 > Request:
+> <br/>
 > Response:
 
 ### Update Sub (admin)
 
 > Request:
+> <br/>
 > Response:
 
 ### Get All Pending Subs (admin)
 
 > Request:
+> <br/>
 > Response:
