@@ -6,38 +6,42 @@
 
 - [API Docs](#api-docs)
   - [CLIENT ROUTE](#client-route)
-    - [Get All Clients](#get-all-clients)
-    - [Get One Client](#get-one-client)
+    - [GET ALL CLIENTS BY USER ID](#get-all-clients-by-user-id)
+    - [CREATE CLIENT](#create-client)
+    - [GET ONE CLIENT](#get-one-client)
+    - [GET INACTIVE CLIENTS](#get-inactive-clients)
+    - [UPDATE OR REACTIVATE CLIENT](#update-or-reactivate-client)
+    - [DELETE CLIENT (deactivate)](#delete-client-deactivate)
   - [FAVORITE ROUTE](#favorite-route)
-    - [Get All Favorites](#get-all-favorites)
-    - [Get Favorite By ID](#get-favorite-by-id)
-    - [Get All Colors](#get-all-colors)
-    - [Get Color By ID](#get-color-by-id)
-    - [Get Color By Name](#get-color-by-name)
-    - [Get Color By Code](#get-color-by-code)
-    - [Get All Items](#get-all-items)
-    - [Get Item By ID](#get-item-by-id)
-    - [Get Item By Name](#get-item-by-name)
-    - [Get Item By Type](#get-item-by-type)
-    - [Get Item By SubType](#get-item-by-subtype)
-    - [Get All Patterns](#get-all-patterns)
-    - [Get Pattern By ID](#get-pattern-by-id)
-    - [Get Pattern By Name](#get-pattern-by-name)
+    - [GET ALL FAVORITES](#get-all-favorites)
+    - [GET FAVORITE BY ID](#get-favorite-by-id)
+    - [GET ALL COLORS](#get-all-colors)
+    - [GET COLOR BY ID](#get-color-by-id)
+    - [GET COLOR BY NAME](#get-color-by-name)
+    - [GET COLOR BY CODE](#get-color-by-code)
+    - [GET ALL ITEMS](#get-all-items)
+    - [GET ITEM BY ID](#get-item-by-id)
+    - [GET ITEM BY NAME](#get-item-by-name)
+    - [GET ITEM BY TYPE](#get-item-by-type)
+    - [GET ITEM BY SUBTYPE](#get-item-by-subtype)
+    - [GET ALL PATTERNS](#get-all-patterns)
+    - [GET PATTERN BY ID](#get-pattern-by-id)
+    - [GET PATTERN BY NAME](#get-pattern-by-name)
   - [USER ROUTE](#user-route)
-    - [Get All Users (admin)](#get-all-users-admin)
-    - [Get One User (admin)](#get-one-user-admin)
-    - [Get One User (me)](#get-one-user-me)
-    - [Update User Details (me)](#update-user-details-me)
-    - [Deactivate User Account (me)](#deactivate-user-account-me)
+    - [GET ALL USERS (admin)](#get-all-users-admin)
+    - [GET ONE USER (admin)](#get-one-user-admin)
+    - [GET ONE USER (me)](#get-one-user-me)
+    - [UPDATE USER DETAILS (me)](#update-user-details-me)
+    - [DEACTIVATE USER ACCOUNT (me)](#deactivate-user-account-me)
   - [AUTH ROUTE](#auth-route)
-    - [Login or Register User (me)](#login-or-register-user-me)
-    - [Get User or Self (admin)](#get-user-or-self-admin)
-    - [Update User Admin Status By Id (admin)](#update-user-admin-status-by-id-admin)
-    - [Deactivate User (admin)](#deactivate-user-admin)
-    - [Update User Credentials (me)](#update-user-credentials-me)
-    - [Get All Subs By User (admin)](#get-all-subs-by-user-admin)
-    - [Update Sub (admin)](#update-sub-admin)
-    - [Get All Pending Subs (admin)](#get-all-pending-subs-admin)
+    - [LOGIN OR REGISTER USER (me)](#login-or-register-user-me)
+    - [GET USER OR SELF (admin)](#get-user-or-self-admin)
+    - [UPDATE USER ADMIN STATUS BY ID (admin)](#update-user-admin-status-by-id-admin)
+    - [DEACTIVATE USER (admin)](#deactivate-user-admin)
+    - [UPDATE USER CREDENTIALS (me)](#update-user-credentials-me)
+    - [GET ALL SUBS BY USER (admin)](#get-all-subs-by-user-admin)
+    - [UPDATE SUB (admin)](#update-sub-admin)
+    - [GET ALL PENDING SUBS (admin)](#get-all-pending-subs-admin)
 
 List of Routes and SubRoutes with verbs:
 
@@ -76,182 +80,395 @@ List of Routes and SubRoutes with verbs:
 
 ## CLIENT ROUTE
 
-### Get All Clients
+### GET ALL CLIENTS BY USER ID
 
 > Request:
+
+```js
+fetch(`${url}?u=${userId}`, {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json"
+  }
+})
+```
+
 > <br/>
 > Response:
 
-### Get One Client
+```js
+[
+  { id, name, email, phone, userId, status: "inactive" },
+  { ...Client }
+]
+```
+
+### CREATE CLIENT
 
 > Request:
+
+```js
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  }
+  body: {
+  clientData: {
+    name: "",
+    email: "",
+    phone: "",
+    userId: "uuid"
+  }
+  }
+})
+```
+
+> <br/>
+> Response:
+
+```js
+{
+  id: "uuid",
+  name: "",
+  email: "",
+  phone: "",
+  userId: "uuid",
+  status: "active"
+}
+```
+
+### GET ONE CLIENT
+
+> Request:
+
+```js
+fetch(`${url}/${clientId}`, {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json"
+  }
+})
+```
+
+> <br/>
+> Response:
+
+```js
+{
+  id: "uuid",
+  name: "",
+  email: "",
+  phone: "",
+  userId: "uuid",
+  status: "active"
+}
+```
+
+### GET INACTIVE CLIENTS
+
+> Request:
+
+```js
+fetch(`${url}?u=${userId}&i=true`, {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json"
+  }
+})
+```
+
+> <br/>
+> Response:
+
+```js
+[
+  { id, name, email, phone, userId, status: "inactive" },
+  { ...Client }
+]
+```
+
+### UPDATE OR REACTIVATE CLIENT
+
+> Request:
+
+```js
+fetch(`${url}/${clientId}`, {
+  method: "PUT",
+  headers: { "Content-Type": "application/json" },
+  body: {
+    clientData: { ...clientData }
+  }
+})
+// reactivate
+fetch(`${url}/${clientId}?r=true`, {
+  method: "PUT",
+  headers: { "Content-Type": "application/json" },
+})
+```
+
+> <br/>
+> Response:
+
+### DELETE CLIENT (deactivate)
+
+> Request:
+
+```js
+fetch(`${url}/${clientId}`, {
+  method: "DELETE",
+  headers: { "Content-Type": "application/json" }
+})
+```
+
 > <br/>
 > Response:
 
 ## FAVORITE ROUTE
 
-### Get All Favorites
+### GET ALL FAVORITES
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get Favorite By ID
+### GET FAVORITE BY ID
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get All Colors
+### GET ALL COLORS
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get Color By ID
+### GET COLOR BY ID
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get Color By Name
+### GET COLOR BY NAME
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get Color By Code
+### GET COLOR BY CODE
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get All Items
+### GET ALL ITEMS
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get Item By ID
+### GET ITEM BY ID
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get Item By Name
+### GET ITEM BY NAME
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get Item By Type
+### GET ITEM BY TYPE
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get Item By SubType
+### GET ITEM BY SUBTYPE
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get All Patterns
+### GET ALL PATTERNS
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get Pattern By ID
+### GET PATTERN BY ID
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get Pattern By Name
+### GET PATTERN BY NAME
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
 ## USER ROUTE
 
-### Get All Users (admin)
+### GET ALL USERS (admin)
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get One User (admin)
+### GET ONE USER (admin)
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get One User (me)
+### GET ONE USER (me)
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Update User Details (me)
+### UPDATE USER DETAILS (me)
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Deactivate User Account (me)
+### DEACTIVATE USER ACCOUNT (me)
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
 ## AUTH ROUTE
 
-### Login or Register User (me)
+### LOGIN OR REGISTER USER (me)
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get User or Self (admin)
+### GET USER OR SELF (admin)
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Update User Admin Status By Id (admin)
+### UPDATE USER ADMIN STATUS BY ID (admin)
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Deactivate User (admin)
+### DEACTIVATE USER (admin)
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Update User Credentials (me)
+### UPDATE USER CREDENTIALS (me)
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get All Subs By User (admin)
+### GET ALL SUBS BY USER (admin)
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Update Sub (admin)
+### UPDATE SUB (admin)
 
 > Request:
+
+
+
 > <br/>
 > Response:
 
-### Get All Pending Subs (admin)
+### GET ALL PENDING SUBS (admin)
 
 > Request:
+
+
+
 > <br/>
 > Response:
