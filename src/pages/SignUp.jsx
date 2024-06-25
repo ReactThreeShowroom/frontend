@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react'
 import { useOutletContext, useNavigate } from 'react-router-dom'
 import { GenericLink, FormInputAndLabel } from '../components'
 import { submitButtonStyles } from '../Styles/formStyles'
-import { handleFormChange, handleFormSubmit } from '../utils/eventHandlers'
+import { handleFormChange } from '../utils/eventHandlers'
 import { forgotPasswordLinkProps, inputPropsSignInUp } from '../utils/linkProps'
+import { createUser } from '../utils/fetches'
 
 const SignUp = () => {
   const formInit = {
@@ -91,35 +92,13 @@ const SignUp = () => {
       }
       // console.log('starting signup')
       // console.log('formstate: ', formState)
-      const response = await fetch('https://api-3frl.onrender.com/auth?type=register', {
-        method: 'POST',
-        body: JSON.stringify({
-          email: formState.email,
-          username: formState.username,
-          password: formState.password
-        }),
-        headers: { 'Content-Type': 'application/json' }
-      })
-      // console.log('response: ', response)
-      const status = response.status
-      if (status === 201) {
-        const { token: _token, message: _message, user: _user } = await response.json()
-        if (!_token || !_user)
-          throw {
-            status: 400,
-            message: 'User created, but error getting user.\nPlease try logging in.'
-          }
-        localStorage.setItem('token', _token)
-        setToken(_token)
-        setUser(_user)
-        navigate('/account')
-      }else if (status >= 400 && status < 500) {
-        setMessage('Username already in use.\nPlease try again.')
-      }else if (status >= 500) {
-        setMessage('Service is temporarily unavailable.\nPlease try again later.')
-      } else {
-        throw await response.json()
-      }
+      const res = await createUser(formState)
+      const { token: _token, user: _user } = res
+      // if (res.message) throw res
+      localStorage.setItem('token', _token)
+      setToken(_token)
+      setUser(_user)
+      navigate('/account')
     } catch (error) {
       console.log(error)
       if (error.status !== 201) setMessage(error.message)

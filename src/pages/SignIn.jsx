@@ -4,6 +4,7 @@ import { GenericLink, FormInputAndLabel } from '../components/index'
 import { submitButtonStyles } from '../Styles/formStyles'
 import { forgotPasswordLinkProps, inputPropsSignInUp } from '../utils/linkProps'
 import { handleFormChange } from '../utils/eventHandlers'
+import { loginUser } from '../utils/fetches'
 
 const SignIn = () => {
   const initForm = {
@@ -27,18 +28,8 @@ const SignIn = () => {
     e.preventDefault()
     console.log('logging in...')
     try {
-      const response = await fetch('https://api-3frl.onrender.com/auth?type=login', {
-        method: 'POST',
-        body: JSON.stringify({
-          username: formState.username,
-          password: formState.password
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      if (response.status == 200) {
-        const { token: _token, user: _user } = await response.json()
+      const { token: _token, user: _user } = await loginUser(formState)
+      if (_token && _user) {
         localStorage.setItem('token', _token)
         setToken(_token)
         setUser(_user)

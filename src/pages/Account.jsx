@@ -13,6 +13,7 @@ const Account = () => {
 
   useEffect(() => {
     let timeoutId
+    console.log(user)
     if (user.noUser) {
       timeoutId = setTimeout(() => {
         navigate('/')
