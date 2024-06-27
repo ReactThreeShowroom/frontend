@@ -10,8 +10,8 @@ import { fetchUserIfToken } from './utils/fetches'
 // const userState = { name: "test", admin: false, activeSub: false, id: 'asdf' }
 // const userState = { noUser: true }
 function App() {
-  const location = useLocation()
-  const [path, search, hash] = getPathSearchHash(location)
+  let location = useLocation()
+  let [path, search, hash] = getPathSearchHash(location)
   const [user, setUser] = useState({ noUser: true })
   const [token, setToken] = useState(
     localStorage.getItem('token') || localStorage.setItem('token', ''),
@@ -35,8 +35,7 @@ function App() {
   useEffect(() => {
     try {
       const localToken = localStorage.getItem('token')
-      const notUndefined = localToken !== 'undefined' && localToken !== 'Undefined'
-      console.log(notUndefined, localToken)
+      const notUndefined = localToken.toLowerCase() !== 'undefined'
       if (localToken && notUndefined) {
         setToken(localToken)
         const result = fetchUserIfToken(setUser, token)

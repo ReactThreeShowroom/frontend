@@ -31,7 +31,7 @@ const NavBar = ({ navState: { location, token, setToken, user, setUser } }) => {
     <header id="headContainer" className="flex-col">
       <nav id="navContainer" className="flex justify-around">
         <h1 id="webName" className="font-sans font-semibold text-lg">
-          Customize Your Coatings
+          Customize Your Coating
         </h1>
         {linksMap}
         {!user.noUser && (

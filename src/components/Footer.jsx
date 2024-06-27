@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <footer>
-      <p>Copyright Customize Your Coating 2023</p>
+      <p>Customize Your Coating © 2024</p>
     </footer>
   )
 }
