@@ -5,5 +5,6 @@ import PasswordReset from '../pages/PasswordReset'
 import Showroom from '../pages/Showroom'
 import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
+import SingleClient from './SingleClient'
 
-export { Account, Admin, Home, PasswordReset, Showroom, SignIn, SignUp }
+export { Account, Admin, Home, PasswordReset, Showroom, SignIn, SignUp, SingleClient }
