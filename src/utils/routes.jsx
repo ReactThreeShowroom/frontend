@@ -9,6 +9,7 @@ import {
   SignUp,
   SingleClient
 } from '../pages'
+import { fetchUserLoader } from './fetches'
 
 const rootChildren = [
   { index: true, element: <Home /> },
@@ -21,6 +22,6 @@ const rootChildren = [
   { path: '/signup', element: <SignUp /> }
 ]
 
-const routes = [{ path: '/', element: <App />, children: rootChildren }]
+const routes = [{ path: '/', element: <App />, loader: fetchUserLoader, children: rootChildren }]
 
 export default routes

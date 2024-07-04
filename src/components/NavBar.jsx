@@ -14,8 +14,8 @@ const nav = [
   { value: 'Showroom', path: '/showroom', dep: ['id', 'activeSub'] },
   { value: 'Admin', path: '/admin', dep: ['id', 'admin'] },
   { value: 'Account', path: '/account', dep: ['id'] },
-  { value: 'Sign Up', path: '/signup', dep: ['noUser'] },
-  { value: 'Sign In', path: '/signin', dep: ['noUser'] }
+  { value: 'Sign Up', path: '/signup', dep: [] },
+  { value: 'Sign In', path: '/signin', dep: [] }
 ]
 
 const NavBar = ({ navState: { location, token, setToken, user, setUser } }) => {
@@ -25,7 +25,7 @@ const NavBar = ({ navState: { location, token, setToken, user, setUser } }) => {
 
   useEffect(() => {
     setLinksMap(getNav(nav, pathname, user))
-  }, [user])
+  }, [user, pathname])
 
   return (
     <header id="headContainer" className="flex-col">
@@ -34,12 +34,12 @@ const NavBar = ({ navState: { location, token, setToken, user, setUser } }) => {
           Customize Your Coating
         </h1>
         {linksMap}
-        {!user.noUser && (
+        {!!user.id && (
           <span
             onClick={() => {
               localStorage.setItem('token', '')
               setToken('')
-              setUser({ noUser: true })
+              setUser({})
               navigate('/')
             }}
             className={'hover:bg-main-orange hover:text-[#ffffff]'}>

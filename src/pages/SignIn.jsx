@@ -19,7 +19,7 @@ const SignIn = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (token || !user.noUser) {
+    if (token || user.id) {
       navigate('/')
     }
   }, [token, user])

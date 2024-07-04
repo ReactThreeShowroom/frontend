@@ -22,7 +22,7 @@ const SignUp = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (token || !user.noUser) {
+    if (token || user.id) {
       navigate('/')
     }
   }, [token, user])
@@ -31,36 +31,40 @@ const SignUp = () => {
     formState.confirmPassword.length && formState.password === formState.confirmPassword
   const showMessage = !isMatching && !!formState.confirmPassword.length
 
+  const errorText = 'text-red-600 text-xs italic'
+  const normalText = 'text-black text-xs italic'
+  const confirmText = 'text-green-500 text-xs italic'
+
   const emailInput = [
     'email',
     'email@domain.com',
-    <p className="text-red text-xs italic">Please choose an email</p>
+    <p className={errorText}>Please choose an email</p>
   ]
   const usernameInput = [
     'username',
     'sampleUsername',
-    <p className="text-red text-xs italic">Please supply a username for login</p>
+    <p className={errorText}>Please supply a username for login</p>
   ]
   const passwordInput = [
     'password',
     '******************',
     formState.password.length === 0 ? (
-      <p className="text-black text-xs italic">Please choose a password.</p>
+      <p className={normalText}>Please choose a password.</p>
     ) : formState.password.length < 7 ? (
-      <p className="text-red-600 text-xs italic">Password must be at least 8 characters!</p>
+      <p className={errorText}>Password must be at least 8 characters!</p>
     ) : (
-      <p className="text-black text-xs italic">&nbsp;</p>
+      <p className={normalText}>&nbsp;</p>
     )
   ]
   const confirmPassInput = [
     'confirmPassword',
     '******************',
     showMessage ? (
-      <p className="text-red-600 text-xs italic">Passwords do not match!</p>
+      <p className={errorText}>Passwords do not match!</p>
     ) : isMatching ? (
-      <p className={'text-green-500 text-xs italic'}> Passwords Matching!</p>
+      <p className={confirmText}> Passwords Matching!</p>
     ) : (
-      <p className={'text-black text-xs italic'}>Please confirm your password.</p>
+      <p className={normalText}>Please confirm your password.</p>
     )
   ]
 
@@ -103,7 +107,7 @@ const SignUp = () => {
       console.log(error)
       if (error.status !== 201) setMessage(error.message)
       setToken('')
-      setUser({ noUser: true })
+      setUser({})
     }
   }
   return (

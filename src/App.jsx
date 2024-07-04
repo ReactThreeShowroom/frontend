@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { NavBar, Footer } from './components'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet, useLoaderData, useLocation } from 'react-router-dom'
 import { getPathSearchHash } from './utils/locationHelpers'
 import { fetchUserIfToken } from './utils/fetches'
 
@@ -12,16 +12,17 @@ import { fetchUserIfToken } from './utils/fetches'
 function App() {
   let location = useLocation()
   let [path, search, hash] = getPathSearchHash(location)
-  const [user, setUser] = useState({ noUser: true })
   const [token, setToken] = useState(
     localStorage.getItem('token') || localStorage.setItem('token', ''),
     ''
   )
+  const _user = useLoaderData()
+  const [user, setUser] = useState(_user.id ? _user : {})
   // console.log(location, path, search, hash)
 
   useEffect(() => {
     try {
-      if (token && user.noUser) fetchUserIfToken(setUser, token)
+      if (token && !user.id) fetchUserIfToken(setUser, token)
     } catch (err) {
       if (response.status !== 201)
         throw {
@@ -43,7 +44,7 @@ function App() {
       } else {
         localStorage.setItem('token', '')
         setToken('')
-        setUser({ noUser: true })
+        setUser({})
       }
     } catch (er) {
       console.error(er)

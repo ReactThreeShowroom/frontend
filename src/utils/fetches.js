@@ -17,6 +17,25 @@ export const fetchUserIfToken = async (setter, token) => {
   }
 }
 
+export const fetchUserLoader = async () => {
+  const token = localStorage.getItem('token')
+  console.log(token)
+  if (token) {
+    return fetch(`${BASE_URL}/user/me`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      }
+    })
+  } else {
+    const error = { message: 'something went wrong' }
+    return new Response(JSON.stringify(error), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json; utf-8' }
+    })
+  }
+}
+
 export const loginUser = async ({ username, password }) => {
   try {
     const res = await fetch(`${BASE_URL}/auth?type=login`, {
