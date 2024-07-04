@@ -36,6 +36,78 @@ export const fetchUserLoader = async () => {
   }
 }
 
+export const fetchClientLoader = ({ params }) => {
+  return fetch(`${BASE_URL}/client/${params.clientId}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+  })
+}
+
+export const updateClientAction = async ({ request }) => {
+  const method = request.method
+  const {
+    id,
+    status,
+    email,
+    name,
+    phone,
+    original: oldClient
+  } = (await request.formData())
+    .entries()
+    .reduce(
+      (form, entry) => (
+        entry[0] === 'original'
+          ? (form[entry[0]] = JSON.parse(entry[1]))
+          : (form[entry[0]] = entry[1]),
+        form
+      ),
+      {}
+    )
+
+  let response = ''
+  switch (method) {
+    case 'DELETE': {
+      const res = await fetch(`${BASE_URL}/client/${id}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' }
+      })
+      if (res.status == 204) response = { success: 'Success deactivating client' }
+      else throw { error: 'Something went wrong deactivating client' }
+      break
+    }
+    case 'PUT': {
+      if (id) {
+        const res = await fetch(`${BASE_URL}/client/${id}?r=true`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' }
+        })
+        if (res.status == 204) response = { success: 'Success reactivating client' }
+        else throw { error: 'Something went wrong reactivating client' }
+      }
+      if (oldClient && Object.keys(oldClient).length) {
+        const id = oldClient.id
+        const newClient = { ...oldClient }
+        if (name.length) newClient.name = name
+        if (email.length) newClient.email = email
+        if (phone.length) newClient.phone = phone
+
+        const res = await fetch(`${BASE_URL}/client/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ clientData: newClient })
+        })
+        if (res.status == 204) response = { success: 'Success updating client' }
+        else response = { error: 'Something went wrong updating client' }
+      }
+      break
+    }
+    default: {
+      response = { error: 'Something went wrong editing client' }
+    }
+  }
+  return response
+}
+
 export const loginUser = async ({ username, password }) => {
   try {
     const res = await fetch(`${BASE_URL}/auth?type=login`, {

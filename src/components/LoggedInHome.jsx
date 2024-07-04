@@ -46,12 +46,12 @@ const LoggedInHome = ({ user, token }) => {
     }
   }, [])
 
-  const formStyle = 'flex flex-row w-full md:max-w-[66%] md:min-w-96 justify-center shrink-0'
-  const buttonStyle =
-    'w-1/4 p-1 m-1 h-11 bg-transparent text-main-orange hover:bg-main-orange hover:text-white border-2 disabled:border-slate-300 disabled:text-slate-300 disabled:hover:bg-transparent border-main-orange rounded-md text-center'
+  // const formStyle = 'flex flex-row w-full md:max-w-[66%] md:min-w-96 justify-center shrink-0'
+  // const buttonStyle =
+  //   'w-1/4 p-1 m-1 h-11 bg-transparent text-main-orange hover:bg-main-orange hover:text-white border-2 disabled:border-slate-300 disabled:text-slate-300 disabled:hover:bg-transparent border-main-orange rounded-md text-center'
 
-  const inputStyle =
-    'w-1/2 p-1 m-1 h-11 shadow-sm border-2 border-main-orange rounded-md text-grey-darker outline-none'
+  // const inputStyle =
+  //   'w-1/2 p-1 m-1 h-11 shadow-sm border-2 border-main-orange rounded-md text-grey-darker outline-none'
 
   const clientsContainer = `flex flex-col items-center justify-center${
     clients.length ? ' md:flex-row' : ''
@@ -64,14 +64,15 @@ const LoggedInHome = ({ user, token }) => {
       {/*`Your subscription ends on <this_date> and has <this_much> time left`*/}
       <p>Are you ready to model some coatings?</p>
       <p>Use the link in the nav bar to get started!</p>
-      <form className={formStyle}>
-        <input type="text" placeholder="Enter Name" className={inputStyle}></input>
+      {/* search form commented for now */}
+      {/* <form className={formStyle}>
+        <input type="text" placeholder="Enter Name" className={inputStyle} />
         <button type="submit" className={buttonStyle}>
           Search
         </button>
-      </form>
+      </form> */}
       <div className={clientsContainer}>
-        <AddClientForm userId={user.id} token={token} getClients={getClients} />
+        <AddClientForm {...{ userId: user.id, token, getClients }} />
         {isClientsLength && <ClientList clients={clients} />}
       </div>
     </article>
