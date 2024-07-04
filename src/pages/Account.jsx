@@ -27,19 +27,38 @@ const Account = () => {
         <p>Redirecting in 5 seconds...</p>
       </div>
     )
+  const condition = (sub, status) =>
+    status === 'pending' ? sub.status === 'pending' : sub.status !== 'pending'
 
-  const subsList = user.subs.length ? (
-    user.subs.map((sub, i) => <SubEntry sub={sub} key={sub.id} />)
-  ) : (
-    <h2>No Subscriptions</h2>
-  )
+  const createList = (user, status) => {
+    return user.subs
+      .filter((sub) => condition(sub, status))
+      .map((sub, i) => <SubEntry sub={sub} key={sub.id} />)
+  }
+
+  const displayList = (list) => (!!list.length ? list : 'No History')
+
+  const pageContainer = 'flex flex-col w-full'
+  const mainContainer = 'flex flex-col'
+  const listContainer = 'flex flex-col justify-center items-center md:flex-row md:justify-around'
+  const listSection = 'w-full flex flex-col items-center'
+  const listHeader = 'font-bold'
 
   return (
-    <div>
+    <div className={pageContainer}>
       <p>Hello {user.name}!</p>
-      <div>
+      <div className={mainContainer}>
         <RequestNewSubForm />
-        <section>{subsList}</section>
+        <div className={listContainer}>
+          <section className={listSection}>
+            <h2 className={listHeader}>Subscription History</h2>
+            {displayList(createList(user, 'active'))}
+          </section>
+          <section className={listSection}>
+            <h2 className={listHeader}>Pending Subscriptions</h2>
+            {displayList(createList(user, 'pending'))}
+          </section>
+        </div>
       </div>
     </div>
   )

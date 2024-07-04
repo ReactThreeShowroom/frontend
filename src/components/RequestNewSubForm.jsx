@@ -4,33 +4,32 @@ import { useOutletContext } from 'react-router'
 
 const RequestNewSubForm = () => {
   const [subType, setSubType] = useState('year')
+  const [message, setMessage] = useState('')
   const {
     state: { user, token },
     setters: { setUser, setToken }
   } = useOutletContext()
 
-  const buttonStyle =
-    'w-1/2 p-1 m-1 h-11 bg-transparent text-main-orange hover:bg-main-orange hover:text-white border-2 disabled:border-slate-300 disabled:text-slate-300 disabled:hover:bg-transparent border-main-orange rounded-md text-center'
-
   const handleSubmit = async (e) => {
     try {
       e.preventDefault()
+      setMessage('')
       const newUser = await handleAddSub({ token, userId: user.id, type: subType })
       if (newUser) {
         setUser(newUser)
-      } else throw 'Something went wrong with creating Sub'
+      } else throw { message: 'Something went wrong with creating subscription' }
     } catch (error) {
-      console.log(error)
+      setMessage(error.message)
     }
   }
   const handleRadioChange = (e) => setSubType(e.target.value)
 
-  const radioButtonProps = (compare, label, onChange) => ({
+  const radioButtonProps = (type, label, onChange) => ({
     type: 'radio',
     id: label,
     name: label,
     value: label,
-    checked: compare === label,
+    checked: type === label,
     onChange: onChange,
     className: 'mx-1'
   })
@@ -55,12 +54,19 @@ const RequestNewSubForm = () => {
   }
   const radioList = Object.keys(timeLength).map(radioListCB)
 
+  const formContainer = 'w-full flex flex-col items-center'
+  const buttonStyle =
+    'w-1/2 p-1 m-1 h-11 bg-transparent text-main-orange hover:bg-main-orange hover:text-white border-2 disabled:border-slate-300 disabled:text-slate-300 disabled:hover:bg-transparent border-main-orange rounded-md text-center'
+  const errorText = 'text-red-600 text-xs italic'
+  const fieldContainer = 'flex flex-row w-1/2 mx-4 justify-between'
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={formContainer} onSubmit={handleSubmit}>
       <button type="submit" className={buttonStyle}>
         Request New Sub
       </button>
-      <fieldset className={'flex flex-row w-1/2 mx-4 justify-between'}>{radioList}</fieldset>
+      {<p className={errorText}>&nbsp;{message}</p>}
+      <fieldset className={fieldContainer}>{radioList}</fieldset>
     </form>
   )
 }
