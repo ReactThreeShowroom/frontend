@@ -19,14 +19,22 @@ export const fetchUserIfToken = async (setter, token) => {
 
 export const fetchUserLoader = async () => {
   const token = localStorage.getItem('token')
-  console.log(token)
   if (token) {
-    return fetch(`${BASE_URL}/user/me`, {
+    const userRes = await fetch(`${BASE_URL}/user/me`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token
       }
     })
+    if (userRes.status !== 200) {
+      localStorage.setItem('token', '')
+      const error = { message: 'something went wrong' }
+      return new Response(JSON.stringify(error), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json; utf-8' }
+      })
+    }
+    return userRes
   } else {
     const error = { message: 'something went wrong' }
     return new Response(JSON.stringify(error), {
