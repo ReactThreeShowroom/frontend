@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 // put somewhere else?
 const nav = [
   { value: 'Home', path: '/', dep: [] },
-  { value: 'Showroom', path: '/showroom', dep: ['id', 'activeSub'] },
+  { value: 'Showroom', path: '/showroom', dep: ['id'] },
   { value: 'Admin', path: '/admin', dep: ['id', 'admin'] },
   { value: 'Account', path: '/account', dep: ['id'] },
   { value: 'Sign Up', path: '/signup', dep: [] },
