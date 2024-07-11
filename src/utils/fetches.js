@@ -17,6 +17,39 @@ export const fetchUserIfToken = async (setter, token) => {
   }
 }
 
+export const fetchPendingSubs = async (token) => {
+  return await (
+    await fetch(`${BASE_URL}/auth/pending-subs`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      }
+    })
+  ).json()
+}
+
+export const fetchUserForAdminLoader = async (userId) => {
+  return !userId
+    ? {}
+    : fetch(`${BASE_URL}/auth/admin/${userId}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
+}
+
+export const updateSubAction = async (subId, status, type) => {
+  const res = await fetch(`${BASE_URL}/auth/subs/${subId}?status=${status}&type=${type}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + localStorage.getItem('token')
+    }
+  })
+  return await res.json()
+}
+
 export const fetchUserLoader = async () => {
   const token = localStorage.getItem('token')
   if (token) {
@@ -176,5 +209,38 @@ export const handleAddClient = async ({ token, formState, userId }) => {
     return await response.json()
   } catch (error) {
     console.error(error)
+  }
+}
+
+export const getAllUsersAdmin = async ({ setter, token, skip = 0, take = 0 }) => {
+  // /user/admin?s=xx&t=yy
+  try {
+    const response = await fetch(`${BASE_URL}/user/admin?s=${skip}&t=${take}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
+    setter(await response.json())
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const getOneUserAdmin = async ({ token, userId }) => {
+  const response = await fetch(`${BASE_URL}/user/admin/${userId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+  if (response.ok) {
+    return await response.json()
+  } else {
+    const error = { message: 'something went wrong' }
+    return new Response(JSON.stringify(error), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json; utf-8' }
+    })
   }
 }

@@ -1,4 +1,6 @@
-const SubEntry = ({ sub }) => {
+import { Form } from 'react-router-dom'
+
+const SubEntryAdmin = ({ sub }) => {
   let date, isExpired
   if (sub.endDate) {
     date = sub.endDate.slice(0, 10).split('-')
@@ -8,12 +10,17 @@ const SubEntry = ({ sub }) => {
   const isActive = sub.status === 'active'
   const message = isActive ? `${sub.status} until ${date}` : sub.status
   return (
-    <div className="w-full self-start">
+    <Form method="POST" className="w-full self-start">
       <p>
+        {isActive && (
+          <button className={'text-red-600 font-bold'} type="submit">
+            X
+          </button>
+        )}{' '}
         {sub.id.slice(0, 7)}: {message}
       </p>
-    </div>
+    </Form>
   )
 }
 
-export default SubEntry
+export default SubEntryAdmin
