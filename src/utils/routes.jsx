@@ -1,4 +1,5 @@
 import App from '../App'
+import ShowroomCanvas from '../components/ShowroomCanvas'
 import SingleSubAdmin from '../components/SingleSubAdmin'
 import SingleUserAdmin from '../components/SingleUserAdmin'
 import {
@@ -72,20 +73,20 @@ const rootChildren = [
         action: async ({ request }) => {
           let formData = await request.formData()
           let intent = formData.get('intent')
-          let area = intent.slice(intent.length - 3)
-          if (area === 'Sub') {
-            let subId = formData.get('subId')
-            let type = formData.get('type')
-            intent = intent.slice(0, intent.length - 3)
-            const res = await updateSubAction(subId, intent, type)
-            return res
-          }
+          let subId = formData.get('subId')
+          let type = formData.get('type')
+          const res = await updateSubAction(subId, intent, type)
+          return res
         }
       }
     ]
   },
   { path: '/passwordReset', element: <PasswordReset /> },
-  { path: '/showroom', element: <Showroom /> },
+  {
+    path: '/showroom',
+    element: <Showroom />,
+    children: [{ path: 'item/:itemId', element: <ShowroomCanvas /> }]
+  },
   { path: '/signin', element: <SignIn /> },
   { path: '/signup', element: <SignUp /> }
 ]

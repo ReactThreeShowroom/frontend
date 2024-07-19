@@ -9,14 +9,23 @@ const SubEntryAdmin = ({ sub }) => {
   }
   const isActive = sub.status === 'active'
   const message = isActive ? `${sub.status} until ${date}` : sub.status
+
+  const formStyle = 'w-full self-start'
+  const cancelButtonStyle = 'text-red-600 font-bold'
+  const formProps = { method: 'POST', className: formStyle }
+  const cancelButtonProps = {
+    name: 'intent',
+    value: 'cancel',
+    className: cancelButtonStyle,
+    type: 'submit'
+  }
+
   return (
-    <Form method="POST" className="w-full self-start">
+    <Form {...formProps}>
       <p>
-        {isActive && (
-          <button className={'text-red-600 font-bold'} type="submit">
-            X
-          </button>
-        )}{' '}
+        <input hidden readOnly name={'subId'} value={sub.id} />
+        <input hidden readOnly name={'type'} value={sub.type} />
+        {isActive && <button {...cancelButtonProps}>X&nbsp;</button>}
         {sub.id.slice(0, 7)}: {message}
       </p>
     </Form>

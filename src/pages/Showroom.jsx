@@ -1,40 +1,49 @@
-import { useRef, useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
+import { Suspense, useEffect, useState } from 'react'
+import { Outlet, useNavigate, useParams } from 'react-router'
+import ShowroomControls from '../components/ShowroomControls'
+import FirearmSelector from '../components/FirearmSelector'
 
-function Box(props) {
-  const ref = useRef()
-  // Hold state for hovered and clicked events
-  const [hovered, hover] = useState(false)
-  const [clicked, click] = useState(false)
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => (ref.current.rotation.x += delta))
-  // Return the view, these are regular Threejs elements expressed in JSX
-  return (
-    <mesh
-      {...props}
-      ref={ref}
-      scale={clicked ? 1.5 : 1}
-      onClick={(event) => click(!clicked)}
-      onPointerOver={(event) => (event.stopPropagation(), hover(true))}
-      onPointerOut={(event) => hover(false)}>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
-    </mesh>
-  )
-}
+const Showroom = (props) => {
+  // const { colors } = useLoaderData()
+  const colors = {
+    'C-189': { code: 'C-189', name: 'Blue Titanium', rgb: '61,88,105', hex: '3d5869' }
+  }
+  const { itemId } = useParams()
+  const [selection, setSelection] = useState({
+    item: itemId ? itemId : '',
+    previousModels: []
+  })
+  const [notes, setNotes] = useState('')
+  const [parts, setParts] = useState({})
+  const [initialParts, setInitialParts] = useState({})
+  let navigate = useNavigate()
 
-const Showroom = () => {
+  useEffect(() => {
+    console.log(initialParts)
+  }, [initialParts])
+
+  const state = { selection, parts, initialParts, colors, notes }
+  const setters = { setSelection, setParts, setInitialParts, setNotes }
+
   return (
-    <section>
+    <section className={'w-full'}>
       <h2>Welcome to the Cerakote® Showroom!</h2>
-      <Canvas>
-        <ambientLight />
-        <pointLight position={[10, 10, 10]} />
-        <Box position={[-1.2, 0, 0]} />
-        <Box position={[1.2, 0, 0]} />
-        <OrbitControls />
-      </Canvas>
+      <Suspense>
+        <FirearmSelector {...{ selection, setSelection }} />
+        <div className={'min-w-[300px] min-h-[250px] mx-2 px-2'}>
+          <label htmlFor="notes" className={'flex flex-col min-h-[250px]'}>
+            Notes:{' '}
+            <textarea
+              className={'min-h-[250px]'}
+              name="notes"
+              onChange={(e) => {
+                setNotes(e.target.value)
+              }}></textarea>
+          </label>
+        </div>
+        <Outlet context={{ state, setters }} />
+        <ShowroomControls {...{ state, setters }} />
+      </Suspense>
     </section>
   )
 }

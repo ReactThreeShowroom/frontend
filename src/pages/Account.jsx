@@ -33,6 +33,7 @@ const Account = () => {
   const createList = (user, status) => {
     return user.subs
       .filter((sub) => condition(sub, status))
+      .sort((a, b) => new Date(b.endDate) - new Date(a.endDate))
       .map((sub, i) => <SubEntry sub={sub} key={sub.id} />)
   }
 
@@ -51,12 +52,12 @@ const Account = () => {
         <RequestNewSubForm />
         <div className={listContainer}>
           <section className={listSection}>
-            <h2 className={listHeader}>Subscription History</h2>
-            {displayList(createList(user, 'active'))}
-          </section>
-          <section className={listSection}>
             <h2 className={listHeader}>Pending Subscriptions</h2>
             {displayList(createList(user, 'pending'))}
+          </section>
+          <section className={listSection}>
+            <h2 className={listHeader}>Subscription History</h2>
+            {displayList(createList(user, 'active'))}
           </section>
         </div>
       </div>
