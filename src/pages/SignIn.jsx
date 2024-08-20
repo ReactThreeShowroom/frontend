@@ -33,7 +33,7 @@ const SignIn = () => {
         localStorage.setItem('token', _token)
         setToken(_token)
         setUser(_user)
-        navigate('/account')
+        navigate('/')
       }
     } catch (error) {
       console.log('error: ', error)

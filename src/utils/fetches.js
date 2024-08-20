@@ -244,3 +244,23 @@ export const getOneUserAdmin = async ({ token, userId }) => {
     })
   }
 }
+
+export const fetchColorLoader = async () => {
+  const response = await fetch(`${BASE_URL}/favorite/color`, {
+    headers: { 'Content-Type': 'application/json' }
+  })
+  if (response.ok) {
+    const colors = (await response.json()).reduce((colors, color) => {
+      colors[color.code] = color
+      return colors
+    }, {})
+    // console.log(colors)
+    return { colors }
+  } else {
+    const error = { message: 'something went wrong' }
+    return new Response(JSON.stringify(error), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json; utf-8' }
+    })
+  }
+}

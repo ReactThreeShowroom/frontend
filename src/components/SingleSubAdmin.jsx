@@ -6,6 +6,9 @@ const SingleSubAdmin = () => {
   let { user } = sub
   let newSub = useActionData()
 
+  const buttonStyle =
+    'w-1/2 p-1 m-1 h-11 bg-transparent text-main-orange hover:bg-main-orange hover:text-white border-2 disabled:border-slate-300 disabled:text-slate-300 disabled:hover:bg-transparent border-main-orange rounded-md text-center'
+
   return sub.id ? (
     <div>
       <p>Name: {user.name}</p>
@@ -20,22 +23,10 @@ const SingleSubAdmin = () => {
       <Form method="POST">
         <input hidden readOnly name={'subId'} value={sub.id} />
         <input hidden readOnly name={'type'} value={sub.type} />
-        <button
-          type="submit"
-          name={'intent'}
-          value={'cancelSub'}
-          className={
-            'w-1/2 p-1 m-1 h-11 bg-transparent text-main-orange hover:bg-main-orange hover:text-white border-2 disabled:border-slate-300 disabled:text-slate-300 disabled:hover:bg-transparent border-main-orange rounded-md text-center'
-          }>
+        <button type="submit" name={'intent'} value={'cancelSub'} className={buttonStyle}>
           Cancel Sub
         </button>
-        <button
-          type="submit"
-          name={'intent'}
-          value={'activateSub'}
-          className={
-            'w-1/2 p-1 m-1 h-11 bg-transparent text-main-orange hover:bg-main-orange hover:text-white border-2 disabled:border-slate-300 disabled:text-slate-300 disabled:hover:bg-transparent border-main-orange rounded-md text-center'
-          }>
+        <button type="submit" name={'intent'} value={'activateSub'} className={buttonStyle}>
           Activate Sub
         </button>
       </Form>

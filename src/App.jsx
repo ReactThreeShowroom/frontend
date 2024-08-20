@@ -4,11 +4,6 @@ import { Outlet, useLoaderData, useLocation } from 'react-router-dom'
 import { getPathSearchHash } from './utils/locationHelpers'
 import { fetchUserIfToken } from './utils/fetches'
 
-// get rid of user after you can fetch user
-// const userState = { name: "test", admin: true, activeSub: true, id: 'asdf' }
-// const userState = { name: 'test', admin: false, activeSub: true, id: 'asdf' }
-// const userState = { name: "test", admin: false, activeSub: false, id: 'asdf' }
-// const userState = { noUser: true }
 function App() {
   let location = useLocation()
   let [path, search, hash] = getPathSearchHash(location)
