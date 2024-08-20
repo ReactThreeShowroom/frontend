@@ -14,6 +14,7 @@ import {
 } from '../pages'
 import {
   fetchClientLoader,
+  fetchColorLoader,
   fetchPendingSubs,
   fetchUserForAdminLoader,
   fetchUserLoader,
@@ -85,6 +86,9 @@ const rootChildren = [
   {
     path: '/showroom',
     element: <Showroom />,
+    loader: async ({}) => {
+      return fetchColorLoader()
+    },
     children: [{ path: 'item/:itemId', element: <ShowroomCanvas /> }]
   },
   { path: '/signin', element: <SignIn /> },

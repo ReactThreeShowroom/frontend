@@ -5,20 +5,22 @@ import { useLocation, useOutletContext, useParams } from 'react-router'
 import { useSearchParams } from 'react-router-dom'
 import { MTLLoader, OBJLoader } from 'three/examples/jsm/Addons.js'
 import { getPathSearchHash } from '../utils/locationHelpers'
-import ShowroomControls from './ShowroomControls'
 
 const ShowroomCanvas = () => {
   let { itemId } = useParams()
   let q = useSearchParams()
   let location = useLocation()
   let [path, search, hash] = getPathSearchHash(location)
-  const { state, setters } = useOutletContext()
 
+  // incoming state from showroom outlet
+  const outletState = useOutletContext()
+  const { state, setters } = outletState
   const { selection, parts, initialParts } = state
   const { setSelection, setParts, setInitialParts } = setters
+  // console.log('showroomCanvas', outletState)
 
-  let mtlURL = `/1-${itemId}.mtl`
-  let objURL = `/1-${itemId}.obj`
+  let mtlURL = `/models/1-${itemId}.mtl`
+  let objURL = `/models/1-${itemId}.obj`
 
   const createPartList = useCallback((materials) => {
     const newList = {}
@@ -85,7 +87,10 @@ const ShowroomCanvas = () => {
     document.body.style.overflow = style === 'hidden' ? 'auto' : 'hidden'
   }
   return (
-    <div className={'h-[400px]'} onMouseEnter={changeScroll} onMouseLeave={changeScroll}>
+    <div
+      className={'h-[400px] md:h-[600px] border-[1px] rounded-md border-main-orange'}
+      onMouseEnter={changeScroll}
+      onMouseLeave={changeScroll}>
       <Canvas>
         <ambientLight intensity={Math.PI / 2} />
         <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />

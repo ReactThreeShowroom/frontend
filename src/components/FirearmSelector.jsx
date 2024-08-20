@@ -16,8 +16,13 @@ const FirearmSelector = ({ selection, setSelection }) => {
   })
 
   return (
-    <div className={'flex flex-col justify-center items-center'}>
-      <legend htmlFor="firearmType">Firearm Type: </legend>
+    <div
+      className={
+        'flex flex-col justify-center items-center border-[1px] rounded-md border-main-orange'
+      }>
+      <legend htmlFor="firearmType" className="font-bold">
+        Firearm Type:{' '}
+      </legend>
       <fieldset name="fireArmType" className="flex flex-row">
         <label className="mx-1" htmlFor="Rifle">
           AR-15:&nbsp;
