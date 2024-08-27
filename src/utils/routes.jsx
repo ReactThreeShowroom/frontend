@@ -89,7 +89,7 @@ const rootChildren = [
     loader: async ({}) => {
       return fetchColorLoader()
     },
-    children: [{ path: 'item/:itemId', element: <ShowroomCanvas /> }]
+    children: [{ path: 'model/:modelId', element: <ShowroomCanvas /> }]
   },
   { path: '/signin', element: <SignIn /> },
   { path: '/signup', element: <SignUp /> }

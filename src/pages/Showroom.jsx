@@ -10,9 +10,9 @@ const Showroom = (props) => {
   // }
 
   // console.log(colors)
-  const { itemId } = useParams()
+  const { modelId } = useParams()
   const [selection, setSelection] = useState({
-    item: itemId ? itemId : '',
+    model: modelId ? modelId : '',
     previousModels: []
   })
   const [notes, setNotes] = useState('')
