@@ -1,5 +1,5 @@
-// export const BASE_URL = 'https://api-3frl.onrender.com'
-export const BASE_URL = 'http://localhost:3000'
+export const BASE_URL = 'https://api-3frl.onrender.com'
+// export const BASE_URL = 'http://localhost:3000'
 
 export const fetchUserIfToken = async (setter, token) => {
   try {
