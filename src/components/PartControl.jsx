@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const PartControl = (props) => {
   const {
     partName,
@@ -7,6 +9,23 @@ const PartControl = (props) => {
   } = props
   const part = parts[partName]
   const { name, color, shininess, partColor } = part
+  const [colorSeries, setColorSeries] = useState(null)
+
+  const colorMapCB = (_color) => {
+    const color = colors[_color]
+    return (
+      <option key={color.code} value={color.code}>
+        {color.code}: {color.name}
+      </option>
+    )
+  }
+  const sortCB = (a, b) => colors[a].code - colors[b].code
+  const sortedColors = colorSeries
+    ? Object.keys(colors)
+        .filter((color) => colors[color].code[0] === colorSeries)
+        .sort(sortCB)
+        .map(colorMapCB)
+    : Object.keys(colors).sort(sortCB).map(colorMapCB)
 
   return (
     <div
@@ -82,12 +101,9 @@ const PartControl = (props) => {
             type="radio"
             name="Elite"
             value="E"
-            checked={part.colorSeries === 'E'}
+            checked={colorSeries === 'E'}
             onChange={(e) => {
-              setParts({
-                ...parts,
-                [partName]: { ...parts[partName], partColor: e.target.value }
-              })
+              setColorSeries(e.target.value)
             }}
           />
         </label>
@@ -97,12 +113,9 @@ const PartControl = (props) => {
             type="radio"
             name="H"
             value="H"
-            checked={part.partColor === 'H'}
+            checked={colorSeries === 'H'}
             onChange={(e) => {
-              setParts({
-                ...parts,
-                [partName]: { ...parts[partName], partColor: e.target.value }
-              })
+              setColorSeries(e.target.value)
             }}
           />
         </label>
@@ -112,12 +125,9 @@ const PartControl = (props) => {
             type="radio"
             name="C"
             value="C"
-            checked={part.partColor === 'C'}
+            checked={colorSeries === 'C'}
             onChange={(e) => {
-              setParts({
-                ...parts,
-                [partName]: { ...parts[partName], partColor: e.target.value }
-              })
+              setColorSeries(e.target.value)
             }}
           />
         </label>
@@ -135,15 +145,7 @@ const PartControl = (props) => {
               })
             }}>
             <option value="--">--</option>
-            {colors &&
-              Object.keys(colors).map((_color) => {
-                const color = colors[_color]
-                return (
-                  <option key={color.code} value={color.code}>
-                    {color.code}: {color.name}
-                  </option>
-                )
-              })}
+            {colors && sortedColors}
           </select>
         </label>
       </div>
