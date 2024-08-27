@@ -30,11 +30,11 @@ const FirearmSelector = ({ selection, setSelection }) => {
             type="radio"
             name="Rifle"
             value="AR15"
-            checked={selection.item === 'AR15'}
+            checked={selection.model === 'AR15'}
             onChange={(e) => {
               clearModels(previousModels)
-              setSelection({ ...selection, item: e.target.value, previousModels: [] })
-              navigate('./item/AR15')
+              setSelection({ ...selection, model: e.target.value, previousModels: [] })
+              navigate('./model/AR15')
             }}
           />
         </label>
@@ -44,11 +44,11 @@ const FirearmSelector = ({ selection, setSelection }) => {
             type="radio"
             name="Shotgun"
             value="Remington870"
-            checked={selection.item === 'Remington870'}
+            checked={selection.model === 'Remington870'}
             onChange={(e) => {
               clearModels(previousModels)
-              setSelection({ ...selection, item: e.target.value, previousModels: [] })
-              navigate('./item/Remington870')
+              setSelection({ ...selection, model: e.target.value, previousModels: [] })
+              navigate('./model/Remington870')
             }}
           />
         </label>
@@ -58,11 +58,11 @@ const FirearmSelector = ({ selection, setSelection }) => {
             type="radio"
             name="Pistol"
             value="Glock19"
-            checked={selection.item === 'Glock19'}
+            checked={selection.model === 'Glock19'}
             onChange={(e) => {
               clearModels(previousModels)
-              setSelection({ ...selection, item: e.target.value, previousModels: [] })
-              navigate('./item/Glock19')
+              setSelection({ ...selection, model: e.target.value, previousModels: [] })
+              navigate('./model/Glock19')
             }}
           />
         </label>

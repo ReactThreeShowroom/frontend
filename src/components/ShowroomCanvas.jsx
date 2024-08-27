@@ -7,7 +7,7 @@ import { MTLLoader, OBJLoader } from 'three/examples/jsm/Addons.js'
 import { getPathSearchHash } from '../utils/locationHelpers'
 
 const ShowroomCanvas = () => {
-  let { itemId } = useParams()
+  let { modelId } = useParams()
   let q = useSearchParams()
   let location = useLocation()
   let [path, search, hash] = getPathSearchHash(location)
@@ -19,8 +19,8 @@ const ShowroomCanvas = () => {
   const { setSelection, setParts, setInitialParts } = setters
   // console.log('showroomCanvas', outletState)
 
-  let mtlURL = `/models/1-${itemId}.mtl`
-  let objURL = `/models/1-${itemId}.obj`
+  let mtlURL = `/models/1-${modelId}.mtl`
+  let objURL = `/models/1-${modelId}.obj`
 
   const createPartList = useCallback((materials) => {
     const newList = {}
@@ -67,8 +67,8 @@ const ShowroomCanvas = () => {
     // console.log(selection.previousModels, newModels)
     setParts(createPartList(materials.materials))
     setInitialParts(
-      !initialParts.name || initialParts.name !== itemId
-        ? { ...createPartList(materials.materials), name: itemId }
+      !initialParts.name || initialParts.name !== modelId
+        ? { ...createPartList(materials.materials), name: modelId }
         : initialParts
     )
     setSelection({ ...selection, previousModels: [...selection.previousModels, mtlURL, objURL] })
