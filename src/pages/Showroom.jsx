@@ -33,26 +33,25 @@ const Showroom = (props) => {
   const setters = { setSelection, setParts, setInitialParts, setNotes }
 
   return (
-    <section className={'w-full p'}>
+    <section className={'w-full p flex flex-col justify-center content-center mx-1'}>
       <h2>Welcome to the Cerakote® Showroom!</h2>
-      <Suspense>
+      <Suspense className="flex flex-col justify-center content-center">
         <FirearmSelector {...{ selection, setSelection }} />
         <label
           htmlFor="notes"
           className={
-            'flex flex-col min-w-full min-h-[250px] my-1 border-[1px] rounded-md border-main-orange text-center font-bold'
+            'flex flex-col w-[calc(100%-8px)] min-h-[250px] my-1 py-1 border-[2px] rounded-md border-main-orange text-center font-bold'
           }>
           Notes:{' '}
           <textarea
             className={
-              'min-h-[250px] min-w-[250px] max-w-[calc(100%-1px)] w-full border-[1px] rounded-md border-main-orange resize'
+              'min-h-[250px] min-w-[250px] max-w-[calc(100%-8px)] w-full border-[1px] p-1 m-1 rounded-md border-main-orange resize font-normal'
             }
             name="notes"
             onChange={(e) => {
               setNotes(e.target.value)
             }}></textarea>
         </label>
-
         <Outlet context={{ state, setters }} />
         <ShowroomControls {...{ state, setters }} />
       </Suspense>
