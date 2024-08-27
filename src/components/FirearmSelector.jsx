@@ -18,7 +18,7 @@ const FirearmSelector = ({ selection, setSelection }) => {
   return (
     <div
       className={
-        'flex flex-col justify-center items-center border-[1px] rounded-md border-main-orange'
+        'flex flex-col justify-center w-[calc(100%-8px)] items-center border-[2px] rounded-md border-main-orange'
       }>
       <legend htmlFor="firearmType" className="font-bold">
         Firearm Type:{' '}

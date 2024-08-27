@@ -87,18 +87,20 @@ const ShowroomCanvas = () => {
     document.body.style.overflow = style === 'hidden' ? 'auto' : 'hidden'
   }
   return (
-    <div
-      className={'h-[400px] md:h-[600px] border-[1px] rounded-md border-main-orange'}
-      onMouseEnter={changeScroll}
-      onMouseLeave={changeScroll}>
-      <Canvas>
-        <ambientLight intensity={Math.PI / 2} />
-        <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-        <Suspense>
-          <primitive object={obj} scale={1} />
-        </Suspense>
-        <OrbitControls />
-      </Canvas>
+    <div className={'h-[400px] md:h-[600px] flex justify-center content-center'}>
+      <div
+        className={'w-3/4 flex justify-center border-[2px] rounded-md border-main-orange'}
+        onMouseEnter={changeScroll}
+        onMouseLeave={changeScroll}>
+        <Canvas>
+          <ambientLight intensity={Math.PI / 2} />
+          <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
+          <Suspense>
+            <primitive object={obj} scale={1} />
+          </Suspense>
+          <OrbitControls />
+        </Canvas>
+      </div>
     </div>
   )
 }
