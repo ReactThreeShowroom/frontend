@@ -1,5 +1,7 @@
-export const BASE_URL = 'https://api-3frl.onrender.com'
-// export const BASE_URL = 'http://localhost:3000'
+import { redirect } from 'react-router'
+
+// export const BASE_URL = 'https://api-3frl.onrender.com'
+export const BASE_URL = 'http://localhost:3000'
 
 export const fetchUserIfToken = async (setter, token) => {
   try {
@@ -86,28 +88,21 @@ export const fetchClientLoader = ({ params }) => {
 
 export const updateClientAction = async ({ request }) => {
   const method = request.method
-  const {
-    id,
-    status,
-    email,
-    name,
-    phone,
-    original: oldClient
-  } = (await request.formData())
-    .entries()
-    .reduce(
-      (form, entry) => (
-        entry[0] === 'original'
-          ? (form[entry[0]] = JSON.parse(entry[1]))
-          : (form[entry[0]] = entry[1]),
-        form
-      ),
-      {}
-    )
-
+  // console.log(request)
   let response = ''
   switch (method) {
     case 'DELETE': {
+      const { id } = (await request.formData())
+        .entries()
+        .reduce(
+          (form, entry) => (
+            entry[0] === 'original'
+              ? (form[entry[0]] = JSON.parse(entry[1]))
+              : (form[entry[0]] = entry[1]),
+            form
+          ),
+          {}
+        )
       const res = await fetch(`${BASE_URL}/client/${id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' }
@@ -117,6 +112,24 @@ export const updateClientAction = async ({ request }) => {
       break
     }
     case 'PUT': {
+      const {
+        id,
+        status,
+        email,
+        name,
+        phone,
+        original: oldClient
+      } = (await request.formData())
+        .entries()
+        .reduce(
+          (form, entry) => (
+            entry[0] === 'original'
+              ? (form[entry[0]] = JSON.parse(entry[1]))
+              : (form[entry[0]] = entry[1]),
+            form
+          ),
+          {}
+        )
       if (id) {
         const res = await fetch(`${BASE_URL}/client/${id}?r=true`, {
           method: 'PUT',
@@ -141,6 +154,20 @@ export const updateClientAction = async ({ request }) => {
         else response = { error: 'Something went wrong updating client' }
       }
       break
+    }
+    case 'POST': {
+      const favoriteData = Object.fromEntries(await request.formData())
+      const res = await fetch(`${BASE_URL}/favorite/fav`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ favoriteData })
+      })
+      if (res.status === 201) {
+        response = { message: 'Success creating favorite!', data: await res.json() }
+        return redirect(
+          `/showroom/c/${response.data.clientId}/m/${response.data.model.path}?f=${response.data.id}`
+        )
+      } else response = { error: 'Something went wrong creating favorite' }
     }
     default: {
       response = { error: 'Something went wrong editing client' }
@@ -251,11 +278,12 @@ export const fetchColorLoader = async () => {
   })
   if (response.ok) {
     const colors = (await response.json()).reduce((colors, color) => {
+      // console.log(colors, color)
       colors[color.code] = color
       return colors
     }, {})
-    // console.log(colors)
-    return { colors }
+    // console.log('In Loader', colors)
+    return colors
   } else {
     const error = { message: 'something went wrong' }
     return new Response(JSON.stringify(error), {
@@ -264,3 +292,19 @@ export const fetchColorLoader = async () => {
     })
   }
 }
+
+// export const fetchFavoritesLoader = async (clientId) => {
+//   const response = await fetch(`${BASE_URL}/client/${clientId}`, {
+//     headers: { 'Content-Type': 'application/json' }
+//   })
+//   if (response.ok) {
+//     const client = await response.json()
+//     return client
+//   } else {
+//     const error = { message: 'something went wrong' }
+//     return new Response(JSON.stringify(error), {
+//       status: 400,
+//       headers: { 'Content-Type': 'application/json; utf-8' }
+//     })
+//   }
+// }

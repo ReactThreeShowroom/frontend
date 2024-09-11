@@ -7,7 +7,11 @@ const Home = () => {
   return (
     <section>
       <h2>Welcome to Customize Your Coatings!</h2>
-      {user.id ? <LoggedInHome user={user} token={token} /> : <LoggedOutHome />}
+      {user.id ? (
+        <LoggedInHome user={user} token={token} />
+      ) : (
+        <LoggedOutHome user={user} token={token} />
+      )}
     </section>
   )
 }

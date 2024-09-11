@@ -1,60 +1,12 @@
-import { Suspense, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Outlet, useNavigate, useParams, useOutletContext, useLoaderData } from 'react-router'
-import ShowroomControls from '../components/ShowroomControls'
-import FirearmSelector from '../components/FirearmSelector'
 
 const Showroom = (props) => {
-  const { colors } = useLoaderData()
-  // const colors = {
-  //   'C-189': { code: 'C-189', name: 'Blue Titanium', rgb: '61,88,105', hex: '3d5869' }
-  // }
-
-  // console.log(colors)
-  const { modelId } = useParams()
-  const [selection, setSelection] = useState({
-    model: modelId ? modelId : '',
-    previousModels: []
-  })
-  const [notes, setNotes] = useState('')
-  const [parts, setParts] = useState({})
-  const [initialParts, setInitialParts] = useState({})
-  let navigate = useNavigate()
-
-  // parent outlet state
   const outletState = useOutletContext()
-  // console.log('showroom', outletState)
-
-  // useEffect(() => {
-  //   console.log(initialParts)
-  // }, [initialParts])
-
-  // new outlet state for showroom
-  const state = { selection, parts, initialParts, colors, notes }
-  const setters = { setSelection, setParts, setInitialParts, setNotes }
-
+  // console.log(outletState.state.user)
   return (
-    <section className={'w-full p flex flex-col justify-center content-center mx-1'}>
-      <h2>Welcome to the Cerakote® Showroom!</h2>
-      <Suspense className="flex flex-col justify-center content-center">
-        <FirearmSelector {...{ selection, setSelection }} />
-        <label
-          htmlFor="notes"
-          className={
-            'flex flex-col w-[calc(100%-8px)] min-h-[250px] my-1 py-1 border-[2px] rounded-md border-main-orange text-center font-bold'
-          }>
-          Notes:{' '}
-          <textarea
-            className={
-              'min-h-[250px] min-w-[250px] max-w-[calc(100%-8px)] w-full border-[1px] p-1 m-1 rounded-md border-main-orange resize font-normal'
-            }
-            name="notes"
-            onChange={(e) => {
-              setNotes(e.target.value)
-            }}></textarea>
-        </label>
-        <Outlet context={{ state, setters }} />
-        <ShowroomControls {...{ state, setters }} />
-      </Suspense>
+    <section className={''}>
+      <Outlet context={outletState} />
     </section>
   )
 }

@@ -1,4 +1,4 @@
-import FirearmSelector from './FirearmSelector'
+// import FirearmSelector from './FirearmSelector'
 import PartControls from './PartControls'
 
 const ShowroomControls = (props) => {
@@ -10,8 +10,12 @@ const ShowroomControls = (props) => {
   // button onCLick
   return (
     <div className={'flex flex-col justify-center items-center'}>
-      <h3 className={''}>Component List:&nbsp;</h3>
-      <button>Save Color</button>
+      <button
+        className={
+          'text-main-orange bg-transparent border-2 border-main-orange rounded-md p-1 m-1'
+        }>
+        Save Favorite
+      </button>
       {/* map for each part */}
       <PartControls {...props} />
     </div>

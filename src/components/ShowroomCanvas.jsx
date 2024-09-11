@@ -37,21 +37,24 @@ const ShowroomCanvas = () => {
     return newList
   })
 
-  const loadColorsShininess = useCallback((part, materials) => {
-    const {
-      name,
-      color: { r, g, b },
-      shininess
-    } = part
+  const loadColorsShininess = useCallback(
+    (part, materials) => {
+      const {
+        name,
+        color: { r, g, b },
+        shininess
+      } = part
 
-    materials.materials[name].color = {
-      r: Number(r) / 255,
-      g: Number(g) / 255,
-      b: Number(b) / 255,
-      isColor: true
-    }
-    materials.materials[name].shininess = shininess
-  })
+      materials.materials[name].color = {
+        r: Number(r) / 255,
+        g: Number(g) / 255,
+        b: Number(b) / 255,
+        isColor: true
+      }
+      materials.materials[name].shininess = shininess
+    },
+    [selection]
+  )
 
   const materials = useLoader(MTLLoader, mtlURL)
   // const [partList, setPartList] = useState(createPartList(materials.materials))
@@ -72,7 +75,7 @@ const ShowroomCanvas = () => {
         : initialParts
     )
     setSelection({ ...selection, previousModels: [...selection.previousModels, mtlURL, objURL] })
-  }, [selection.item])
+  }, [selection.item, modelId])
 
   useEffect(() => {
     for (const part in parts) {
@@ -86,6 +89,7 @@ const ShowroomCanvas = () => {
     let style = document.body.style.overflow
     document.body.style.overflow = style === 'hidden' ? 'auto' : 'hidden'
   }
+
   return (
     <div className={'h-[400px] md:h-[600px] flex justify-center content-center'}>
       <div

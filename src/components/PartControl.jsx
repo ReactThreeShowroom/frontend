@@ -8,9 +8,10 @@ const PartControl = (props) => {
     setters: { setSelection, setParts, setInitialParts, setNotes }
   } = props
   const part = parts[partName]
+  console.log(part)
   const { name, color, shininess, partColor } = part
   const [colorSeries, setColorSeries] = useState(null)
-
+  console.log(colors)
   const colorMapCB = (_color) => {
     const color = colors[_color]
     return (
@@ -30,7 +31,7 @@ const PartControl = (props) => {
   return (
     <div
       className={
-        'flex flex-col justify-between items-center w-[325px] h-[275px] m-1 p-1 border-2 border-main-orange rounded-md'
+        'flex flex-col justify-between items-center w-[325px] h-[275px] m-1 mt-2 p-1 border-2 border-main-orange rounded-md'
       }>
       <h3 className={'font-bold'}>{name.split('.').join(' ')}</h3>
       <legend htmlFor={'shininess' + name} className={'flex flex-col text-center'}>

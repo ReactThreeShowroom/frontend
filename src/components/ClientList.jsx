@@ -10,7 +10,7 @@ const ClientList = ({ clients }) => {
   const clientMapCB = (client) => {
     const { id, name, email, phone } = client
     const props = {
-      to: `/client/${id}`,
+      to: `/c/${id}`,
       className: 'flex flex-col w-full'
     }
     const textContainer =
