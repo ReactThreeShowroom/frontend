@@ -13,7 +13,7 @@ const SingleClient = () => {
     if (!client.id) navigate('/')
   }, [])
 
-  console.log(navigation)
+  // console.log(navigation)
 
   const clientStatus = client.status === 'active'
 
