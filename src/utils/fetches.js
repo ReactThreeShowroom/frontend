@@ -1,7 +1,7 @@
 import { redirect } from 'react-router'
 
-export const BASE_URL = 'https://api-3frl.onrender.com'
-// export const BASE_URL = 'http://localhost:3000'
+// export const BASE_URL = 'https://api-3frl.onrender.com'
+export const BASE_URL = 'http://localhost:3000'
 
 export const fetchUserIfToken = async (setter, token) => {
   try {
@@ -293,6 +293,11 @@ export const fetchColorLoader = async () => {
   }
 }
 
+export const fetchFavoriteLoader = async (favId) => {
+  const response = await fetch(`${BASE_URL}/favorite/fav?type=single&id=${favId}`)
+  const fav = await response.json()
+  return fav
+}
 // export const fetchFavoritesLoader = async (clientId) => {
 //   const response = await fetch(`${BASE_URL}/client/${clientId}`, {
 //     headers: { 'Content-Type': 'application/json' }

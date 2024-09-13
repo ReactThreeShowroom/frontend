@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useState } from 'react'
-import { Outlet, useNavigate, useParams, useOutletContext, useLoaderData } from 'react-router'
+import { Outlet, useParams, useLoaderData } from 'react-router'
 import ShowroomControls from '../components/ShowroomControls'
 import FirearmSelector from '../components/FirearmSelector'
 import { useSearchParams } from 'react-router-dom'
@@ -7,20 +7,7 @@ import { useSearchParams } from 'react-router-dom'
 const ApplicatorShowroom = (props) => {
   const { colors, client } = useLoaderData()
   // console.log(client)
-  const { modelId } = useParams()
-  let navigate = useNavigate()
-
-  const outletState = useOutletContext()
-  const {
-    state: { user }
-  } = outletState
-
-  useEffect(() => {
-    if (!user.id || !client.id) {
-      navigate('/')
-    }
-  }, [user])
-
+  const { modelId, clientId } = useParams()
   const [rawSearch, setRawSearch] = useSearchParams()
   const search = decodeURI(rawSearch)
     .split('&')
@@ -49,8 +36,10 @@ const ApplicatorShowroom = (props) => {
       <select
         onChange={(e) => {
           setSelection({ ...selection, favorite: e.target.value })
-          setRawSearch(encodeURI({ f: e.target.value }))
-        }}>
+          console.log(e.target.value)
+          setRawSearch({ f: e.target.value })
+        }}
+        defaultValue={selection.favorite}>
         <option value={{ id: '', name: '' }}>--</option>
         {!!client.favorites.length &&
           client.favorites.map((fav) => {

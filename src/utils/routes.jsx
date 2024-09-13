@@ -1,8 +1,10 @@
+import { redirect } from 'react-router'
 import App from '../App'
 import ApplicatorShowroom from '../components/ApplicatorShowroom'
 import ShowroomCanvas from '../components/ShowroomCanvas'
 import SingleSubAdmin from '../components/SingleSubAdmin'
 import SingleUserAdmin from '../components/SingleUserAdmin'
+import ClientShowroom from '../components/ClientShowroom'
 import {
   Account,
   Admin,
@@ -16,7 +18,7 @@ import {
 import {
   fetchClientLoader,
   fetchColorLoader,
-  // fetchFavoritesLoader,
+  fetchFavoriteLoader,
   fetchPendingSubs,
   fetchUserForAdminLoader,
   fetchUserLoader,
@@ -95,12 +97,27 @@ const rootChildren = [
         loader: async ({ request, params }) => {
           const { clientId } = params
           const response = {}
+          response.user = await (await fetchUserLoader()).json()
           response.colors = await fetchColorLoader()
           response.client = await (await fetchClientLoader({ params })).json()
-          // console.log('In loader, response', response)
+          console.log('In loader, response', response.user, response.client)
+          if (!response.user.id || !response.client.id) return redirect('/')
           return response
         },
         children: [{ path: 'm/:modelId', element: <ShowroomCanvas /> }]
+      },
+      {
+        path: 'f/:favId',
+        element: <ClientShowroom />,
+        loader: async ({ request, params }) => {
+          const { favId } = params
+          const clientLoaderObj = { params: { clientId: response.favorite.clientId } }
+          const response = {}
+          response.colors = await fetchColorLoader()
+          response.favorite = await fetchFavoriteLoader(favId)
+          response.client = await (await fetchClientLoader(clientLoaderObj)).json()
+          return response
+        }
       }
     ]
   },
