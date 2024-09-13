@@ -7,7 +7,14 @@ const ShowroomControls = (props) => {
     setters: { setSelection, setParts, setInitialParts, setNotes }
   } = props
 
-  // button onCLick
+  // button onCLick sets favorite
+  // save all rgb and shininess of parts (rgb: "r,g,b", shininess: "0"-"255")
+  // save notes to favorite record directly
+  // color and shininess goes on pieceFavorite record
+
+  // use parts, notes, selection.model, selection.favorite for data
+
+  // navigate on save to "refresh" page? setSearchParams?
   return (
     <div className={'flex flex-col justify-center items-center'}>
       <button
