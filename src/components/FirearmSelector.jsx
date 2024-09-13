@@ -1,6 +1,7 @@
 import { useLoader } from '@react-three/fiber'
 import { useCallback } from 'react'
 import { useNavigate } from 'react-router'
+import { useSearchParams } from 'react-router-dom'
 import { MTLLoader, OBJLoader } from 'three/examples/jsm/Addons.js'
 
 const FirearmSelector = ({ selection, setSelection }) => {
@@ -14,6 +15,16 @@ const FirearmSelector = ({ selection, setSelection }) => {
         : useLoader.clear(OBJLoader, model)
     })
   })
+
+  const [rawSearch, setRawSearch] = useSearchParams()
+
+  const search = decodeURI(rawSearch)
+    .split('&')
+    .reduce((terms, q) => {
+      let [key, val] = q.split('=')
+      return key.length ? ((terms[key] = val), terms) : terms
+    }, {})
+  let favoritePath = search.f ? '?f=' + encodeURI(search.f) : ''
 
   return (
     <div
@@ -34,7 +45,7 @@ const FirearmSelector = ({ selection, setSelection }) => {
             onChange={(e) => {
               clearModels(previousModels)
               setSelection({ ...selection, model: e.target.value, previousModels: [] })
-              navigate('./model/AR15')
+              navigate(`./m/AR15${favoritePath}`)
             }}
           />
         </label>
@@ -48,7 +59,7 @@ const FirearmSelector = ({ selection, setSelection }) => {
             onChange={(e) => {
               clearModels(previousModels)
               setSelection({ ...selection, model: e.target.value, previousModels: [] })
-              navigate('./model/Remington870')
+              navigate(`./m/Remington870${favoritePath}`)
             }}
           />
         </label>
@@ -62,7 +73,7 @@ const FirearmSelector = ({ selection, setSelection }) => {
             onChange={(e) => {
               clearModels(previousModels)
               setSelection({ ...selection, model: e.target.value, previousModels: [] })
-              navigate('./model/Glock19')
+              navigate(`./m/Glock19${favoritePath}`)
             }}
           />
         </label>

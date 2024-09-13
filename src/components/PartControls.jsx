@@ -20,13 +20,40 @@ const PartControls = (props) => {
     return newPart
   }
 
-  const partControlList = Object.keys(parts).map((partName) => {
-    // console.log(parts[partName])
-    return <PartControl key={'keyFor-' + partName} {...{ ...props, partName, setColorShininess }} />
-  })
+  // const partControlList = Object.keys(parts).map((partName) => {
+  //   // console.log(parts[partName])
+  //   return (
+  //     <option key={'keyFor-' + partName} value={partName}>
+  //       {partName.split('.').join(' ')}
+  //     </option>
+  //   )
+  // })
+
+  // console.log(parts)
   return (
-    <div className={'flex flex-row flex-wrap justify-center items-center w-full'}>
-      {partControlList}
+    <div className={'flex flex-col flex-wrap justify-center items-center w-full'}>
+      <label htmlFor="partSelection">
+        Part Selection:{' '}
+        <select
+          name="partSelection"
+          className={'font-normal border-[1px] rounded-md border-main-orange'}
+          onChange={(e) => {
+            setSelection({ ...selection, part: e.target.value })
+          }}>
+          <option value="">--</option>
+          {Object.keys(parts).map((partName) => {
+            // console.log(parts[partName])
+            return (
+              <option key={'keyFor-' + partName} value={partName}>
+                {partName.split('.').join(' ')}
+              </option>
+            )
+          })}
+        </select>
+      </label>
+      {!!selection.part && (
+        <PartControl {...{ ...props, partName: selection.part, setColorShininess }} />
+      )}
     </div>
   )
 }

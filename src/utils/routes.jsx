@@ -1,4 +1,5 @@
 import App from '../App'
+import ApplicatorShowroom from '../components/ApplicatorShowroom'
 import ShowroomCanvas from '../components/ShowroomCanvas'
 import SingleSubAdmin from '../components/SingleSubAdmin'
 import SingleUserAdmin from '../components/SingleUserAdmin'
@@ -15,6 +16,7 @@ import {
 import {
   fetchClientLoader,
   fetchColorLoader,
+  // fetchFavoritesLoader,
   fetchPendingSubs,
   fetchUserForAdminLoader,
   fetchUserLoader,
@@ -27,7 +29,7 @@ const rootChildren = [
   { index: true, element: <Home /> },
   { path: '/account', element: <Account /> },
   {
-    path: '/client/:clientId',
+    path: '/c/:clientId',
     element: <SingleClient />,
     loader: fetchClientLoader,
     action: updateClientAction
@@ -86,10 +88,21 @@ const rootChildren = [
   {
     path: '/showroom',
     element: <Showroom />,
-    loader: async ({}) => {
-      return fetchColorLoader()
-    },
-    children: [{ path: 'model/:modelId', element: <ShowroomCanvas /> }]
+    children: [
+      {
+        path: 'c/:clientId',
+        element: <ApplicatorShowroom />,
+        loader: async ({ request, params }) => {
+          const { clientId } = params
+          const response = {}
+          response.colors = await fetchColorLoader()
+          response.client = await (await fetchClientLoader({ params })).json()
+          // console.log('In loader, response', response)
+          return response
+        },
+        children: [{ path: 'm/:modelId', element: <ShowroomCanvas /> }]
+      }
+    ]
   },
   { path: '/signin', element: <SignIn /> },
   { path: '/signup', element: <SignUp /> }
