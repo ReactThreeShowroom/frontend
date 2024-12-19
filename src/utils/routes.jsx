@@ -1,8 +1,10 @@
+import { redirect } from 'react-router'
 import App from '../App'
 import ApplicatorShowroom from '../components/ApplicatorShowroom'
 import ShowroomCanvas from '../components/ShowroomCanvas'
 import SingleSubAdmin from '../components/SingleSubAdmin'
 import SingleUserAdmin from '../components/SingleUserAdmin'
+import ClientShowroom from '../components/ClientShowroom'
 import {
   Account,
   Admin,
@@ -16,14 +18,17 @@ import {
 import {
   fetchClientLoader,
   fetchColorLoader,
-  // fetchFavoritesLoader,
+  fetchFavoriteLoader,
+  fetchModelsLoader,
   fetchPendingSubs,
   fetchUserForAdminLoader,
   fetchUserLoader,
   getOneUserAdmin,
   updateClientAction,
+  updateFavoriteAction,
   updateSubAction
 } from './fetches'
+import RequestNewSubForm from '../components/RequestNewSubForm'
 
 const rootChildren = [
   { index: true, element: <Home /> },
@@ -95,12 +100,70 @@ const rootChildren = [
         loader: async ({ request, params }) => {
           const { clientId } = params
           const response = {}
+          response.user = await (await fetchUserLoader()).json()
           response.colors = await fetchColorLoader()
           response.client = await (await fetchClientLoader({ params })).json()
-          // console.log('In loader, response', response)
+          response.models = await fetchModelsLoader()
+          if (!response.user.id || !response.client.id) return redirect('/')
           return response
         },
-        children: [{ path: 'm/:modelId', element: <ShowroomCanvas /> }]
+        action: async ({ request, params }) => {
+          const formData = await request.formData()
+          const name = formData.get('favName')
+          const id = formData.get('favId')
+          const modelPath = formData.get('modelPath')
+
+          // update favorite using favName in the favoriteData
+          // fetchBody: JSON.stringify({ favoriteId: id, favoriteData: { name } })
+          const newFav = await updateFavoriteAction(id, { name })
+          console.log('newFav in action', newFav)
+          return redirect(`/showroom/c/${params.clientId}/m/${modelPath}?f=${id}`)
+        },
+        children: [
+          {
+            path: 'm/:modelPath',
+            element: <ShowroomCanvas />,
+            loader: async ({ request, params }) => {
+              if (!params.modelPath) return redirect('/')
+              return null
+            },
+            action: async ({ request, params }) => {
+              const _formData = await request.formData()
+              let formData = {}
+              let pieces = []
+              for (const pair of _formData.entries()) {
+                pair[0].startsWith('data-')
+                  ? pieces.push(JSON.parse(pair[1]))
+                  : (formData[pair[0]] = pair[1])
+              }
+              const currentFavorite = await fetchFavoriteLoader(formData.favId)
+              const favoriteData = structuredClone(currentFavorite)
+              if (currentFavorite.notes !== formData.notes) favoriteData.notes = formData.notes
+              if (currentFavorite.modelId !== formData.modelId) {
+                favoriteData.modelId = formData.modelId
+              }
+              favoriteData.pieceFavorite = [...pieces]
+              await updateFavoriteAction(formData.favId, favoriteData)
+              const newFav = await fetchFavoriteLoader(formData.favId)
+              const response = { newFav }
+              return response
+            }
+          }
+        ]
+      },
+      {
+        path: 'f/:favId',
+        element: <ClientShowroom />,
+        loader: async ({ request, params }) => {
+          const { favId } = params
+          const response = {}
+          response.colors = await fetchColorLoader()
+          response.favorite = await fetchFavoriteLoader(favId)
+          if (!response.favorite.id) return redirect('/')
+          const clientLoaderObj = { params: { clientId: response.favorite.clientId } }
+          response.client = await (await fetchClientLoader(clientLoaderObj)).json()
+          return response
+        }
       }
     ]
   },

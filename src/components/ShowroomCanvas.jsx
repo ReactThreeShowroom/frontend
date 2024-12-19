@@ -5,9 +5,10 @@ import { useLocation, useOutletContext, useParams } from 'react-router'
 import { useSearchParams } from 'react-router-dom'
 import { MTLLoader, OBJLoader } from 'three/examples/jsm/Addons.js'
 import { getPathSearchHash } from '../utils/locationHelpers'
+import ShowroomControls from './ShowroomControls'
 
 const ShowroomCanvas = () => {
-  let { modelId } = useParams()
+  let { modelPath } = useParams()
   let q = useSearchParams()
   let location = useLocation()
   let [path, search, hash] = getPathSearchHash(location)
@@ -19,8 +20,8 @@ const ShowroomCanvas = () => {
   const { setSelection, setParts, setInitialParts } = setters
   // console.log('showroomCanvas', outletState)
 
-  let mtlURL = `/models/1-${modelId}.mtl`
-  let objURL = `/models/1-${modelId}.obj`
+  let mtlURL = `/models/1-${modelPath}.mtl`
+  let objURL = `/models/1-${modelPath}.obj`
 
   const createPartList = useCallback((materials) => {
     const newList = {}
@@ -70,12 +71,12 @@ const ShowroomCanvas = () => {
     // console.log(selection.previousModels, newModels)
     setParts(createPartList(materials.materials))
     setInitialParts(
-      !initialParts.name || initialParts.name !== modelId
-        ? { ...createPartList(materials.materials), name: modelId }
+      !initialParts.name || initialParts.name !== modelPath
+        ? { ...createPartList(materials.materials), name: modelPath }
         : initialParts
     )
     setSelection({ ...selection, previousModels: [...selection.previousModels, mtlURL, objURL] })
-  }, [selection.item, modelId])
+  }, [selection.item, modelPath])
 
   useEffect(() => {
     for (const part in parts) {
@@ -91,20 +92,23 @@ const ShowroomCanvas = () => {
   }
 
   return (
-    <div className={'h-[400px] md:h-[600px] flex justify-center content-center'}>
-      <div
-        className={'w-3/4 flex justify-center border-[2px] rounded-md border-main-orange'}
-        onMouseEnter={changeScroll}
-        onMouseLeave={changeScroll}>
-        <Canvas>
-          <ambientLight intensity={Math.PI / 2} />
-          <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-          <Suspense>
-            <primitive object={obj} scale={1} />
-          </Suspense>
-          <OrbitControls />
-        </Canvas>
+    <div className={'min-h-[550px]'}>
+      <div className={'h-[400px] md:h-[600px] flex flex-col justify-center py-2 px-4'}>
+        <div
+          className={'w-full md:w-3/4 h-full border-[2px] rounded-md border-main-orange'}
+          onMouseEnter={changeScroll}
+          onMouseLeave={changeScroll}>
+          <Canvas>
+            <ambientLight intensity={Math.PI / 2} />
+            <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
+            <Suspense>
+              <primitive object={obj} scale={1} />
+            </Suspense>
+            <OrbitControls />
+          </Canvas>
+        </div>
       </div>
+      <ShowroomControls {...{ state, setters }} />
     </div>
   )
 }
