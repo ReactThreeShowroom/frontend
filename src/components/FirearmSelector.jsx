@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router'
 import { useSearchParams } from 'react-router-dom'
 import { MTLLoader, OBJLoader } from 'three/examples/jsm/Addons.js'
 
-const FirearmSelector = ({ selection, setSelection }) => {
+const FirearmSelector = ({ selection, setSelection, models }) => {
   const { previousModels } = selection
   const navigate = useNavigate()
 
@@ -26,10 +26,22 @@ const FirearmSelector = ({ selection, setSelection }) => {
     }, {})
   let favoritePath = search.f ? '?f=' + encodeURI(search.f) : ''
 
+  const handleChangeFirearm = useCallback((e) => {
+    clearModels(previousModels)
+    setSelection({
+      ...selection,
+      part: '',
+      model: e.target.value,
+      modelId: models[e.target.value].id,
+      previousModels: []
+    })
+    navigate(`./m/${models[e.target.value].path}${favoritePath}`)
+  })
+
   return (
     <div
       className={
-        'flex flex-col justify-center w-[calc(100%-8px)] items-center border-[2px] rounded-md border-main-orange'
+        'flex flex-col justify-center w-[calc(100%-8px)] items-center m-1 border-[2px] rounded-md border-main-orange'
       }>
       <legend htmlFor="firearmType" className="font-bold">
         Firearm Type:{' '}
@@ -42,11 +54,7 @@ const FirearmSelector = ({ selection, setSelection }) => {
             name="Rifle"
             value="AR15"
             checked={selection.model === 'AR15'}
-            onChange={(e) => {
-              clearModels(previousModels)
-              setSelection({ ...selection, model: e.target.value, previousModels: [] })
-              navigate(`./m/AR15${favoritePath}`)
-            }}
+            onChange={handleChangeFirearm}
           />
         </label>
         <label className="mx-1" htmlFor="Shotgun">
@@ -56,11 +64,7 @@ const FirearmSelector = ({ selection, setSelection }) => {
             name="Shotgun"
             value="Remington870"
             checked={selection.model === 'Remington870'}
-            onChange={(e) => {
-              clearModels(previousModels)
-              setSelection({ ...selection, model: e.target.value, previousModels: [] })
-              navigate(`./m/Remington870${favoritePath}`)
-            }}
+            onChange={handleChangeFirearm}
           />
         </label>
         <label className="mx-1" htmlFor="Pistol">
@@ -70,11 +74,7 @@ const FirearmSelector = ({ selection, setSelection }) => {
             name="Pistol"
             value="Glock19"
             checked={selection.model === 'Glock19'}
-            onChange={(e) => {
-              clearModels(previousModels)
-              setSelection({ ...selection, model: e.target.value, previousModels: [] })
-              navigate(`./m/Glock19${favoritePath}`)
-            }}
+            onChange={handleChangeFirearm}
           />
         </label>
       </fieldset>

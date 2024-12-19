@@ -1,4 +1,3 @@
-import { useCallback } from 'react'
 import PartControl from './PartControl'
 
 const PartControls = (props) => {
@@ -14,7 +13,7 @@ const PartControls = (props) => {
     } else if (partColor) {
       const colorInfo = colors[partColor]
       const [r, g, b] = colorInfo.rgb.split(',')
-      newPart.color = { r, g, b, isColor: true }
+      newPart.color = { name: partColor, r, g, b, isColor: true }
     }
     newPart.shininess = shininess ? shininess : newPart.shininess
     return newPart
@@ -51,9 +50,7 @@ const PartControls = (props) => {
           })}
         </select>
       </label>
-      {!!selection.part && (
-        <PartControl {...{ ...props, partName: selection.part, setColorShininess }} />
-      )}
+      {!!selection.part && <PartControl {...{ ...props, setColorShininess }} />}
     </div>
   )
 }

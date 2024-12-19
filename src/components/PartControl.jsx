@@ -2,13 +2,14 @@ import { useState } from 'react'
 
 const PartControl = (props) => {
   const {
-    partName,
     setColorShininess,
     state: { selection, parts, initialParts, colors, notes },
     setters: { setSelection, setParts, setInitialParts, setNotes }
   } = props
+
+  const partName = selection.part
   const part = parts[partName]
-  // console.log(part)
+
   const { name, color, shininess, partColor } = part
   const [colorSeries, setColorSeries] = useState(null)
   // console.log(colors)

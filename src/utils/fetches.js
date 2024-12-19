@@ -293,6 +293,28 @@ export const fetchColorLoader = async () => {
   }
 }
 
+export const fetchModelsLoader = async () => {
+  const response = await fetch(`${BASE_URL}/favorite/model`, {
+    headers: { 'Content-Type': 'application/json' }
+  })
+  if (response.ok) {
+    const _models = await response.json()
+    const models = _models.reduce((models, model) => {
+      // console.log(models, model)
+      models[model.path] = model
+      return models
+    }, {})
+    // console.log('In Loader', models)
+    return models
+  } else {
+    const error = { message: 'something went wrong' }
+    return new Response(JSON.stringify(error), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json; utf-8' }
+    })
+  }
+}
+
 export const fetchFavoriteLoader = async (favId) => {
   const response = await fetch(`${BASE_URL}/favorite/fav?type=single&id=${favId}`)
   const fav = await response.json()
@@ -313,3 +335,19 @@ export const fetchFavoriteLoader = async (favId) => {
 //     })
 //   }
 // }
+
+export const updateFavoriteAction = async (favId, favoriteData) => {
+  try {
+    const response = await fetch(`${BASE_URL}/favorite/fav/${favId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(favoriteData)
+    })
+    const fav = await response.json()
+    return fav
+  } catch (err) {
+    console.log(err)
+  }
+}
