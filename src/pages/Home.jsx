@@ -5,8 +5,8 @@ const Home = () => {
     state: { user, token }
   } = useOutletContext()
   return (
-    <section>
-      <h2>Welcome to Customize Your Coatings!</h2>
+    <section className={'flex flex-col justify-center items-center'}>
+      <h2>Welcome to Kote Master!</h2>
       {user.id ? (
         <LoggedInHome user={user} token={token} />
       ) : (

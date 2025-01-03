@@ -50,11 +50,11 @@ function App() {
   const outletState = { state: { user, token }, setters: { setUser, setToken } }
   const navState = { location: [path, search, hash], user, setUser, token, setToken }
   return (
-    <>
+    <main className={'flex flex-col justify-between h-screen'}>
       <NavBar navState={navState} />
       <Outlet context={outletState} />
       <Footer />
-    </>
+    </main>
   )
 }
 

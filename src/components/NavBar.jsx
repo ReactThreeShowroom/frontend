@@ -27,10 +27,10 @@ const NavBar = ({ navState: { location, token, setToken, user, setUser } }) => {
   }, [user, pathname])
 
   return (
-    <header id="headContainer" className="flex-col">
+    <header id="headContainer" className="flex-col m-0 p-0">
       <nav id="navContainer" className="flex justify-around">
         <h1 id="webName" className="font-sans font-semibold text-lg">
-          Customize Your Coating
+          Kote Master
         </h1>
         {linksMap}
         {!!user.id && (
@@ -46,7 +46,7 @@ const NavBar = ({ navState: { location, token, setToken, user, setUser } }) => {
           </span>
         )}
       </nav>
-      {user && (
+      {user.id && (
         <div id="infoContainer">
           <span id="currentUser">Welcome back {user.name}!</span>
         </div>

@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 
 const LoggedOutHome = () => {
   return (
-    <article>
-      <section className={'flex flex-col text-center'}>
+    <article className={'w-full'}>
+      <section className={'flex flex-col items-center text-center'}>
         <p>
           <Link className={'text-main-orange'} to={'/signin'}>
             Log in
@@ -14,13 +14,53 @@ const LoggedOutHome = () => {
           </Link>{' '}
           to access the Cerakote® Showroom!
         </p>
-        <p>
+        <div className="w-1/2 my-4 border-b-2 border-main-orange"></div>
+      </section>
+      <section className={'flex flex-col items-center text-center'}>
+        {/* <p>
           Are you a registered Applicator's client?{' '}
           <Link className={'text-main-orange'} to={'/showroom'}>
             click here
           </Link>{' '}
           to access your saved color choices!
-        </p>
+        </p> */}
+        <div className={'flex flex-col w-1/2 my-2 text-center'}>
+          <p>
+            Want to know what your firearms will look like with Cerakote® products before your local
+            Applicator applies them?
+          </p>
+          <p>
+            Are you an Applicator and want to boost sales by showing off what your client's firearms
+            will look like?
+          </p>
+          <p>Look no further.</p>
+          <p>
+            Below is a finished product side-by-side with an example 3D model. Use the dropdown to
+            see what Cerakote® product applies to each part of the firearm.
+          </p>
+        </div>
+        <div className="w-1/2 my-4 border-b-2 border-main-orange"></div>
+      </section>
+      <section className={'flex flex-col items-center text-center'}>
+        <div
+          id={'exampleContainer'}
+          className={'flex flex-col md:flex-row border-2 border-solid border-blue-500 w-1/2'}>
+          <div
+            id={'exampleImage'}
+            className={'h-[300px] w-1/2 border-red-500 border-solid border-2'}>
+            Image goes here
+          </div>
+          <div
+            id={'exampleCanvas'}
+            className={'h-[300px] w-1/2 border-red-500 border-solid border-2'}>
+            3D Canvas goes here
+          </div>
+        </div>
+        <div
+          id={'examplePartsList'}
+          className={'flex flex-col h-[250px] w-1/2 border-green-500 border-solid border-2'}>
+          parts list dropdown and info here
+        </div>
       </section>
     </article>
   )

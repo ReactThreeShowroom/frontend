@@ -19,44 +19,44 @@ const ClientShowroom = () => {
   let mtlURL = `/models/1-${favorite.model.path}.mtl`
   let objURL = `/models/1-${favorite.model.path}.obj`
 
-  const createPartList = useCallback((materials) => {
-    const newList = {}
-    for (const key in materials) {
-      let { name, color, shininess } = materials[key]
-      color = {
-        r: String(Math.floor(color.r * 255)),
-        g: String(Math.floor(color.g * 255)),
-        b: String(Math.floor(color.b * 255)),
-        isColor: true
-      }
-      newList[key] = { name, color, shininess }
-    }
-    return newList
-  })
+  // const createPartList = useCallback((materials) => {
+  //   const newList = {}
+  //   for (const key in materials) {
+  //     let { name, color, shininess } = materials[key]
+  //     color = {
+  //       r: String(Math.floor(color.r * 255)),
+  //       g: String(Math.floor(color.g * 255)),
+  //       b: String(Math.floor(color.b * 255)),
+  //       isColor: true
+  //     }
+  //     newList[key] = { name, color, shininess }
+  //   }
+  //   return newList
+  // })
 
   const materials = useLoader(MTLLoader, mtlURL)
 
-  const loadColorsShininess = useCallback(
-    (part, materials) => {
-      // let r, g, b
-      let {
-        name,
-        color: { r, g, b },
-        shininess
-      } = part
-      // if (part.rgb) [r, g, b] = part.rgb.split(',')
-      // else [r, g, b] = [part.color.r, part.color.g, part.color.b]
+  // const loadColorsShininess = useCallback(
+  //   (part, materials) => {
+  //     // let r, g, b
+  //     let {
+  //       name,
+  //       color: { r, g, b },
+  //       shininess
+  //     } = part
+  //     // if (part.rgb) [r, g, b] = part.rgb.split(',')
+  //     // else [r, g, b] = [part.color.r, part.color.g, part.color.b]
 
-      materials.materials[name].color = {
-        r: Number(r) / 255,
-        g: Number(g) / 255,
-        b: Number(b) / 255,
-        isColor: true
-      }
-      materials.materials[name].shininess = shininess
-    },
-    [selection]
-  )
+  //     materials.materials[name].color = {
+  //       r: Number(r) / 255,
+  //       g: Number(g) / 255,
+  //       b: Number(b) / 255,
+  //       isColor: true
+  //     }
+  //     materials.materials[name].shininess = shininess
+  //   },
+  //   [selection]
+  // )
 
   // let currentParts = createPartList(materials.materials)
   // for (const part in currentParts) {

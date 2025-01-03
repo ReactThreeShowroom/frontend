@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { Outlet, useNavigate, useParams, useOutletContext, useLoaderData } from 'react-router'
+import { Outlet, useOutletContext } from 'react-router'
 
 const Showroom = (props) => {
   const outletState = useOutletContext()
