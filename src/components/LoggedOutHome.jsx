@@ -1,8 +1,17 @@
 import { Link } from 'react-router-dom'
+import GlockDemo from './GlockDemo'
 
 const LoggedOutHome = () => {
   return (
     <article className={'w-full'}>
+      <section className="relative">
+        <img className="w-full h-[calc(100vh-28px)] border-teal-500 border-2">
+          {/*
+        hero image here
+      */}
+        </img>
+        <span className="absolute w-[100%] top-1/2 text-center">Hero Image here</span>
+      </section>
       <section className={'flex flex-col items-center text-center'}>
         <p>
           <Link className={'text-main-orange'} to={'/signin'}>
@@ -52,8 +61,9 @@ const LoggedOutHome = () => {
           </div>
           <div
             id={'exampleCanvas'}
-            className={'h-[300px] w-1/2 border-red-500 border-solid border-2'}>
-            3D Canvas goes here
+            className={'h-[300px] w-1/2 border-red-500 border-solid border-2 relative'}>
+            {/* <span className="absolute w-[100%] top-1/3 text-center block">3D Canvas goes here</span> */}
+            <GlockDemo modelPath="Glock19" />
           </div>
         </div>
         <div
