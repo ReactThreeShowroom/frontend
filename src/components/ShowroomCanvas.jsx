@@ -43,6 +43,19 @@ const ShowroomCanvas = () => {
     }, 
   }, {collapsed: true});
 
+  const {toneMapping} = useControls({
+    toneMapping: {
+      value: 'AcesFilmicToneMapping',
+      options: [
+        'LinearToneMapping', 
+        'ReinhardToneMapping', 
+        'Uncharted2ToneMapping', 
+        "NoToneMapping", 
+        "CineonToneMapping",
+      ],
+    },
+  })
+
   let { modelPath } = useParams()
   let q = useSearchParams()
   let location = useLocation()
@@ -146,7 +159,7 @@ const ShowroomCanvas = () => {
           className={'w-full md:w-3/4 h-full border-[2px] rounded-md border-main-orange'}
           onMouseEnter={changeScroll}
           onMouseLeave={changeScroll}>
-          <Canvas>
+          <Canvas gl={{toneMapping: THREE[toneMapping]}}>
             <ambientLight intensity={ambientLightIntensity} />
             <pointLight 
               position={[
