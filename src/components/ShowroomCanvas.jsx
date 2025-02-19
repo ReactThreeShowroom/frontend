@@ -19,6 +19,7 @@ const ShowroomCanvas = () => {
   } = useControls("lighting", {
     pointLight: folder({
       pointLightIntensity: {
+        // value: 2,
         value: Math.PI,
         min: 0,
         max: 10,
@@ -26,7 +27,8 @@ const ShowroomCanvas = () => {
         step: 0.1,
       },
       pointLightPosition: {
-        value: {x:-10, y:-10, z:-10},
+        value: {x: 10, y: 10, z: 10},
+        // value: {x:-10, y:-10, z:-10},
         label: 'Point Light Position',
         min: -20,
         max: 20,
@@ -35,7 +37,8 @@ const ShowroomCanvas = () => {
 
     }),
     ambientLightIntensity: { 
-      value: Math.PI / 2, 
+      value: 1.5, 
+      // value: Math.PI / 2, 
       min: 0,
       max: 2, 
       label: 'Ambient Light Intensity', 
@@ -45,14 +48,21 @@ const ShowroomCanvas = () => {
 
   const {toneMapping} = useControls({
     toneMapping: {
-      value: 'AcesFilmicToneMapping',
+      value: 'ACESFilmicToneMapping',
       options: [
         'LinearToneMapping', 
-        'ReinhardToneMapping', 
-        'Uncharted2ToneMapping', 
+        'ReinhardToneMapping',  
         "NoToneMapping", 
         "CineonToneMapping",
       ],
+    },
+  })
+
+  const { color } = useControls({
+    color: {
+      value: '#ff0000',
+      label: 'Color',
+      format: 'color',
     },
   })
 
@@ -86,8 +96,6 @@ const ShowroomCanvas = () => {
         color.g * 255, 
         color.b * 255
       )
-      // console.log(name)
-      // console.log(color.getHexString())
       newList[key] = { name, color, shininess }
     }
     return newList
@@ -112,6 +120,7 @@ const ShowroomCanvas = () => {
         g / 255, 
         b / 255
       )
+      console.log(name, materials.materials[name].color.getHexString());
       materials.materials[name].shininess = shininess
     },
     [selection]
@@ -141,7 +150,6 @@ const ShowroomCanvas = () => {
   useEffect(() => {
     for (const part in parts) {
       loadColorsShininess(parts[part], materials)
-
     }
   }, [parts])
 
