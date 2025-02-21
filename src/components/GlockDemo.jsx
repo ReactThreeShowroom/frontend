@@ -1,6 +1,6 @@
 import { OrbitControls } from '@react-three/drei'
 import { Canvas, useLoader } from '@react-three/fiber'
-import { Suspense, useRef } from 'react'
+import { Suspense } from 'react'
 import { MTLLoader, OBJLoader } from 'three/examples/jsm/Addons.js'
 
 const GlockDemo = ({ modelPath }) => {

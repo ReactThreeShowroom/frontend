@@ -33,7 +33,7 @@ const ShowroomCanvas = () => {
         b: String(Math.floor(color.b * 255)),
         isColor: true
       }
-      materials[key].toneMapping = false
+      materials[key].toneMapped = false
       newList[key] = { name, color, shininess }
     }
     return newList
