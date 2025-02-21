@@ -1,6 +1,6 @@
 import { OrbitControls } from '@react-three/drei'
 import { Canvas, useLoader } from '@react-three/fiber'
-import { Suspense } from 'react'
+import { Suspense, useRef } from 'react'
 import { MTLLoader, OBJLoader } from 'three/examples/jsm/Addons.js'
 
 const GlockDemo = ({ modelPath }) => {
@@ -12,32 +12,23 @@ const GlockDemo = ({ modelPath }) => {
   //1-Remington870
 
   const materials = useLoader(MTLLoader, mtlURL)
-  for (const key in materials) {
-    // 187
-    // 131
-    // 122
-    let r = String(187 / 255)
-    let g = String(131 / 255)
-    let b = String(122 / 255)
-  }
-  console.log(materials)
+  console.log(materials.materials)
+  let roseGold = { r: `${187 / 255}`, g: `${131 / 255}`, b: `${122 / 255}` }
+  let armorBlack = { r: `${20 / 255}`, g: `${20 / 255}`, b: `${20 / 255}` }
+  for (const key in materials.materials) {
+    // Rose Gold: H-327 187,131,122
+    // Armor Black: H-190 62,58,55
 
-  const createPartList = (materials) => {
-    const newList = {}
-    for (const key in materials) {
-      let { name, color, shininess } = materials[key]
-      color = {
-        r: String(Math.floor(color.r * 255)),
-        g: String(Math.floor(color.g * 255)),
-        b: String(Math.floor(color.b * 255)),
-        isColor: true
-      }
-      newList[key] = { name, color, shininess }
-    }
-    return newList
+    materials.materials[key].toneMapped = false
+    materials.materials[key].color = { ...materials.materials[key].color, ...armorBlack }
+    materials.materials[key].shininess = 20
   }
-
-  const parts = createPartList(materials.materials)
+  if (materials.materials.Grip)
+    materials.materials.Grip.color = { ...materials.materials.Grip.color, ...roseGold }
+  if (materials.materials.Receiver)
+    materials.materials.Receiver.color = { ...materials.materials.Receiver.color, ...roseGold }
+  if (materials.materials.Slide)
+    materials.materials.Slide.color = { ...materials.materials.Slide.color, ...roseGold }
 
   const obj = useLoader(OBJLoader, objURL, (loader) => {
     materials.preload()
@@ -55,10 +46,10 @@ const GlockDemo = ({ modelPath }) => {
   return (
     <div className={'h-full w-full'} onMouseEnter={changeScroll} onMouseLeave={changeScroll}>
       <Canvas>
-        <ambientLight intensity={Math.PI / 2} />
-        <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
+        <ambientLight intensity={3} />
+        <pointLight position={[10, 10, 10]} decay={0} intensity={2} />
         <Suspense>
-          <primitive object={obj} scale={1.5} />
+          <primitive object={obj} scale={2} position={[0, 0, 0]} />
         </Suspense>
         <OrbitControls />
       </Canvas>

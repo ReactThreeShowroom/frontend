@@ -53,12 +53,12 @@ const LoggedOutHome = () => {
       <section className={'flex flex-col items-center text-center'}>
         <div
           id={'exampleContainer'}
-          className={'flex flex-col md:flex-row border-2 border-solid border-blue-500 w-1/2'}>
-          <div
+          className={'flex flex-col md:flex-row border-2 border-solid border-blue-500 w-1/2 '}>
+          <img
             id={'exampleImage'}
-            className={'h-[300px] w-1/2 border-red-500 border-solid border-2'}>
-            Image goes here
-          </div>
+            className={'h-[300px] w-1/2 border-red-500 border-solid border-2'}
+            src={'/images/PinkGlock.jpg'}
+          />
           <div
             id={'exampleCanvas'}
             className={'h-[300px] w-1/2 border-red-500 border-solid border-2 relative'}>

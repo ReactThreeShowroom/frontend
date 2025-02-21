@@ -33,6 +33,7 @@ const ShowroomCanvas = () => {
         b: String(Math.floor(color.b * 255)),
         isColor: true
       }
+      materials[key].toneMapping = false
       newList[key] = { name, color, shininess }
     }
     return newList
@@ -99,8 +100,8 @@ const ShowroomCanvas = () => {
           onMouseEnter={changeScroll}
           onMouseLeave={changeScroll}>
           <Canvas>
-            <ambientLight intensity={Math.PI / 2} />
-            <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
+            <ambientLight intensity={3} />
+            <pointLight position={[10, 10, 10]} decay={0} intensity={Math.PI} />
             <Suspense>
               <primitive object={obj} scale={1} />
             </Suspense>
