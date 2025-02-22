@@ -85,17 +85,13 @@ const ShowroomCanvas = () => {
     const newList = {}
     for (const key in materials) {
       let { name, color, shininess } = materials[key]
-      // color = {
-      //   r: String(Math.floor(color.r * 255)),
-      //   g: String(Math.floor(color.g * 255)),
-      //   b: String(Math.floor(color.b * 255)),
-      //   isColor: true
-      // }
-      color = new THREE.Color(
-        color.r * 255,
-        color.g * 255, 
-        color.b * 255
-      )
+      color = {
+        r: String(Math.floor(color.r * 255)),
+        g: String(Math.floor(color.g * 255)),
+        b: String(Math.floor(color.b * 255)),
+        isColor: true
+      }
+      materials[key].toneMapped = false
       newList[key] = { name, color, shininess }
     }
     return newList
