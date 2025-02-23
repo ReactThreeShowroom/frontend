@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom'
 import GlockDemo from './GlockDemo'
+import { Canvas } from '@react-three/fiber'
 
 const LoggedOutHome = () => {
+
+  const changeScroll = () => {
+    let style = document.body.style.overflow
+    document.body.style.overflow = style === 'hidden' ? 'auto' : 'hidden'
+  }
+
   return (
     <article className={'w-full'}>
       <section className="relative">
@@ -63,7 +70,15 @@ const LoggedOutHome = () => {
             id={'exampleCanvas'}
             className={'h-[300px] w-1/2 border-red-500 border-solid border-2 relative'}>
             {/* <span className="absolute w-[100%] top-1/3 text-center block">3D Canvas goes here</span> */}
-            <GlockDemo modelPath="Glock19" />
+            <div 
+              className={'h-full w-full'} 
+              onMouseEnter={changeScroll} 
+              onMouseLeave={changeScroll}
+            >
+              <Canvas>
+                <GlockDemo modelPath="Glock19" />
+              </Canvas>
+            </div>
           </div>
         </div>
         <div
