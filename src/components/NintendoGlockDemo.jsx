@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Remmington870 = () => {
+const NintendoGlockDemo = () => {
   return (
     <>
       
@@ -8,4 +8,4 @@ const Remmington870 = () => {
   )
 }
 
-export default Remmington870
+export default NintendoGlockDemo

@@ -1,8 +1,7 @@
 import { Center, OrbitControls, useHelper } from '@react-three/drei'
 import { useLoader } from '@react-three/fiber'
-import { Suspense, useRef } from 'react'
+import { Suspense } from 'react'
 import { MTLLoader, OBJLoader } from 'three/examples/jsm/Addons.js'
-import { useControls } from "leva"
 import * as THREE from 'three'
 
 
@@ -48,7 +47,6 @@ const GlockDemo = ({ modelPath }) => {
       <>
         <ambientLight intensity={2.5} />
         <pointLight 
-          ref={pointLight} 
           position={[0, 2.6, 2]} 
           decay={0} 
           intensity={2.2} 

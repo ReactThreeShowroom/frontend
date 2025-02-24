@@ -28,8 +28,8 @@ const LoggedOutHome = () => {
         <div className="w-1/2 my-4 border-b-2 border-main-orange"></div>
       </section>
       <DemoWindow 
-        imgUrl='/images/AR15.jpg' 
-        modelPath='AR15'
+        imgUrl='/images/NintendoGlock.jpg' 
+        modelPath='Glock19'
       />
       <section className={'flex flex-col items-center text-center'}>
         {/* <p>

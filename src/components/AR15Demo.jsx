@@ -1,8 +1,7 @@
-import { Center, OrbitControls, useHelper } from '@react-three/drei'
+import { Center, OrbitControls } from '@react-three/drei'
 import { useLoader } from '@react-three/fiber'
-import { Suspense, useRef } from 'react'
+import { Suspense } from 'react'
 import { MTLLoader, OBJLoader } from 'three/examples/jsm/Addons.js'
-// import { useControls } from "leva"
 import * as THREE from 'three'
 
 const AR15Demo = ({modelPath}) => {
@@ -10,10 +9,11 @@ const AR15Demo = ({modelPath}) => {
   const objURL = `/models/1-${modelPath}.obj`
 
   const materials = useLoader(MTLLoader, mtlURL)
-  // primary color: 
-  // secondary color: 11, 11, 11
+  // primary color: rgb(219, 213, 186)
+  // secondary color: rgb(37, 31, 29)
 
-  const armorBlack = new THREE.Color("#0b0b0b")
+  const armorBlack = new THREE.Color("#251f1d")
+  const khaki = new THREE.Color("#dbd5ba")
 
   for (const key in materials.materials) {
 
@@ -21,8 +21,18 @@ const AR15Demo = ({modelPath}) => {
     materials.materials[key].color = armorBlack
     materials.materials[key].shininess = 20
   }
+
   console.log(materials.materials)
-//   if(materials.materials.)
+  if(materials.materials['Forward.Assist'])
+    materials.materials['Forward.Assist'].color = khaki
+  if(materials.materials['Lower.Receiver'])
+    materials.materials['Lower.Receiver'].color = khaki
+  if(materials.materials['Barrel.Handguard'])
+    materials.materials['Barrel.Handguard'].color = khaki
+  if(materials.materials['Upper.Rail'])
+    materials.materials['Upper.Rail'].color = khaki
+//   if(materials.materials.Buttstock) 
+    // materials.materials.Buttstock.color = khaki
 
   const obj = useLoader(OBJLoader, objURL, (loader) => {
     materials.preload();
@@ -35,12 +45,18 @@ const AR15Demo = ({modelPath}) => {
     <>
       <OrbitControls />
       <ambientLight intensity={2.5} />
-      <pointLight position={[0, 2.6, 2]} decay={0} intensity={2.2} />
+      <pointLight 
+        color={new THREE.Color("#FFFFED")} 
+        position={[0, 2.3, 2]} 
+        decay={0} 
+        intensity={2.2} 
+      />
       <Suspense fallback={null}>
         <Center>
           <primitive 
             object={obj} 
             scale={0.75}
+            rotation-z={-0.09}
           />
         </Center>
       </Suspense>

@@ -1,7 +1,8 @@
 import React from 'react'
-import GlockDemo from './GlockDemo'
 import { Canvas } from '@react-three/fiber'
+import GlockDemo from './GlockDemo'
 import AR15Demo from './AR15Demo'
+import NintendoGlockDemo from './NintendoGlockDemo'
 
 const changeScroll = () => {
     let style = document.body.style.overflow
@@ -13,16 +14,17 @@ const DemoWindow = ({
   imgUrl="/images/PinkGlock.jpg", 
   modelPath="Glock19"
 }) => {
+
   const pickModel = () => {
-    switch(modelPath) {
-        case 'Glock19':
+    switch(imgUrl) {
+        case '/images/PinkGlock.jpg':
             return <GlockDemo modelPath={modelPath} />
-        case 'AR15':
+        case '/images/AR15.jpg':
             return <AR15Demo modelPath={modelPath} />
-        case 'Remington870':
-            return <GlockDemo modelPath={modelPath} />
+        case '/images/NintendoGlock.jpg':
+            return <NintendoGlockDemo modelPath={modelPath} />
         default:
-            return <GlockDemo modelPath={modelPath} />
+            return <GlockDemo modelPath="Glock19" />
     }
   } 
 
