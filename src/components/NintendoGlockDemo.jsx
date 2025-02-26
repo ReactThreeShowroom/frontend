@@ -42,6 +42,7 @@ const NintendoGlockDemo = ({modelPath}) => {
     materials.materials['Mag.Catch'].color = tertiaryColor
   if(materials.materials['Recoil.Spring'])
     materials.materials['Recoil.Spring'].color = tertiaryColor
+  
   if(materials.materials.Slide)
     materials.materials.Slide.color = secondaryColor
 
