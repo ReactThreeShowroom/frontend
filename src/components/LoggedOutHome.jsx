@@ -29,7 +29,6 @@ const LoggedOutHome = () => {
       </section>
       <DemoWindow 
         imgUrl='/images/NintendoGlock.jpg' 
-        modelPath='Glock19'
       />
       <section className={'flex flex-col items-center text-center'}>
         {/* <p>

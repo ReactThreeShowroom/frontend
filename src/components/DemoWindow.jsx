@@ -9,7 +9,6 @@ const changeScroll = () => {
     document.body.style.overflow = style === 'hidden' ? 'auto' : 'hidden'
   }
 
-
 const DemoWindow = ({ 
   imgUrl="/images/PinkGlock.jpg", 
   modelPath="Glock19"
