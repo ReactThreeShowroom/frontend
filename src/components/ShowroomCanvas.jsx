@@ -6,8 +6,66 @@ import { useSearchParams } from 'react-router-dom'
 import { MTLLoader, OBJLoader } from 'three/examples/jsm/Addons.js'
 import { getPathSearchHash } from '../utils/locationHelpers'
 import ShowroomControls from './ShowroomControls'
+import {useControls, folder, Leva} from 'leva';
+import * as THREE from 'three';
 
 const ShowroomCanvas = () => {
+  
+  //debug menu
+  const {
+    pointLightIntensity, 
+    pointLightPosition, 
+    ambientLightIntensity
+  } = useControls("lighting", {
+    pointLight: folder({
+      pointLightIntensity: {
+        // value: 2,
+        value: Math.PI,
+        min: 0,
+        max: 10,
+        label: 'Point Light Intensity',
+        step: 0.1,
+      },
+      pointLightPosition: {
+        value: {x: 10, y: 10, z: 10},
+        // value: {x:-10, y:-10, z:-10},
+        label: 'Point Light Position',
+        min: -20,
+        max: 20,
+        step: 0.5,
+      },
+
+    }),
+    ambientLightIntensity: { 
+      value: 1.5, 
+      // value: Math.PI / 2, 
+      min: 0,
+      max: 2, 
+      label: 'Ambient Light Intensity', 
+      step: 0.1,
+    }, 
+  }, {collapsed: true});
+
+  const {toneMapping} = useControls({
+    toneMapping: {
+      value: 'ACESFilmicToneMapping',
+      options: [
+        'LinearToneMapping', 
+        'ReinhardToneMapping',  
+        "NoToneMapping", 
+        "CineonToneMapping",
+      ],
+    },
+  })
+
+  const { color } = useControls({
+    color: {
+      value: '#ff0000',
+      label: 'Color',
+      format: 'color',
+    },
+  })
+
   let { modelPath } = useParams()
   let q = useSearchParams()
   let location = useLocation()
@@ -33,6 +91,7 @@ const ShowroomCanvas = () => {
         b: String(Math.floor(color.b * 255)),
         isColor: true
       }
+      materials[key].toneMapped = false
       newList[key] = { name, color, shininess }
     }
     return newList
@@ -46,12 +105,18 @@ const ShowroomCanvas = () => {
         shininess
       } = part
 
-      materials.materials[name].color = {
-        r: Number(r) / 255,
-        g: Number(g) / 255,
-        b: Number(b) / 255,
-        isColor: true
-      }
+      // materials.materials[name].color = {
+      //   r: Number(r) / 255,
+      //   g: Number(g) / 255,
+      //   b: Number(b) / 255,
+      //   isColor: true
+      // }
+      materials.materials[name].color = new THREE.Color(
+        r / 255, 
+        g / 255, 
+        b / 255
+      )
+      console.log(name, materials.materials[name].color.getHexString());
       materials.materials[name].shininess = shininess
     },
     [selection]
@@ -98,9 +163,16 @@ const ShowroomCanvas = () => {
           className={'w-full md:w-3/4 h-full border-[2px] rounded-md border-main-orange'}
           onMouseEnter={changeScroll}
           onMouseLeave={changeScroll}>
-          <Canvas>
-            <ambientLight intensity={Math.PI / 2} />
-            <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
+          <Canvas gl={{toneMapping: THREE[toneMapping]}}>
+            <ambientLight intensity={ambientLightIntensity} />
+            <pointLight 
+              position={[
+                pointLightPosition.x, 
+                pointLightPosition.y, 
+                pointLightPosition.z
+              ]} 
+              decay={0} 
+              intensity={pointLightIntensity} />
             <Suspense>
               <primitive object={obj} scale={1} />
             </Suspense>
