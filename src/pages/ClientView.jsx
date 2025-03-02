@@ -6,9 +6,10 @@ import { ClientViewModel } from "../components";
 const ClientView = () => {
   const outletState = useOutletContext();
   return (
-    <div>
+    <div className="h-full w-full">
       <Outlet />
       <Canvas>
+        <color args={["#2fbb00"]} attach="background" />
         <ClientViewModel />
       </Canvas>
     </div>
