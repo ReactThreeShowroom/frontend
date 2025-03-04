@@ -6,8 +6,6 @@ import { MTLLoader, OBJLoader } from "three/examples/jsm/Addons.js";
 import * as THREE from "three";
 
 const ClientViewModel = () => {
-  const gun = useRef();
-
   const {
     model: { path },
     pieceFavorite,
@@ -35,7 +33,7 @@ const ClientViewModel = () => {
       <pointLight position={[0, 2.6, 2]} decay={0} intensity={2.2} />
       <Suspense>
         <Center>
-          <primitive ref={gun} object={model} scale={2} />
+          <primitive object={model} scale={2} />
         </Center>
       </Suspense>
     </>

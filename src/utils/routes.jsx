@@ -176,7 +176,7 @@ const rootChildren = [
       const favId = url.searchParams.get('favId');
       
       if(!favId) return redirect('/')
-        
+      // No error handling in db so had to try  
       try{
       const response = await fetchFavoriteLoader(favId)
 
