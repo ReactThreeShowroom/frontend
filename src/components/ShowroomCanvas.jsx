@@ -1,6 +1,6 @@
 import { OrbitControls } from "@react-three/drei";
 import { Canvas, useLoader } from "@react-three/fiber";
-import { Suspense, useCallback, useEffect } from "react";
+import { Suspense, useCallback, useEffect, useRef } from "react";
 import {
   useLoaderData,
   useLocation,
@@ -25,6 +25,8 @@ const ShowroomCanvas = () => {
   const { setSelection, setParts, setInitialParts } = setters;
   // console.log('showroomCanvas', outletState)
 
+  let gun = useRef(null)
+
   let mtlURL = `/models/1-${modelPath}.mtl`;
   let objURL = `/models/1-${modelPath}.obj`;
 
@@ -48,16 +50,17 @@ const ShowroomCanvas = () => {
     (part, materials) => {
       const {
         name,
-        color: { r, g, b },
+        color: { r, g, b, hex },
         shininess,
-      } = part;
-
-      materials.materials[name].color = new THREE.Color(
-        r / 255,
-        g / 255,
-        b / 255,
-      );
-      materials.materials[name].shininess = shininess;
+      } = part
+      
+      if(hex) {
+        materials.materials[name].color = new THREE.Color(`#${hex}`)
+      } else {
+        materials.materials[name].color.setRGB(r / 255, g / 255, b / 255)
+      }
+      materials.materials[name].toneMapped = false
+      materials.materials[name].shininess = shininess
     },
     [selection],
   );
@@ -67,7 +70,7 @@ const ShowroomCanvas = () => {
 
   const obj = useLoader(OBJLoader, objURL, (loader) => {
     materials.preload();
-    loader.setMaterials(materials);
+    loader.setMaterials(materials)
     // console.log('in loader ' + objURL)
   });
   // loadColorsShininess(itemColor, shininess, materials)
@@ -86,29 +89,25 @@ const ShowroomCanvas = () => {
     });
   }, [selection.item, modelPath]);
 
-  useEffect(() => {
-    for (const part in parts) {
-      loadColorsShininess(parts[part], materials);
+  useEffect(() => {  
+    for (const partName in parts) {
+      loadColorsShininess(parts[partName], materials);
     }
   }, [parts]);
 
   useEffect(() => {
     if (selection.favorite.pieceFavorite) {
-      console.log(selection);
       for (const piece of selection.favorite.pieceFavorite) {
-        let { name, color, shininess } = piece;
-        const partName = name.split("_")[1];
-        materials.materials[partName].color = new THREE.Color(`#${color.hex}`);
+        let { name, color, shininess } = piece
+        const partName = name.split("_")[1]
+
+        materials.materials[partName].color = new THREE.Color(`#${color.hex}`)
+        materials.materials[partName].shininess = shininess
       }
     }
   }, []);
 
   // console.log(path, search, hash)
-
-  const changeScroll = () => {
-    let style = document.body.style.overflow;
-    document.body.style.overflow = style === "hidden" ? "auto" : "hidden";
-  };
 
   return (
     <div className={"min-h-[550px]"}>
@@ -121,14 +120,12 @@ const ShowroomCanvas = () => {
           className={
             "w-full md:w-3/4 h-full border-[2px] rounded-md border-main-orange"
           }
-          onMouseEnter={changeScroll}
-          onMouseLeave={changeScroll}
         >
-          <Canvas>
+          <Canvas >
             <ambientLight intensity={1.5} />
             <pointLight position={[10, 10, 10]} decay={0} intensity={Math.PI} />
             <Suspense>
-              <primitive object={obj} scale={1} />
+              <primitive ref={gun} object={obj} scale={1} />
             </Suspense>
             <OrbitControls />
           </Canvas>

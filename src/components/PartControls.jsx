@@ -13,7 +13,7 @@ const PartControls = (props) => {
     } else if (partColor) {
       const colorInfo = colors[partColor]
       const [r, g, b] = colorInfo.rgb.split(',')
-      newPart.color = { name: partColor, r, g, b, isColor: true }
+      newPart.color = { name: partColor, r, g, b, hex: colorInfo.hex }
     }
     newPart.shininess = shininess ? shininess : newPart.shininess
     return newPart
