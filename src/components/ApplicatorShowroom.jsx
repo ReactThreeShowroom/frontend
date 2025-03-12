@@ -5,7 +5,7 @@ import FirearmSelector from '../components/FirearmSelector'
 import { Form, useSearchParams } from 'react-router-dom'
 
 const ApplicatorShowroom = (props) => {
-  let { colors, client, models } = useLoaderData()
+  let { colors, client, models, } = useLoaderData()
   // console.log('client info', client)
   // console.log('models', models)
   let { modelPath, clientId } = useParams()

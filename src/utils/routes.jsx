@@ -8,6 +8,7 @@ import ClientShowroom from '../components/ClientShowroom'
 import {
   Account,
   Admin,
+  ClientView,
   Home,
   PasswordReset,
   Showroom,
@@ -167,6 +168,25 @@ const rootChildren = [
       }
     ]
   },
+  {
+    path: "clientview", 
+    element: <ClientView />, 
+    loader: async ({ request, params }) => {
+      const url = new URL(request.url);
+      const favId = url.searchParams.get('favId');
+      
+      if(!favId) return redirect('/')
+      // No error handling in db so had to try  
+      try{
+      const response = await fetchFavoriteLoader(favId)
+
+      return response
+      } catch(e){
+        console.log('error in fetchFavoriteLoader', e)
+        return redirect('/')
+      }
+    },
+},
   { path: '/signin', element: <SignIn /> },
   { path: '/signup', element: <SignUp /> }
 ]

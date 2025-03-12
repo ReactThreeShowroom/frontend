@@ -1,13 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import GlockDemo from './GlockDemo'
 import AR15Demo from './AR15Demo'
 import NintendoGlockDemo from './NintendoGlockDemo'
-
-const changeScroll = () => {
-  let style = document.body.style.overflow
-  document.body.style.overflow = style === 'hidden' ? 'auto' : 'hidden'
-}
 
 const DemoWindow = ({ imgUrl = '/images/PinkGlock.jpg' }) => {
   const pickModel = () => {
@@ -37,7 +32,7 @@ const DemoWindow = ({ imgUrl = '/images/PinkGlock.jpg' }) => {
           id={'exampleCanvas'}
           className={'h-[300px] w-1/2 border-red-500 border-solid border-2 relative'}>
           {/* <span className="absolute w-[100%] top-1/3 text-center block">3D Canvas goes here</span> */}
-          <div className={'h-full w-full'} onMouseEnter={changeScroll} onMouseLeave={changeScroll}>
+          <div className={'h-full w-full'}>
             <Canvas>{pickModel()}</Canvas>
           </div>
         </div>
