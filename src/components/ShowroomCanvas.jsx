@@ -94,7 +94,7 @@ const ShowroomCanvas = () => {
   }, [parts]) 
 
   useEffect(() => {
-    if (selection.favorite.pieceFavorite) {
+    if (selection.favorite.pieceFavorite && selection.favorite.model.path === modelPath) {
       for (const piece of selection.favorite.pieceFavorite) {
         let { name, color, shininess } = piece
         const partName = name.split("_")[1]
@@ -109,7 +109,7 @@ const ShowroomCanvas = () => {
       useLoader.clear(MTLLoader, mtlURL)
       useLoader.clear(OBJLoader, objURL)
     }
-  }, []) 
+  }, [modelPath]) 
 
   // console.log(path, search, hash)
 
