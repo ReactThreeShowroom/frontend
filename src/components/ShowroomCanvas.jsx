@@ -1,50 +1,48 @@
-import { OrbitControls } from "@react-three/drei";
-import { Canvas, useLoader } from "@react-three/fiber";
-import { Suspense, useCallback, useEffect, useRef } from "react";
+import { OrbitControls } from "@react-three/drei" 
+import { Canvas, useLoader } from "@react-three/fiber" 
+import { Suspense, useCallback, useEffect, useRef } from "react" 
 import {
   useLoaderData,
   useLocation,
   useOutletContext,
   useParams,
-} from "react-router";
-import { useSearchParams } from "react-router-dom";
-import { MTLLoader, OBJLoader } from "three/examples/jsm/Addons.js";
-import { getPathSearchHash } from "../utils/locationHelpers";
-import ShowroomControls from "./ShowroomControls";
-import * as THREE from "three";
+} from "react-router" 
+import { useSearchParams } from "react-router-dom" 
+import { MTLLoader, OBJLoader } from "three/examples/jsm/Addons.js" 
+import { getPathSearchHash } from "../utils/locationHelpers" 
+import ShowroomControls from "./ShowroomControls" 
+import * as THREE from "three" 
 
 const ShowroomCanvas = () => {
-  let { modelPath } = useParams();
-  let q = useSearchParams();
-  let location = useLocation();
-  let [path, search, hash] = getPathSearchHash(location);
+  let { modelPath } = useParams() 
+  let q = useSearchParams() 
+  let location = useLocation() 
+  let [path, search, hash] = getPathSearchHash(location) 
   // incoming state from showroom outlet
-  const outletState = useOutletContext();
-  const { state, setters } = outletState;
-  const { selection, parts, initialParts } = state;
-  const { setSelection, setParts, setInitialParts } = setters;
+  const outletState = useOutletContext() 
+  const { state, setters } = outletState 
+  const { selection, parts, initialParts } = state 
+  const { setSelection, setParts, setInitialParts } = setters 
   // console.log('showroomCanvas', outletState)
 
-  let gun = useRef(null)
-
-  let mtlURL = `/models/1-${modelPath}.mtl`;
-  let objURL = `/models/1-${modelPath}.obj`;
+  let mtlURL = `/models/1-${modelPath}.mtl` 
+  let objURL = `/models/1-${modelPath}.obj` 
 
   const createPartList = useCallback((materials) => {
-    const newList = {};
+    const newList = {} 
     for (const key in materials) {
-      let { name, color, shininess } = materials[key];
+      let { name, color, shininess } = materials[key] 
       color = {
         r: String(Math.floor(color.r * 255)),
         g: String(Math.floor(color.g * 255)),
         b: String(Math.floor(color.b * 255)),
         isColor: true,
-      };
-      materials[key].toneMapped = false;
-      newList[key] = { name, color, shininess };
+      } 
+      materials[key].toneMapped = false 
+      newList[key] = { name, color, shininess } 
     }
-    return newList;
-  });
+    return newList 
+  }) 
 
   const loadColorsShininess = useCallback(
     (part, materials) => {
@@ -63,37 +61,37 @@ const ShowroomCanvas = () => {
       materials.materials[name].shininess = shininess
     },
     [selection],
-  );
+  ) 
 
-  const materials = useLoader(MTLLoader, mtlURL);
+  const materials = useLoader(MTLLoader, mtlURL) 
   // const [partList, setPartList] = useState(createPartList(materials.materials))
 
   const obj = useLoader(OBJLoader, objURL, (loader) => {
-    materials.preload();
+    materials.preload() 
     loader.setMaterials(materials)
     // console.log('in loader ' + objURL)
-  });
+  }) 
   // loadColorsShininess(itemColor, shininess, materials)
 
   useEffect(() => {
     // console.log(selection.previousModels, newModels)
-    setParts(createPartList(materials.materials));
+    setParts(createPartList(materials.materials)) 
     setInitialParts(
       !initialParts.name || initialParts.name !== modelPath
         ? { ...createPartList(materials.materials), name: modelPath }
         : initialParts,
-    );
+    ) 
     setSelection({
       ...selection,
       previousModels: [...selection.previousModels, mtlURL, objURL],
-    });
-  }, [selection.item, modelPath]);
+    }) 
+  }, [selection.item, modelPath]) 
 
   useEffect(() => {  
     for (const partName in parts) {
-      loadColorsShininess(parts[partName], materials);
+      loadColorsShininess(parts[partName], materials) 
     }
-  }, [parts]);
+  }, [parts]) 
 
   useEffect(() => {
     if (selection.favorite.pieceFavorite) {
@@ -105,7 +103,13 @@ const ShowroomCanvas = () => {
         materials.materials[partName].shininess = shininess
       }
     }
-  }, []);
+
+    return () => {
+      // Clear cache when component unmounts
+      useLoader.clear(MTLLoader, mtlURL)
+      useLoader.clear(OBJLoader, objURL)
+    }
+  }, []) 
 
   // console.log(path, search, hash)
 
@@ -125,7 +129,7 @@ const ShowroomCanvas = () => {
             <ambientLight intensity={1.5} />
             <pointLight position={[10, 10, 10]} decay={0} intensity={Math.PI} />
             <Suspense>
-              <primitive ref={gun} object={obj} scale={1} />
+              <primitive object={obj} scale={1} />
             </Suspense>
             <OrbitControls />
           </Canvas>
@@ -133,7 +137,7 @@ const ShowroomCanvas = () => {
       </div>
       <ShowroomControls {...{ state, setters }} />
     </div>
-  );
-};
+  ) 
+} 
 
-export default ShowroomCanvas;
+export default ShowroomCanvas 
