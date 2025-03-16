@@ -98,7 +98,7 @@ const PartControl = (props) => {
       </legend>
       <fieldset name="colorSeries" className="flex flex-row">
         <label className="mx-1" htmlFor="Elite">
-          Elite:&nbsp;
+          Elite:&nbsp 
           <input
             type="radio"
             name="Elite"
@@ -110,7 +110,7 @@ const PartControl = (props) => {
           />
         </label>
         <label className="mx-1" htmlFor="H">
-          H:&nbsp;
+          H:&nbsp 
           <input
             type="radio"
             name="H"
@@ -122,7 +122,7 @@ const PartControl = (props) => {
           />
         </label>
         <label className="mx-1" htmlFor="C">
-          C:&nbsp;
+          C:&nbsp 
           <input
             type="radio"
             name="C"

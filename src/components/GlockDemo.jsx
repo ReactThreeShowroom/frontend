@@ -1,6 +1,6 @@
 import { Center, OrbitControls, useHelper } from '@react-three/drei'
 import { useLoader } from '@react-three/fiber'
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
 import { MTLLoader, OBJLoader } from 'three/examples/jsm/Addons.js'
 import * as THREE from 'three'
 
@@ -36,7 +36,13 @@ const GlockDemo = () => {
     console.log(loader)
   })
 
-  console.log(obj)
+  useEffect(() => {
+    return () => {
+      // Clear cache when component unmounts
+      useLoader.clear(MTLLoader, mtlURL)
+      useLoader.clear(OBJLoader, objURL)
+    }
+  }, [])
 
   return (
     <>
