@@ -10,7 +10,6 @@ import ApplicatorShowroom from './ApplicatorShowroom'
 import AR15Demo from './AR15Demo'
 import ClientList from './ClientList'
 import ClientShowroom from './ClientShowroom'
-import ClientViewModel from './ClientViewModel'
 import DemoWindow from './DemoWindow'
 import FirearmSelector from './FirearmSelector'
 import GlockDemo from './GlockDemo'
@@ -38,7 +37,6 @@ export {
   AR15Demo,
   ClientList,
   ClientShowroom,
-  ClientViewModel,
   DemoWindow,
   FirearmSelector,
   GlockDemo,
