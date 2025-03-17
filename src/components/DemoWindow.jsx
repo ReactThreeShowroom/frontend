@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import GlockDemo from './GlockDemo'
 import AR15Demo from './AR15Demo'

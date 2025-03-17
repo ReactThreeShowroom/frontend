@@ -1,10 +1,17 @@
 import { redirect } from 'react-router'
 import App from '../App'
-import ApplicatorShowroom from '../components/ApplicatorShowroom'
-import ShowroomCanvas from '../components/ShowroomCanvas'
-import SingleSubAdmin from '../components/SingleSubAdmin'
-import SingleUserAdmin from '../components/SingleUserAdmin'
-import ClientShowroom from '../components/ClientShowroom'
+// import ApplicatorShowroom from '../components/ApplicatorShowroom'
+// import ShowroomCanvas from '../components/ShowroomCanvas'
+// import SingleSubAdmin from '../components/SingleSubAdmin'
+// import SingleUserAdmin from '../components/SingleUserAdmin'
+// import ClientShowroom from '../components/ClientShowroom'
+import {
+  ApplicatorShowroom,
+  ShowroomCanvas,
+  SingleSubAdmin,
+  SingleUserAdmin,
+  ClientShowroom
+} from '../components'
 import {
   Account,
   Admin,
