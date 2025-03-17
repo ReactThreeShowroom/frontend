@@ -8,11 +8,6 @@ const LoggedOutHome = () => {
     AR15Demo: '/images/AR15.jpg',
     GlockDemo2: '/images/NintendoGlock.jpg'
   }
-  const modelPaths = {
-    GlockDemo1: '',
-    AR15Demo: '',
-    GlockDemo2: ''
-  }
 
   const [imgUrl, setImgUrl] = useState('/images/PinkGlock.jpg')
 
@@ -23,7 +18,7 @@ const LoggedOutHome = () => {
   return (
     <article className={'w-full'}>
       <section className="relative">
-        <img className="w-full h-[calc(100vh-28px)] border-teal-500 border-2">
+        <img className="w-full h-[calc(100vh-28px)]">
           {/*
         hero image here
       */}
