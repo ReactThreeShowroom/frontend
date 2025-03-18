@@ -35,7 +35,7 @@ const DemoWindow = ({ imgUrl = '/images/PinkGlock.jpg' }) => {
           id={'exampleCanvas'}
           className={'h-[300px] md:w-1/2 relative'}>
           {/* <span className="absolute w-[100%] top-1/3 text-center block">3D Canvas goes here</span> */}
-          <div className={'h-full w-full'}>
+          <div className={'h-full w-full'} onMouseEnter={changeScroll} onMouseLeave={changeScroll}>
             <Canvas>
               {pickModel()}
             </Canvas>

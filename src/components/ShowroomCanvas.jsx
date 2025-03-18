@@ -148,6 +148,8 @@ const ShowroomCanvas = () => {
           className={
             "w-full md:w-3/4 h-full rounded-md"
           }
+          onMouseEnter={changeScroll}
+          onMouseLeave={changeScroll}
         >
           <Canvas >
             <PerspectiveCamera makeDefault position={[0, 0, 4]}/>
