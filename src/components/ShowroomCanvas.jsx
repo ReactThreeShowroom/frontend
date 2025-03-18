@@ -65,7 +65,6 @@ const ShowroomCanvas = () => {
   ) 
 
   const materials = useLoader(MTLLoader, mtlURL)
- 
   // const [partList, setPartList] = useState(createPartList(materials.materials))
 
   const obj = useLoader(OBJLoader, objURL, (loader) => {
@@ -74,11 +73,11 @@ const ShowroomCanvas = () => {
     // console.log('in loader ' + objURL)
   }) 
 
-
   useEffect(() => {
     if(!defaultMaterial.current){
       defaultMaterial.current = {};
-      defaultMaterial.current.name = modelPath
+      defaultMaterial.current.name = selection.favorite.name
+      defaultMaterial.current.model = modelPath
       for (const key in materials.materials) {
         const material = materials.materials[key];
         defaultMaterial.current[key] = {
@@ -113,7 +112,7 @@ const ShowroomCanvas = () => {
     }) 
 
     return () => {
-      if(defaultMaterial.current && selection.model.path === modelPath){
+      if(defaultMaterial.current && defaultMaterial.current.model === modelPath){
         for (const key in materials.materials) {
           materials.materials[key].color = defaultMaterial.current[key].color.clone()
           materials.materials[key].shininess = defaultMaterial.current[key].shininess
@@ -135,7 +134,6 @@ const ShowroomCanvas = () => {
       useLoader.clear(OBJLoader, objURL)
     }
   }, [])
-
 
   // console.log(path, search, hash)
 
