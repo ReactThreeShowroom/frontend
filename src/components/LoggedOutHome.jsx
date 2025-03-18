@@ -54,7 +54,7 @@ const LoggedOutHome = () => {
       </section>
       <DemoWindow imgUrl={imgUrl} />
       <section className={'flex flex-col items-center text-center'}>
-        <div className={'flex flex-col w-1/2 my-2 text-center'}>
+        <div className={'flex flex-col md:w-1/2 m-2 md:m-0 text-center'}>
           <p>
             Want to know what your firearms will look like with Cerakote® products before your local
             Applicator applies them?

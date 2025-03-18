@@ -81,7 +81,7 @@ const ApplicatorShowroom = (props) => {
         <label
           htmlFor="notes"
           className={
-            'flex flex-col w-[calc(100%-8px)] min-h-[250px] m-1 py-1 border-[2px] rounded-md border-main-orange text-center font-bold'
+            'flex flex-col w-[calc(100%-8px)] min-h-[250px] m-1 py-1 rounded-md text-center font-bold'
           }>
           Notes:{' '}
           <textarea

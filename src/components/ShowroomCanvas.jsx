@@ -1,4 +1,4 @@
-import { OrbitControls } from "@react-three/drei" 
+import { OrbitControls, PerspectiveCamera } from "@react-three/drei" 
 import { Canvas, useLoader } from "@react-three/fiber" 
 import { Suspense, useCallback, useEffect, useRef } from "react" 
 import {
@@ -22,7 +22,8 @@ const ShowroomCanvas = () => {
   const outletState = useOutletContext() 
   const { state, setters } = outletState 
   const { selection, parts, initialParts } = state 
-  const { setSelection, setParts, setInitialParts } = setters 
+  const { setSelection, setParts, setInitialParts } = setters
+  const defaultMaterial = useRef(null)
   // console.log('showroomCanvas', outletState)
 
   let mtlURL = `/models/1-${modelPath}.mtl` 
@@ -63,7 +64,8 @@ const ShowroomCanvas = () => {
     [selection],
   ) 
 
-  const materials = useLoader(MTLLoader, mtlURL) 
+  const materials = useLoader(MTLLoader, mtlURL)
+ 
   // const [partList, setPartList] = useState(createPartList(materials.materials))
 
   const obj = useLoader(OBJLoader, objURL, (loader) => {
@@ -71,11 +73,35 @@ const ShowroomCanvas = () => {
     loader.setMaterials(materials)
     // console.log('in loader ' + objURL)
   }) 
-  // loadColorsShininess(itemColor, shininess, materials)
+
 
   useEffect(() => {
-    // console.log(selection.previousModels, newModels)
-    setParts(createPartList(materials.materials)) 
+    if(!defaultMaterial.current){
+      defaultMaterial.current = {};
+      defaultMaterial.current.name = modelPath
+      for (const key in materials.materials) {
+        const material = materials.materials[key];
+        defaultMaterial.current[key] = {
+          shininess: material.shininess,
+          color: material.color.clone()
+        }
+      }
+    } 
+
+    if (selection.favorite.pieceFavorite.length && selection.favorite.model.path === modelPath) {
+      for (const piece of selection.favorite.pieceFavorite) {
+        const { name, color, shininess } = piece
+        const partName = name.split("_")[1]
+        materials.materials[partName].color = new THREE.Color(`#${color.hex}`)
+        materials.materials[partName].shininess = shininess
+      }
+      
+      setParts(createPartList(materials.materials))
+    } else {
+      setParts(createPartList(materials.materials))
+    }
+    
+    // setParts(createPartList(materials.materials)) 
     setInitialParts(
       !initialParts.name || initialParts.name !== modelPath
         ? { ...createPartList(materials.materials), name: modelPath }
@@ -85,31 +111,31 @@ const ShowroomCanvas = () => {
       ...selection,
       previousModels: [...selection.previousModels, mtlURL, objURL],
     }) 
-  }, [selection.item, modelPath]) 
+
+    return () => {
+      if(defaultMaterial.current && selection.model.path === modelPath){
+        for (const key in materials.materials) {
+          materials.materials[key].color = defaultMaterial.current[key].color.clone()
+          materials.materials[key].shininess = defaultMaterial.current[key].shininess
+        }
+      }
+    }
+  }, [selection.item, modelPath, selection.favorite.pieceFavorite]) 
 
   useEffect(() => {  
     for (const partName in parts) {
       loadColorsShininess(parts[partName], materials) 
     }
-  }, [parts]) 
+  }, [parts])
 
   useEffect(() => {
-    if (selection.favorite.pieceFavorite && selection.favorite.model.path === modelPath) {
-      for (const piece of selection.favorite.pieceFavorite) {
-        let { name, color, shininess } = piece
-        const partName = name.split("_")[1]
-
-        materials.materials[partName].color = new THREE.Color(`#${color.hex}`)
-        materials.materials[partName].shininess = shininess
-      }
-    }
 
     return () => {
-      // Clear cache when component unmounts
       useLoader.clear(MTLLoader, mtlURL)
       useLoader.clear(OBJLoader, objURL)
     }
-  }, [modelPath]) 
+  }, [])
+
 
   // console.log(path, search, hash)
 
@@ -122,16 +148,17 @@ const ShowroomCanvas = () => {
       >
         <div
           className={
-            "w-full md:w-3/4 h-full border-[2px] rounded-md border-main-orange"
+            "w-full md:w-3/4 h-full rounded-md"
           }
         >
           <Canvas >
+            <PerspectiveCamera makeDefault position={[0, 0, 4]}/>
             <ambientLight intensity={1.5} />
             <pointLight position={[10, 10, 10]} decay={0} intensity={Math.PI} />
             <Suspense>
               <primitive object={obj} scale={1} />
             </Suspense>
-            <OrbitControls />
+            <OrbitControls enableZoom={false}/>
           </Canvas>
         </div>
       </div>
