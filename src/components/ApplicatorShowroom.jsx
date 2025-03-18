@@ -5,7 +5,7 @@ import FirearmSelector from '../components/FirearmSelector'
 import { Form, useSearchParams } from 'react-router-dom'
 
 const ApplicatorShowroom = (props) => {
-  let { colors, client, models, } = useLoaderData()
+  let { colors, client, models } = useLoaderData()
   // console.log('client info', client)
   // console.log('models', models)
   let { modelPath, clientId } = useParams()
@@ -34,6 +34,7 @@ const ApplicatorShowroom = (props) => {
   // new outlet state for showroom
   const state = { selection, parts, initialParts, colors, notes, models }
   const setters = { setSelection, setParts, setInitialParts, setNotes }
+
   return (
     <Suspense>
       <div className="w-full flex flex-col justify-center content-center">

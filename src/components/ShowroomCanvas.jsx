@@ -14,10 +14,10 @@ import ShowroomControls from "./ShowroomControls"
 import * as THREE from "three" 
 
 const ShowroomCanvas = () => {
-  let { modelPath } = useParams() 
-  let q = useSearchParams() 
-  let location = useLocation() 
-  let [path, search, hash] = getPathSearchHash(location) 
+  let { modelPath } = useParams()
+  let q = useSearchParams()
+  let location = useLocation()
+  let [path, search, hash] = getPathSearchHash(location)
   // incoming state from showroom outlet
   const outletState = useOutletContext() 
   const { state, setters } = outletState 
@@ -26,34 +26,34 @@ const ShowroomCanvas = () => {
   const defaultMaterial = useRef(null)
   // console.log('showroomCanvas', outletState)
 
-  let mtlURL = `/models/1-${modelPath}.mtl` 
-  let objURL = `/models/1-${modelPath}.obj` 
+  let mtlURL = `/models/1-${modelPath}.mtl`
+  let objURL = `/models/1-${modelPath}.obj`
 
   const createPartList = useCallback((materials) => {
-    const newList = {} 
+    const newList = {}
     for (const key in materials) {
-      let { name, color, shininess } = materials[key] 
+      let { name, color, shininess } = materials[key]
       color = {
         r: String(Math.floor(color.r * 255)),
         g: String(Math.floor(color.g * 255)),
         b: String(Math.floor(color.b * 255)),
-        isColor: true,
-      } 
-      materials[key].toneMapped = false 
-      newList[key] = { name, color, shininess } 
+        isColor: true
+      }
+      materials[key].toneMapped = false
+      newList[key] = { name, color, shininess }
     }
-    return newList 
-  }) 
+    return newList
+  })
 
   const loadColorsShininess = useCallback(
     (part, materials) => {
       const {
         name,
         color: { r, g, b, hex },
-        shininess,
+        shininess
       } = part
-      
-      if(hex) {
+
+      if (hex) {
         materials.materials[name].color = new THREE.Color(`#${hex}`)
       } else {
         materials.materials[name].color.setRGB(r / 255, g / 255, b / 255)
@@ -61,14 +61,14 @@ const ShowroomCanvas = () => {
       materials.materials[name].toneMapped = false
       materials.materials[name].shininess = shininess
     },
-    [selection],
-  ) 
+    [selection]
+  )
 
   const materials = useLoader(MTLLoader, mtlURL)
   // const [partList, setPartList] = useState(createPartList(materials.materials))
 
   const obj = useLoader(OBJLoader, objURL, (loader) => {
-    materials.preload() 
+    materials.preload()
     loader.setMaterials(materials)
     // console.log('in loader ' + objURL)
   }) 
@@ -104,8 +104,8 @@ const ShowroomCanvas = () => {
     setInitialParts(
       !initialParts.name || initialParts.name !== modelPath
         ? { ...createPartList(materials.materials), name: modelPath }
-        : initialParts,
-    ) 
+        : initialParts
+    )
     setSelection({
       ...selection,
       previousModels: [...selection.previousModels, mtlURL, objURL],
@@ -121,9 +121,9 @@ const ShowroomCanvas = () => {
     }
   }, [selection.item, modelPath, selection.favorite.pieceFavorite]) 
 
-  useEffect(() => {  
+  useEffect(() => {
     for (const partName in parts) {
-      loadColorsShininess(parts[partName], materials) 
+      loadColorsShininess(parts[partName], materials)
     }
   }, [parts])
 
@@ -136,14 +136,14 @@ const ShowroomCanvas = () => {
   }, [])
 
   // console.log(path, search, hash)
+  const changeScroll = () => {
+    let style = document.body.style.overflow
+    document.body.style.overflow = style === 'hidden' ? 'auto' : 'hidden'
+  }
 
   return (
-    <div className={"min-h-[550px]"}>
-      <div
-        className={
-          "h-[400px] md:h-[600px] flex flex-col justify-center py-2 px-4"
-        }
-      >
+    <div className={'min-h-[550px]'}>
+      <div className={'h-[400px] md:h-[600px] flex flex-col justify-center py-2 px-4'}>
         <div
           className={
             "w-full md:w-3/4 h-full rounded-md"
@@ -162,7 +162,7 @@ const ShowroomCanvas = () => {
       </div>
       <ShowroomControls {...{ state, setters }} />
     </div>
-  ) 
-} 
+  )
+}
 
-export default ShowroomCanvas 
+export default ShowroomCanvas

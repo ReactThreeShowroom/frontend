@@ -17,7 +17,10 @@ const DemoWindow = ({ imgUrl = '/images/PinkGlock.jpg' }) => {
         return <GlockDemo />
     }
   }
-
+  const changeScroll = () => {
+    let style = document.body.style.overflow
+    document.body.style.overflow = style === 'hidden' ? 'auto' : 'hidden'
+  }
   return (
     <section className={'flex flex-col items-center text-center'}>
       <div
