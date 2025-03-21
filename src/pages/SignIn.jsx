@@ -12,6 +12,8 @@ const SignIn = () => {
     password: ''
   }
   const [formState, setFormState] = useState(initForm)
+  const [error, setError] = useState('')
+
   const {
     state: { token, user },
     setters: { setToken, setUser }
@@ -28,7 +30,16 @@ const SignIn = () => {
     e.preventDefault()
     console.log('logging in...')
     try {
-      const { token: _token, user: _user } = await loginUser(formState)
+      const {status, token: _token, user: _user } = await loginUser(formState)
+
+      if(status === 400) {
+        throw new Error('Invalid username or password')
+      }
+
+      if (status === 500) {
+        throw new Error('Server error, please try again later')
+      }
+
       if (_token && _user) {
         localStorage.setItem('token', _token)
         setToken(_token)
@@ -38,6 +49,8 @@ const SignIn = () => {
     } catch (error) {
       console.log('error: ', error)
       console.error('login failed, please try again.')
+      setError(error.message)
+      setTimeout(() => setError(""), 5000);
     }
   }
 
@@ -54,7 +67,7 @@ const SignIn = () => {
   const formClass = 'flex justify-center h-screen w-screen items-center flex-col'
   const textClass = 'text-grey-darker text-md font-bold mb-2 underline'
   const inputClass = 'w-full md:w-1/2 flex flex-col items-center '
-  const btnContClass = 'flex flex-col items-center justify-between'
+  const btnContClass = 'flex flex-col items-center justify-between w-36'
 
   return (
     <form className={formClass} onSubmit={handleLogin}>
@@ -64,6 +77,7 @@ const SignIn = () => {
         <button className={submitButtonStyles} type="submit">
           Log In
         </button>
+        <div className='h-6 w-56 text-red-500'>{error}</div>
         <GenericLink linkProps={forgotPasswordLinkProps} />
       </div>
     </form>
