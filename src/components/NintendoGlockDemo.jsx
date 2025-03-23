@@ -1,4 +1,4 @@
-import { OrbitControls, Center } from '@react-three/drei'
+import { OrbitControls, Center, PerspectiveCamera } from '@react-three/drei'
 import { useLoader } from '@react-three/fiber'
 import { Suspense, useEffect } from 'react'
 import { MTLLoader, OBJLoader } from 'three/examples/jsm/Addons.js'
@@ -54,6 +54,7 @@ const NintendoGlockDemo = () => {
 
   return (
     <>
+      <PerspectiveCamera makeDefault position={[0, 0, 6]}/>
       <OrbitControls />
       <ambientLight intensity={2.5} />
       <pointLight position={[5, 7.5, -0.75]} decay={0} intensity={2.2} />

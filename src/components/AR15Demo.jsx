@@ -1,4 +1,4 @@
-import { Center, OrbitControls } from '@react-three/drei'
+import { Center, OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import { useLoader } from '@react-three/fiber'
 import { Suspense, useEffect } from 'react'
 import { MTLLoader, OBJLoader } from 'three/examples/jsm/Addons.js'
@@ -44,6 +44,7 @@ const AR15Demo = () => {
 
   return (
     <>
+      <PerspectiveCamera makeDefault position={[0, 0, 8]} />
       <OrbitControls />
       <ambientLight intensity={2.5} />
       <pointLight

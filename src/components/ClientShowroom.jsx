@@ -50,6 +50,39 @@ const ClientShowroom = () => {
     //   materials.materials[partName].color = new THREE.Color(`#${color.hex}`)
     //   materials.materials[partName].shininess = shininess
     // }
+    let newModelParts = []
+    for (const partName in materials.materials) {
+      // console.log('materials', partName)
+      newModelParts.push({
+        code: 'default',
+        colorName: 'default',
+        gloss: 'default',
+        partName: materials.materials[partName].name.split('.').join(' ')
+      })
+    }
+    for (const piece of favParts) {
+      let { name, color, shininess } = piece
+      const partName = name.split('_')[1]
+
+      materials.materials[partName].color = new THREE.Color(`#${color.hex}`)
+      materials.materials[partName].shininess = shininess
+      newModelParts = newModelParts.map((part) => {
+        if (partName.split('.').join(' ') === part.partName) {
+          part.code = color.code
+          part.colorName = color.name
+          part.gloss =
+            shininess === '0'
+              ? 'Low Gloss'
+              : shininess === '127'
+              ? 'Recommended Gloss'
+              : shininess === '255'
+              ? 'High Gloss'
+              : 'default'
+        }
+        return part
+      })
+    }
+    setModelParts(newModelParts)
 
     return () => {
       // Clear cache when component unmounts

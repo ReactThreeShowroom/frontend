@@ -8,11 +8,6 @@ const LoggedOutHome = () => {
     AR15Demo: '/images/AR15.jpg',
     GlockDemo2: '/images/NintendoGlock.jpg'
   }
-  const modelPaths = {
-    GlockDemo1: '',
-    AR15Demo: '',
-    GlockDemo2: ''
-  }
 
   const [imgUrl, setImgUrl] = useState('/images/PinkGlock.jpg')
 
@@ -23,7 +18,7 @@ const LoggedOutHome = () => {
   return (
     <article className={'w-full'}>
       <section className="relative">
-        <img className="w-full h-[calc(100vh-28px)] border-teal-500 border-2">
+        <img className="w-full h-[calc(100vh-28px)]">
           {/*
         hero image here
       */}
@@ -54,7 +49,7 @@ const LoggedOutHome = () => {
       </section>
       <DemoWindow imgUrl={imgUrl} />
       <section className={'flex flex-col items-center text-center'}>
-        <div className={'flex flex-col w-1/2 my-2 text-center'}>
+        <div className={'flex flex-col md:w-1/2 m-2 md:m-0 text-center'}>
           <p>
             Want to know what your firearms will look like with Cerakote® products before your local
             Applicator applies them?

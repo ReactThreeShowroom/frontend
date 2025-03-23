@@ -1,4 +1,4 @@
-import { Center, OrbitControls, useHelper } from '@react-three/drei'
+import { Center, OrbitControls, PerspectiveCamera, useHelper } from '@react-three/drei'
 import { useLoader } from '@react-three/fiber'
 import { Suspense, useEffect } from 'react'
 import { MTLLoader, OBJLoader } from 'three/examples/jsm/Addons.js'
@@ -46,6 +46,7 @@ const GlockDemo = () => {
 
   return (
     <>
+      <PerspectiveCamera makeDefault position={[1, 0, 5]} />
       <ambientLight intensity={2.5} />
       <pointLight position={[0, 2.6, 2]} decay={0} intensity={2.2} />
       <Suspense>
