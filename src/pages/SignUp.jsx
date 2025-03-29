@@ -84,7 +84,7 @@ const SignUp = () => {
   const formClass = 'flex justify-center h-screen w-screen items-center flex-col'
   const textClass = 'text-grey-darker text-md font-bold mb-2 underline'
   const inputContClass = 'w-full md:w-1/2 flex flex-col items-center'
-  const btnContClass = 'flex items-center justify-between flex-col'
+  const btnContClass = 'flex items-center justify-between flex-col w-36'
 
   const handleSignUp = async (e) => {
     try {
@@ -97,6 +97,10 @@ const SignUp = () => {
       // console.log('starting signup')
       // console.log('formstate: ', formState)
       const res = await createUser(formState)
+      if(res.status === 400) throw new Error('username already exists')
+
+      if (res.status === 500) throw new Error('Server error, please try again later')
+        
       const { token: _token, user: _user } = res
       // if (res.message) throw res
       localStorage.setItem('token', _token)
@@ -114,13 +118,15 @@ const SignUp = () => {
     <form className={formClass} onSubmit={handleSignUp}>
       <p className={textClass}>Sign Up</p>
       <div className={inputContClass}>{inputs}</div>
+      <div className='h-6 text-red-500'>
+        {!!message.length && message.split('\n').map((msg, index) => <p key={index}>{msg}</p>)}
+      </div>
       <div className={btnContClass}>
         <button className={submitButtonStyles} type="submit" disabled={!isMatching}>
           Sign Up
         </button>
         <GenericLink linkProps={forgotPasswordLinkProps} />
       </div>
-      {!!message.length && message.split('\n').map((msg, index) => <p key={index}>{msg}</p>)}
     </form>
   )
 }

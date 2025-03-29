@@ -3,6 +3,7 @@ import GlockDemo from './GlockDemo'
 import AR15Demo from './AR15Demo'
 import NintendoGlockDemo from './NintendoGlockDemo'
 import { PerspectiveCamera } from '@react-three/drei'
+import * as THREE from 'three'
 
 const DemoWindow = ({ imgUrl = '/images/PinkGlock.jpg' }) => {
   const pickModel = () => {

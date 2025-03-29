@@ -32,13 +32,9 @@ const SignIn = () => {
     try {
       const {status, token: _token, user: _user } = await loginUser(formState)
 
-      if(status === 400) {
-        throw new Error('Invalid username or password')
-      }
+      if(status === 400) throw new Error('Invalid username or password')
 
-      if (status === 500) {
-        throw new Error('Server error, please try again later')
-      }
+      if (status === 500) throw new Error('Server error, please try again later')
 
       if (_token && _user) {
         localStorage.setItem('token', _token)
@@ -47,7 +43,7 @@ const SignIn = () => {
         navigate('/')
       }
     } catch (error) {
-      console.log('error: ', error)
+      // console.log('error: ', error)
       console.error('login failed, please try again.')
       setError(error.message)
       setTimeout(() => setError(""), 5000);
