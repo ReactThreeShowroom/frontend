@@ -9,14 +9,21 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'Customize your Coating',
-        short_name: 'CYC',
+        name: 'Kote Masters',
+        short_name: 'KM',
+        theme_color: '#ffffff',
         description:
           'Customize Your Coating is a an application that allows you to preview your Cerakote® color and gloss choices.',
         icons: [
           {
-            src: '/icons/ic_launcher.png',
+            src: '/icons/KM-Only-Square-WBG-192x192.png',
             sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any maskable'
+          },
+          {
+            src: '/icons/KM-Only-Square-WBG-512x512.png',
+            sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable'
           }

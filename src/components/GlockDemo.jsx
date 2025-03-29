@@ -51,7 +51,7 @@ const GlockDemo = () => {
       <pointLight position={[0, 2.6, 2]} decay={0} intensity={2.2} />
       <Suspense>
         <Center>
-          <primitive object={obj} scale={2.2} position={[0, 1, 1]} rotation={[0, 0.46, 0.57]} />
+          <primitive object={obj} scale={1.8} position={[0, 1, 1]} rotation={[0, 0.46, 0.57]} />
         </Center>
       </Suspense>
       <OrbitControls />

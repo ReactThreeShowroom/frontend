@@ -3,6 +3,7 @@ import GlockDemo from './GlockDemo'
 import AR15Demo from './AR15Demo'
 import NintendoGlockDemo from './NintendoGlockDemo'
 import { PerspectiveCamera } from '@react-three/drei'
+import * as THREE from 'three'
 
 const DemoWindow = ({ imgUrl = '/images/PinkGlock.jpg' }) => {
   const pickModel = () => {
@@ -23,20 +24,20 @@ const DemoWindow = ({ imgUrl = '/images/PinkGlock.jpg' }) => {
   }
   return (
     <section className={'flex flex-col items-center text-center'}>
-      <div id={'exampleContainer'} className={'flex flex-col md:flex-row w-full md:w-1/2 '}>
+      <div id={'exampleContainer'} className={'flex flex-col lg:flex-row w-full lg:w-1/2 '}>
         <img
           id={'exampleImage'}
-          className={'h-[300px] w-fit self-center md:self-start md:w-1/2 '}
+          className={'h-[300px] w-fit self-center lg:self-start lg:w-1/2 '}
           src={imgUrl}
         />
-        <div id={'exampleCanvas'} className={'h-[300px] md:w-1/2 relative'}>
+        <div id={'exampleCanvas'} className={'h-[300px] lg:w-1/2 relative'}>
           {/* <span className="absolute w-[100%] top-1/3 text-center block">3D Canvas goes here</span> */}
           <div className={'h-full w-full'} onMouseEnter={changeScroll} onMouseLeave={changeScroll}>
             <Canvas gl={{ toneMapping: THREE.NoToneMapping }}>{pickModel()}</Canvas>
           </div>
         </div>
       </div>
-      <div id={'examplePartsList'} className={'flex flex-col h-[250px] md:w-1/2 w-full '}>
+      <div id={'examplePartsList'} className={'flex flex-col h-[250px] lg:w-1/2 w-full '}>
         parts list and color info here
       </div>
     </section>
