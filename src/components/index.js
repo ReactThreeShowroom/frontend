@@ -13,7 +13,7 @@ import ClientShowroom from './ClientShowroom'
 import DemoWindow from './DemoWindow'
 import FirearmSelector from './FirearmSelector'
 import GlockDemo from './GlockDemo'
-import NintendoGlockDemo from './NintendoGlockDemo'
+import GreyRedGlockDemo from './GreyRedGlockDemo'
 import PartControl from './PartControl'
 import PartControls from './PartControls'
 import RequestNewSubForm from './RequestNewSubForm'
@@ -40,7 +40,7 @@ export {
   DemoWindow,
   FirearmSelector,
   GlockDemo,
-  NintendoGlockDemo,
+  GreyRedGlockDemo,
   PartControl,
   PartControls,
   RequestNewSubForm,
