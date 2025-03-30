@@ -17,24 +17,30 @@ const LoggedOutHome = () => {
 
   return (
     <article className={'flex flex-col justify-center items-center w-full'}>
-      <section className="flex flex-col md:flex-row justify-center items-center w-full">
-        <div className={'sm:hidden md:visible w-1/4'}></div>
-        <div className="flex flex-col items-center lg:w-1/2">
-          <p className="font-bold text-main-orange text-2xl text-center">
-            Having A Hard Time Explaining Turning This —
-          </p>
-          <img
-            src={'/images/before.png'}
-            className="h-[250px] w-auto rounded-l-[250px] rounded-r-2xl my-2"
-          />
-          <p className="font-bold text-main-orange text-2xl">Into This?</p>
-          <img
-            src={'/images/after.png'}
-            className="h-[250px] w-auto rounded-l-[250px] rounded-r-2xl my-2"
-          />
-        </div>
-        <div className={'sm:hidden md:visible w-1/4'}></div>
-        <div className="flex flex-row justify-between items-center w-full md:hidden lg:hidden"></div>
+      <section className="flex flex-col justify-center items-center w-full">
+        <p className="font-bold text-main-orange text-2xl text-center">
+          Having A Hard Time Explaining Turning This —
+        </p>
+        <section className="flex flex-col md:flex-row justify-center items-center w-full lg:w-[1000px]">
+          <img className={'h-[500px] w-1/4 hidden md:block'} src="/images/orangeArrow.svg" />
+          <div className="flex flex-col items-center lg:w-1/2">
+            <img
+              src={'/images/before.png'}
+              className="h-[250px] w-auto rounded-l-[250px] rounded-r-2xl my-2"
+            />
+            <p className="font-bold text-main-orange text-2xl">Into This?</p>
+            <img
+              src={'/images/after.png'}
+              className="h-[250px] w-auto rounded-l-[250px] rounded-r-2xl my-2"
+            />
+          </div>
+          <img className={'h-[500px] w-1/4 hidden md:block'} src="/images/orangeArrow.svg" />
+          <div className="flex flex-row justify-between items-center w-full sm:px-[10%] md:hidden h-[50px]">
+            {Array.from({ length: 8 }, (_) => (
+              <img src="/images/shortArrow.svg" className="h-[50px]" />
+            ))}
+          </div>
+        </section>
       </section>
       <section className={'flex flex-col items-center text-center'}>
         <div className="w-1/2 my-4 border-b-2 border-main-orange"></div>
