@@ -81,8 +81,12 @@ const ShowroomCanvas = () => {
         }
       }
     }
-
-    if (selection.favorite.pieceFavorite.length && selection.favorite.model.path === modelPath) {
+    console.log(selection)
+    if (
+      selection.favorite.pieceFavorite &&
+      selection.favorite.pieceFavorite.length &&
+      selection.favorite.model.path === modelPath
+    ) {
       for (const piece of selection.favorite.pieceFavorite) {
         const { name, color, shininess } = piece
         const partName = name.split('_')[1]
