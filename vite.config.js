@@ -13,7 +13,7 @@ export default defineConfig({
         short_name: 'KM',
         theme_color: '#ffffff',
         description:
-          'Customize Your Coating is a an application that allows you to preview your Cerakote® color and gloss choices.',
+          'KoteMaster is a an application that allows you to preview your Cerakote® color and gloss choices.',
         icons: [
           {
             src: '/icons/KM-Only-Square-WBG-192x192.png',
