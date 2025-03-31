@@ -1,7 +1,8 @@
 import { redirect } from 'react-router'
 
-// export const BASE_URL = 'https://api-1i72.onrender.com'
-export const BASE_URL = 'http://localhost:3000'
+// export const BASE_URL = 'https://api-1i72.onrender.com' //live site
+// export const BASE_URL = 'https://api-3frl.onrender.com' //dev site
+export const BASE_URL = 'http://localhost:3000' // for local dev
 
 export const fetchUserIfToken = async (setter, token) => {
   try {
