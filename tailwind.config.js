@@ -7,6 +7,7 @@ export default {
     {pattern: /#f7bbba/},
     {pattern: /#9c9d91/},
     {pattern: /#dd4128/},
+    {pattern: /#ebe7de/},
   ],
   theme: {
     extend: {
@@ -16,6 +17,7 @@ export default {
         "#f7bbba" : "#f7bbba",
         "#9c9d91" : "#9c9d91",
         "#dd4128" : "#dd4128",
+        "#ebe7de" : "#ebe7de",
         'main-orange': '#fb7722'
       }
     }

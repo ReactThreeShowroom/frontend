@@ -41,6 +41,7 @@ const DemoWindow = ({ imgUrl = '/images/PinkGlock.png' }) => {
       case '/images/GreyRedGlock.png':
         return [
           {text: "Grip: Elite Storm", color: "#9c9d91"},
+          {text: "Slide: Electrical Barrier", color: "#ebe7de"},
           {text: "Trigger: Blood Orange", color: "#dd4128"},
           {text: "Barrel: Blood Orange", color: "#dd4128"},
           {text: "Trigger Detail: Blood Orange", color: "#dd4128"},
@@ -84,7 +85,7 @@ const DemoWindow = ({ imgUrl = '/images/PinkGlock.png' }) => {
       <div
         id={'examplePartsList'}
         className={
-          'flex flex-col h-[250px] w-[400px] lg:w-[calc(1000px+1em)] m-2 border-main-orange border-[1px] rounded-md whitespace-pre-line'
+          'flex flex-col min-h-[250px] w-[400px] lg:w-[calc(1000px+1em)] m-2 border-main-orange border-[1px] rounded-md whitespace-pre-line'
         }>
         {pickParts().map(({text, color}, idx) => {
           return (
