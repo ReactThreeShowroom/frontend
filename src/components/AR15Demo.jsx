@@ -13,7 +13,7 @@ const AR15Demo = () => {
   // secondary color: rgb(37, 31, 29)
 
   const armorBlack = new THREE.Color('#251f1d')
-  const khaki = new THREE.Color('#dbd5ba')
+  const desertVerde = new THREE.Color('#dbd5ba')
 
   for (const key in materials.materials) {
     materials.materials[key].toneMapped = false
@@ -22,10 +22,10 @@ const AR15Demo = () => {
   }
 
   console.log(materials.materials)
-  if (materials.materials['Forward.Assist']) materials.materials['Forward.Assist'].color = khaki
-  if (materials.materials['Lower.Receiver']) materials.materials['Lower.Receiver'].color = khaki
-  if (materials.materials['Barrel.Handguard']) materials.materials['Barrel.Handguard'].color = khaki
-  if (materials.materials['Upper.Rail']) materials.materials['Upper.Rail'].color = khaki
+  if (materials.materials['Forward.Assist']) materials.materials['Forward.Assist'].color = desertVerde
+  if (materials.materials['Lower.Receiver']) materials.materials['Lower.Receiver'].color = desertVerde
+  if (materials.materials['Barrel.Handguard']) materials.materials['Barrel.Handguard'].color = desertVerde
+  if (materials.materials['Upper.Rail']) materials.materials['Upper.Rail'].color = desertVerde
   //   if(materials.materials.Buttstock)
   // materials.materials.Buttstock.color = khaki
 

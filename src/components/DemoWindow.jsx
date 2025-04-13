@@ -21,13 +21,38 @@ const DemoWindow = ({ imgUrl = '/images/PinkGlock.png' }) => {
   const pickParts = () => {
     switch (imgUrl) {
       case '/images/PinkGlock.png':
-        return 'pinkGlock Part Text'
+        const bazookaPink = "#f7bbba"
+        const armorBlack = "#1e181a"
+        return [
+          {text: "Grip: Bazooka Pink", color: bazookaPink},
+          {text: "Slide: Bazooka Pink", color: bazookaPink},
+          {text: "Receiver: Bazooka Pink", color: bazookaPink},
+          {text: "Trigger: Armor Black", color: armorBlack},
+          {text: "Barrel: Armor Black", color: armorBlack},
+        ]
       case '/images/AR15.png':
-        return 'AR15 Part Text'
+        return [
+          {text: "Forward Assist: Desert Verde", color: "#dbd5ba"},
+          {text: "Lower Receiver: Desert Verde", color: "#dbd5ba"},
+          {text: "Barrel Handguard: Desert Verde", color: "#dbd5ba"},
+          {text: "Upper Rail: Desert Verde", color: "#dbd5ba"},
+
+        ]
       case '/images/GreyRedGlock.png':
-        return 'GreyRedGlock Part Text'
+        return [
+          {text: "Grip: Elite Storm", color: "#9c9d91"},
+          {text: "Trigger: Blood Orange", color: "#dd4128"},
+          {text: "Barrel: Blood Orange", color: "#dd4128"},
+          {text: "Trigger Detail: Blood Orange", color: "#dd4128"},
+          {text: "Detail Trigger: Blood Orange", color: "#dd4128"},
+          {text: "Slide Lock: Blood Orange", color: "#dd4128"},
+          {text: "Slide Stop Lever: Blood Orange", color: "#dd4128"},
+          {text: "Receiver Detail: Blood Orange", color: "#dd4128"},
+          {text: "Mag Catch: Blood Orange", color: "#dd4128"},
+          {text: "Recoil Spring: Blood Orange", color: "#dd4128"},
+        ]
       default:
-        return 'pinkGlock Part Text'
+        return ['pinkGlock Part Text']
     }
   }
   const changeScroll = () => {
@@ -59,9 +84,16 @@ const DemoWindow = ({ imgUrl = '/images/PinkGlock.png' }) => {
       <div
         id={'examplePartsList'}
         className={
-          'flex flex-col h-[250px] w-[400px] lg:w-[calc(1000px+1em)] m-2 border-main-orange border-[1px] rounded-md'
+          'flex flex-col h-[250px] w-[400px] lg:w-[calc(1000px+1em)] m-2 border-main-orange border-[1px] rounded-md whitespace-pre-line'
         }>
-        {pickParts()}
+        {pickParts().map(({text, color}, idx) => {
+          return (
+            <div className='flex self-center items-end text-end gap-2' key={idx}>
+              {text} 
+              <div className={`h-3 w-3 mb-1 bg-${color} border-black border-[1px]`}/>
+            </div>)
+          })
+        }
       </div>
     </section>
   )

@@ -8,34 +8,32 @@ const GreyRedGlockDemo = () => {
   const mtlURL = `/models/1-Glock19.mtl`
   const objURL = `/models/1-Glock19.obj`
   const materials = useLoader(MTLLoader, mtlURL)
-  // primary color: rgb 156, 152, 143
-  // secondary color: rgb 219, 219, 207
-  // tertiary color: rgb 224, 88, 61
+  // 9c9d91
 
-  let primaryColor = new THREE.Color('#9c988f')
+  let eliteStorm = new THREE.Color('#9c9d91')
   let secondaryColor = new THREE.Color('#dbdbcf')
-  let tertiaryColor = new THREE.Color('#e0583d')
+  let bloodOrange = new THREE.Color('#dd4128')
 
   for (const key in materials.materials) {
     materials.materials[key].toneMapped = false
-    materials.materials[key].color = primaryColor
+    materials.materials[key].color = eliteStorm
     materials.materials[key].shininess = 20
   }
 
-  if (materials.materials.Trigger) materials.materials.Trigger.color = tertiaryColor
-  if (materials.materials.Barrel) materials.materials.Barrel.color = tertiaryColor
+  if (materials.materials.Trigger) materials.materials.Trigger.color = bloodOrange
+  if (materials.materials.Barrel) materials.materials.Barrel.color = bloodOrange
   if (materials.materials['Trigger.Detail'])
-    materials.materials['Trigger.Detail'].color = tertiaryColor
+    materials.materials['Trigger.Detail'].color = bloodOrange
   if (materials.materials['Detail.Trigger'])
-    materials.materials['Detail.Trigger'].color = tertiaryColor
-  if (materials.materials['Slide.Lock']) materials.materials['Slide.Lock'].color = tertiaryColor
+    materials.materials['Detail.Trigger'].color = bloodOrange
+  if (materials.materials['Slide.Lock']) materials.materials['Slide.Lock'].color = bloodOrange
   if (materials.materials['Slide.Stop.Lever'])
-    materials.materials['Slide.Stop.Lever'].color = tertiaryColor
+    materials.materials['Slide.Stop.Lever'].color = bloodOrange
   if (materials.materials['Receiver.Detail2'])
-    materials.materials['Receiver.Detail2'].color = tertiaryColor
-  if (materials.materials['Mag.Catch']) materials.materials['Mag.Catch'].color = tertiaryColor
+    materials.materials['Receiver.Detail2'].color = bloodOrange
+  if (materials.materials['Mag.Catch']) materials.materials['Mag.Catch'].color = bloodOrange
   if (materials.materials['Recoil.Spring'])
-    materials.materials['Recoil.Spring'].color = tertiaryColor
+    materials.materials['Recoil.Spring'].color = bloodOrange
 
   if (materials.materials.Slide) materials.materials.Slide.color = secondaryColor
 
