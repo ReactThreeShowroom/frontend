@@ -21,39 +21,37 @@ const DemoWindow = ({ imgUrl = '/images/PinkGlock.png' }) => {
   const pickParts = () => {
     switch (imgUrl) {
       case '/images/PinkGlock.png':
-        const bazookaPink = "#f7bbba"
-        const armorBlack = "#1e181a"
         return [
-          {text: "Grip: Bazooka Pink", color: bazookaPink},
-          {text: "Slide: Bazooka Pink", color: bazookaPink},
-          {text: "Receiver: Bazooka Pink", color: bazookaPink},
-          {text: "Trigger: Armor Black", color: armorBlack},
-          {text: "Barrel: Armor Black", color: armorBlack},
+          {text: "Grip: Bazooka Pink H-244", color: "bazookaPink"},
+          {text: "Slide: Bazooka Pink H-244", color: "bazookaPink"},
+          {text: "Receiver: Bazooka Pink H-244", color: "bazookaPink"},
+          {text: "Trigger: Armor Black C-192", color: "armorBlack"},
+          {text: "Barrel: Armor Black C-192", color: "armorBlack"},
         ]
       case '/images/AR15.png':
         return [
-          {text: "Forward Assist: Desert Verde", color: "#dbd5ba"},
-          {text: "Lower Receiver: Desert Verde", color: "#dbd5ba"},
-          {text: "Barrel Handguard: Desert Verde", color: "#dbd5ba"},
-          {text: "Upper Rail: Desert Verde", color: "#dbd5ba"},
+          {text: "Forward Assist: Desert Verde H-256", color: "desertVerde"},
+          {text: "Lower Receiver: Desert Verde H-256", color: "desertVerde"},
+          {text: "Barrel Handguard: Desert Verde H-256", color: "desertVerde"},
+          {text: "Upper Rail: Desert Verde H-256", color: "desertVerde"},
 
         ]
       case '/images/GreyRedGlock.png':
         return [
-          {text: "Grip: Elite Storm", color: "#9c9d91"},
-          {text: "Slide: Electrical Barrier", color: "#ebe7de"},
-          {text: "Trigger: Blood Orange", color: "#dd4128"},
-          {text: "Barrel: Blood Orange", color: "#dd4128"},
-          {text: "Trigger Detail: Blood Orange", color: "#dd4128"},
-          {text: "Detail Trigger: Blood Orange", color: "#dd4128"},
-          {text: "Slide Lock: Blood Orange", color: "#dd4128"},
-          {text: "Slide Stop Lever: Blood Orange", color: "#dd4128"},
-          {text: "Receiver Detail: Blood Orange", color: "#dd4128"},
-          {text: "Mag Catch: Blood Orange", color: "#dd4128"},
-          {text: "Recoil Spring: Blood Orange", color: "#dd4128"},
+          {text: "Grip: Elite Storm E-290", color: "eliteStorm"},
+          {text: "Slide: Electrical Barrier H-900", color: "electricalBarrier"},
+          {text: "Trigger: Blood Orange H-322", color: "bloodOrange"},
+          {text: "Barrel: Blood Orange H-322", color: "bloodOrange"},
+          {text: "Trigger Detail: Blood Orange H-322", color: "bloodOrange"},
+          {text: "Detail Trigger: Blood Orange H-322", color: "bloodOrange"},
+          {text: "Slide Lock: Blood Orange H-322", color: "bloodOrange"},
+          {text: "Slide Stop Lever: Blood Orange H-322", color: "bloodOrange"},
+          {text: "Receiver Detail: Blood Orange H-322", color: "bloodOrange"},
+          {text: "Mag Catch: Blood Orange H-322", color: "bloodOrange"},
+          {text: "Recoil Spring: Blood Orange H-322", color: "bloodOrange"},
         ]
       default:
-        return ['pinkGlock Part Text']
+        return []
     }
   }
   const changeScroll = () => {

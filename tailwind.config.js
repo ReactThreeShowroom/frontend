@@ -2,22 +2,22 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   safelist: [
-    {pattern: /#dbd5ba/},
-    {pattern: /#1e181a/},
-    {pattern: /#f7bbba/},
-    {pattern: /#9c9d91/},
-    {pattern: /#dd4128/},
-    {pattern: /#ebe7de/},
+    {pattern: /desertVerde/},
+    {pattern: /armorBlack/},
+    {pattern: /bazookaPink/},
+    {pattern: /eliteStorm/},
+    {pattern: /bloodOrange/},
+    {pattern: /electricalBarrier/},
   ],
   theme: {
     extend: {
       colors: {
-        "#dbd5ba" : "#dbd5ba",
-        "#1e181a" : "#1e181a",
-        "#f7bbba" : "#f7bbba",
-        "#9c9d91" : "#9c9d91",
-        "#dd4128" : "#dd4128",
-        "#ebe7de" : "#ebe7de",
+        "desertVerde" : "#dbd5ba",
+        "armorBlack" : "#1e181a",
+        "bazookaPink" : "#f7bbba",
+        "eliteStorm" : "#9c9d91",
+        "bloodOrange" : "#dd4128",
+        "electricalBarrier" : "#ebe7de",
         'main-orange': '#fb7722'
       }
     }
