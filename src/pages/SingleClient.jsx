@@ -29,18 +29,21 @@ const SingleClient = () => {
   }
 
   return (
-    <div>
-      <button
-        type="button"
-        onClick={(e) => {
-          setEdit(!edit)
-        }}>
-        {!edit ? 'Edit' : 'Cancel Editing'}
-      </button>
-      <Form method={clientStatus ? 'DELETE' : 'PUT'}>
-        <input hidden readOnly type="text" id={'id'} name={'id'} value={client.id} />
-        <button type="submit">{clientStatus ? 'Deactivate' : 'Reactivate'}</button>
-      </Form>
+    <div className='flex flex-col items-center'>
+      <div className='flex gap-5'>
+        <button
+          className="border-2 border-main-orange rounded-md pl-1 pr-1"
+          type="button"
+          onClick={(e) => {
+            setEdit(!edit)
+          }}>
+          {!edit ? 'Edit' : 'Cancel Editing'}
+        </button>
+        <Form method={clientStatus ? 'DELETE' : 'PUT'}>
+          <input hidden readOnly type="text" id={'id'} name={'id'} value={client.id} />
+          <button className="border-2 border-main-orange rounded-md pl-1 pr-1"type="submit">{clientStatus ? 'Deactivate' : 'Reactivate'}</button>
+        </Form>
+      </div>
       <Form method="POST">
         <input hidden readOnly type="text" id={'clientId'} name={'clientId'} value={client.id} />
         <input
